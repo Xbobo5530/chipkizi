@@ -12,6 +12,6 @@ class User {
   name = document[NAME_FIELD],
   bio = document[BIO_FIELD],
   imageUrl = document[IMAGE_URL_FIELD], 
-  createdAt = document[CREATED_AT_FIELD;]
+  createdAt = document[CREATED_AT_FIELD];
 
 }

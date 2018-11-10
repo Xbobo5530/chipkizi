@@ -8,18 +8,10 @@ import 'player_widget.dart';
 
 typedef void OnError(Exception exception);
 
-class RecordingsListItemView extends StatefulWidget {
-  final Recording recording;
-  RecordingsListItemView(this.recording);
 
-  @override
-  _RecordingsListItemViewState createState() =>
-      _RecordingsListItemViewState(recording);
-}
-
-class _RecordingsListItemViewState extends State<RecordingsListItemView> {
+class RecordingsListItemView extends StatelessWidget{
   final Recording recording;
-  _RecordingsListItemViewState(this.recording);
+  RecordingsListItemView({this.recording});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +28,7 @@ class _RecordingsListItemViewState extends State<RecordingsListItemView> {
               ],
             ),
             leading: recording.imageUrl != null
-                ? new CircleAvatar(
+                ?  CircleAvatar(
                     backgroundImage: NetworkImage(recording.imageUrl),
                   )
                 : Icon(Icons.account_circle, color: Colors.grey, size: 45.0),

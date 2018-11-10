@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_sound: ^1.1.5
   audio_recorder: ^0.0.6
   audioplayers: ^0.7.6
   firebase_auth: ^0.6.2+1

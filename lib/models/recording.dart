@@ -3,7 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Recording {
   String id, title, description, createdBy, imageUrl, recordingUrl;
-  int upotes, playCount, createdAt;
+  int upvoteCount, playCount, createdAt;
+  List<String> genre;
 
   Recording(
       {this.id,
@@ -12,8 +13,9 @@ class Recording {
       this.createdBy,
       this.imageUrl,
       this.recordingUrl,
-      this.upotes,
+      this.upvoteCount,
       this.playCount,
+      this.genre,
       this.createdAt});
 
   Recording.fromSnaspshot(DocumentSnapshot document)
@@ -23,7 +25,8 @@ class Recording {
         this.createdBy = document[CREATED_BY_FIELD],
         this.imageUrl = document[IMAGE_URL_FIELD],
         this.recordingUrl = document[RECORDING_URL_FIELD],
-        this.upotes = document[UPVOTE_COUNT_FIELD],
+        this.upvoteCount = document[UPVOTE_COUNT_FIELD],
         this.playCount = document[PLAY_COUNT_FIELD],
+        this.genre = document[GENRE_FIELD],
         this.createdAt = document[CREATED_AT_FIELD];
 }

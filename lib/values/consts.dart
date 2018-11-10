@@ -17,5 +17,7 @@ const PLAY_COUNT_FIELD = 'play_count';
 const CREATED_AT_FIELD = 'created_at';
 const BIO_FIELD = 'bio';
 const NAME_FIELD = 'name';
+const GENRE_FIELD = 'genre';
+
 
 

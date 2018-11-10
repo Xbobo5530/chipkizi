@@ -1,19 +1,26 @@
+import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/pages/home.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-void main() => runApp(new MyApp());
+final MainModel model = MainModel();
+void main() => runApp( MyApp(model: model));
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final MainModel model;
+  MyApp({this.model});
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: APP_NAME,
-      theme: new ThemeData(
-        primarySwatch: Colors.brown,
+    return  ScopedModel<MainModel>(
+      model: model,
+          child: MaterialApp(
+        title: APP_NAME,
+        theme:  ThemeData(
+          primarySwatch: Colors.brown,
+        ),
+        home:  HomePage(),
       ),
-      home: new HomePage(title: APP_NAME),
     );
   }
 }
