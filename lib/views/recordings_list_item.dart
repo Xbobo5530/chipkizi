@@ -1,15 +1,14 @@
 import 'package:chipkizi/models/recording.dart';
 import 'package:flutter/material.dart';
-
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
+//
+//import 'package:audioplayers/audio_cache.dart';
+//import 'package:audioplayers/audioplayers.dart';
 
 import 'player_widget.dart';
 
 typedef void OnError(Exception exception);
 
-
-class RecordingsListItemView extends StatelessWidget{
+class RecordingsListItemView extends StatelessWidget {
   final Recording recording;
   RecordingsListItemView({this.recording});
 
@@ -28,7 +27,7 @@ class RecordingsListItemView extends StatelessWidget{
               ],
             ),
             leading: recording.imageUrl != null
-                ?  CircleAvatar(
+                ? CircleAvatar(
                     backgroundImage: NetworkImage(recording.imageUrl),
                   )
                 : Icon(Icons.account_circle, color: Colors.grey, size: 45.0),
