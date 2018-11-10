@@ -18,6 +18,10 @@ dependencies:
 
   audio_recorder: ^0.0.6
   audioplayers: ^0.7.6
+  firebase_auth: ^0.6.2+1
+  google_sign_in: ^3.2.4
+  scoped_model: ^0.3.0
+  cloud_firestore: ^0.8.2+3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

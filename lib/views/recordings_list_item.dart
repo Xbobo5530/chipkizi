@@ -32,12 +32,12 @@ class _RecordingsListItemViewState extends State<RecordingsListItemView> {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(recording.artist),
+                Text(recording.createdBy),
               ],
             ),
-            leading: recording.artistImageUrl != null
+            leading: recording.imageUrl != null
                 ? new CircleAvatar(
-                    backgroundImage: NetworkImage(recording.artistImageUrl),
+                    backgroundImage: NetworkImage(recording.imageUrl),
                   )
                 : Icon(Icons.account_circle, color: Colors.grey, size: 45.0),
             trailing: IconButton(
