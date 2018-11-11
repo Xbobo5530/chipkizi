@@ -1,8 +1,6 @@
 import 'package:chipkizi/mock_data/recording_data.dart';
 import 'package:chipkizi/pages/create_recording.dart';
 import 'package:chipkizi/values/strings.dart';
-import 'package:chipkizi/views/recording_body.dart';
-import 'package:chipkizi/views/recordings_list_item.dart';
 import 'package:flutter/material.dart';
 //import 'package:audio_recorder/audio_recorder.dart';
 

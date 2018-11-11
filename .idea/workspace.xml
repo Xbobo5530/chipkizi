@@ -10,8 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/views/circular_buttom.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/views/my_progress_indicator.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/recording_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/recording_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/create_recording.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/create_recording.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/values/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/values/strings.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -24,13 +29,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="chipkizi" />
+  </component>
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="create_recording.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/pages/create_recording.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+            <state relative-caret-position="168">
+              <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -49,6 +57,7 @@
       <find>stop</find>
     </findStrings>
   </component>
+  <component name="FlutterView" splitter-proportion="0.6044944" />
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -60,7 +69,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/values/strings.dart" />
         <option value="$PROJECT_DIR$/ios/Runner/Info.plist" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/mock_data/recording_data.dart" />
@@ -69,18 +77,21 @@
         <option value="$PROJECT_DIR$/lib/views/home_body.dart" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/lib/views/recording_body.dart" />
-        <option value="$PROJECT_DIR$/lib/pages/home.dart" />
         <option value="$PROJECT_DIR$/lib/views/recordings_list_item.dart" />
         <option value="$PROJECT_DIR$/lib/views/player_widget.dart" />
         <option value="$PROJECT_DIR$/lib/models/main_model.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/pages/home.dart" />
         <option value="$PROJECT_DIR$/lib/models/recording_model.dart" />
+        <option value="$PROJECT_DIR$/lib/values/strings.dart" />
+        <option value="$PROJECT_DIR$/lib/views/my_progress_indicator.dart" />
+        <option value="$PROJECT_DIR$/lib/views/circular_buttom.dart" />
         <option value="$PROJECT_DIR$/lib/pages/create_recording.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="991" />
+    <option name="width" value="816" />
     <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -100,6 +111,12 @@
               <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
               <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
@@ -142,7 +159,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;reco&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
+    <property name="SearchEverywhereHistoryKey" value="stri&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;mypro&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/my_progress_indicator.dart&#10;analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;reco&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -264,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541960933252</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="chipkizi v0.0.8 record ui&#10;- tweaking rocord page UI">
+      <created>1541962008215</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1541962008215</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -277,38 +301,38 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="991" height="800" extended-state="0" />
+    <frame x="0" y="0" width="816" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32859176" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
-      <window_info id="Build Variants" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51211804" side_tool="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32859176" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4963119" visible="true" weight="0.32859176" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32859176" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.487882" weight="0.32859176" />
-      <window_info anchor="right" id="Flutter Outline" order="3" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.32859176" />
-      <window_info id="Captures" order="6" weight="0.32982087" />
+      <window_info id="Build Variants" order="0" show_stripe_button="false" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51211804" side_tool="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.32859176" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49928877" visible="true" weight="0.24893314" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.32716927" />
+      <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.487882" weight="0.32859176" />
+      <window_info id="Flutter Outline" order="8" side_tool="true" weight="0.32982087" />
+      <window_info anchor="bottom" id="Logcat" order="10" weight="0.32859176" />
+      <window_info id="Captures" order="6" show_stripe_button="false" weight="0.32982087" />
       <window_info id="Capture Tool" order="1" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="4" weight="0.24973656" />
-      <window_info anchor="bottom" id="JProfiler" order="7" />
-      <window_info id="Structure" order="5" side_tool="true" weight="0.24973656" />
-      <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32859176" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" sideWeight="0.50071126" visible="true" weight="0.24905661" />
+      <window_info anchor="bottom" id="JProfiler" order="11" />
+      <window_info id="Structure" order="5" show_stripe_button="false" side_tool="true" weight="0.24973656" />
+      <window_info anchor="right" id="Device File Explorer" order="5" show_stripe_button="false" side_tool="true" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
+      <window_info id="Favorites" order="7" show_stripe_button="false" side_tool="true" />
+      <window_info id="Flutter Inspector" order="9" side_tool="true" weight="0.32982087" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32859176" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -322,7 +346,8 @@
     <MESSAGE value="chipkizi v0.0.5 messed up mixinz" />
     <MESSAGE value="chipkizi v0.0.6 record n play&#10;- fixed recoding bug&#10;- fixed play" />
     <MESSAGE value="chipkizi v0.0.7 bottom sheet&#10;- added limitation to record timer&#10;- moved player controls to bottom sheet" />
-    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.7 bottom sheet&#10;- added limitation to record timer&#10;- moved player controls to bottom sheet" />
+    <MESSAGE value="chipkizi v0.0.8 record ui&#10;- tweaking rocord page UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.8 record ui&#10;- tweaking rocord page UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -361,13 +386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="55" column="183" selection-start-line="55" selection-start-column="183" selection-end-line="55" selection-end-column="183" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/values/strings.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="28" selection-start-column="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -426,16 +444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/pages/home.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -560,16 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="102" column="31" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/main_model.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -580,17 +578,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pages/home.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="39" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="66" column="51" selection-start-line="66" selection-start-column="51" selection-end-line="66" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/widgets/basic.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="2945" column="8" selection-start-line="2945" selection-start-column="8" selection-end-line="2945" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/material/button_bar.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
+        <state relative-caret-position="171">
           <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/values/strings.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/material/progress_indicator.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="346" column="26" selection-start-line="346" selection-start-column="15" selection-end-line="346" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/my_progress_indicator.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/material/material.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="165" column="8" selection-start-line="165" selection-start-column="8" selection-end-line="165" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/circular_buttom.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/pages/create_recording.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        <state relative-caret-position="168">
+          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
         </state>
       </provider>
     </entry>

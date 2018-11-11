@@ -33,8 +33,8 @@ abstract class RecordingModel extends Model {
   String _playerTxt = '00:00:00';
   String get playerText => _playerTxt;
 
-  Stream<PlayStatus> _playerStatus;
-  Stream<PlayStatus> get playerStatus => _playerStatus;
+  double _recorderProgress = 0.0;
+  double get recorderProgress => _recorderProgress;
 
 //  FlutterSound flutterSound;
 
@@ -48,7 +48,7 @@ abstract class RecordingModel extends Model {
     // TODO: handle delete recording
   }
 
-  Future<StatusCode> startRecording() async {
+  Future<void> startRecording() async {
     print('$_tag at startRecording');
     try {
       String path = await flutterSound.startRecorder(null);
@@ -62,7 +62,12 @@ abstract class RecordingModel extends Model {
 
         String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
         _recorderTxt = txt.substring(0, 8);
-        if (_recorderTxt == '00:05:00') stopRecording();
+        int lapsedTime = date.second;
+        int totalTime = 30;
+        _recorderProgress = lapsedTime / totalTime;
+        if (_recorderTxt == '00:30:00') stopRecording();
+
+        print('$_recorderProgress');
         notifyListeners();
       });
 
@@ -73,7 +78,7 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<StatusCode> stopRecording() async {
+  Future<void> stopRecording() async {
     print('$_tag at stopRecording');
     try {
       String result = await flutterSound.stopRecorder();
@@ -91,7 +96,7 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<StatusCode> playPlayback() async {
+  Future<void> playPlayback() async {
     String path = await flutterSound.startPlayer(null);
     await flutterSound.setVolume(1.0);
     print('startPlayer: $path');
@@ -114,21 +119,21 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<StatusCode> pausePlayback() async {
+  Future<void> pausePlayback() async {
     String result = await flutterSound.pausePlayer();
     _isPaused = true;
     notifyListeners();
     print('pausePlayer: $result');
   }
 
-  Future<StatusCode> resumePlayback() async {
+  Future<void> resumePlayback() async {
     String result = await flutterSound.resumePlayer();
     _isPaused = false;
     notifyListeners();
     print('resumePlayer: $result');
   }
 
-  Future<StatusCode> stopPlayback() async {
+  Future<void> stopPlayback() async {
     try {
       String result = await flutterSound.stopPlayer();
       print('stopPlayer: $result');
