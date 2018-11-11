@@ -8,37 +8,43 @@ class RecordingPage extends StatelessWidget {
   final _bodySection =
       ScopedModelDescendant<MainModel>(builder: (_, __, model) {
     return Column(children: <Widget>[
-      Text(model.playerText),
+      model.isRecording ? Text(model.recorderTxt) : Text(model.playerText),
       ButtonBar(
         alignment: MainAxisAlignment.center,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.mic),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.stop),
-            onPressed: () => model.startRecording(),
+            icon: model.isRecording ? Icon(Icons.stop) : Icon(Icons.mic),
+            onPressed: model.isRecording
+                ? () => model.stopRecording()
+                : () => model.startRecording(),
           ),
         ],
       ),
-      ButtonBar(
-        alignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.play_arrow),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.pause),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.stop),
-            onPressed: () {},
-          ),
-        ],
-      )
+      model.isRecording
+          ? Container()
+          : Container(
+              child: model.isPlaying
+                  ? ButtonBar(
+                      alignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: model.isPaused
+                              ? Icon(Icons.play_arrow)
+                              : Icon(Icons.pause),
+                          onPressed: model.isPaused
+                              ? () => model.resumePlayback()
+                              : () => model.pausePlayback(),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.stop),
+                          onPressed: () => model.stopPlayback(),
+                        ),
+                      ],
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.play_arrow),
+                      onPressed: () => model.playPlayback(),
+                    ))
     ]);
   });
 
