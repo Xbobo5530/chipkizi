@@ -82,46 +82,6 @@ class RecordSectionView extends StatelessWidget {
                   size: 150.0,
                   color: Colors.white,
                 );
-
-                Stack(
-                  children: <Widget>[
-                    Positioned(
-                      top: 0.0,
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: MyProgressIndicator(
-                        size: 50.0,
-                        color: Colors.red,
-                        progress: model.recorderProgress,
-                      ),
-                    ),
-                    Material(
-                      shape: CircleBorder(),
-                      color: Colors.white,
-                      elevation: 4.0,
-                      child: Container(
-                        height: 150.0,
-                        width: 150.0,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
-                        child: IconButton(
-                          icon: model.isRecording
-                              ? Icon(
-                                  Icons.stop,
-                                  color: Colors.brown,
-                                  size: 80.0,
-                                )
-                              : Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Colors.red,
-                                  size: 80.0,
-                                ),
-                          onPressed: () => _handleRecording(context, model),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
               },
             ),
           ),

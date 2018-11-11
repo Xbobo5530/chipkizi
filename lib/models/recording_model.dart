@@ -58,8 +58,6 @@ abstract class RecordingModel extends Model {
       print('startRecorder: $path');
 
       _recorderSubscription = flutterSound.onRecorderStateChanged.listen((e) {
-        DateTime now = DateTime.now();
-        DateTime recordingLimitDate = now.add(Duration(seconds: 30));
         DateTime date =
             DateTime.fromMillisecondsSinceEpoch(e.currentPosition.toInt());
 

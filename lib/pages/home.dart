@@ -1,4 +1,3 @@
-import 'package:chipkizi/mock_data/recording_data.dart';
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/pages/create_recording.dart';
 import 'package:chipkizi/pages/login.dart';
@@ -8,7 +7,6 @@ import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/recordings_list.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-//import 'package:audio_recorder/audio_recorder.dart';
 
 class HomePage extends StatelessWidget {
   @override
