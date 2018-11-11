@@ -5,51 +5,53 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class RecordingPage extends StatelessWidget {
-  final _bodySection =
-      ScopedModelDescendant<MainModel>(builder: (_, __, model) {
-    return Column(children: <Widget>[
-      model.isRecording ? Text(model.recorderTxt) : Text(model.playerText),
-      ButtonBar(
-        alignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: model.isRecording ? Icon(Icons.stop) : Icon(Icons.mic),
-            onPressed: model.isRecording
-                ? () => model.stopRecording()
-                : () => model.startRecording(),
-          ),
-        ],
-      ),
-      model.isRecording
-          ? Container()
-          : Container(
-              child: model.isPlaying
-                  ? ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        IconButton(
-                          icon: model.isPaused
-                              ? Icon(Icons.play_arrow)
-                              : Icon(Icons.pause),
-                          onPressed: model.isPaused
-                              ? () => model.resumePlayback()
-                              : () => model.pausePlayback(),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.stop),
-                          onPressed: () => model.stopPlayback(),
-                        ),
-                      ],
-                    )
-                  : IconButton(
-                      icon: Icon(Icons.play_arrow),
-                      onPressed: () => model.playPlayback(),
-                    ))
-    ]);
-  });
-
   @override
   Widget build(BuildContext context) {
+    Widget _buildPlayerControls(MainModel model) => Container(
+            child: ButtonBar(
+          alignment: MainAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.play_arrow),
+              onPressed: () => model.playPlayback(),
+            ),
+            IconButton(
+              icon: Icon(Icons.pause),
+              onPressed: () => model.pausePlayback(),
+            ),
+            IconButton(
+              icon: Icon(Icons.stop),
+              onPressed: () => model.stopPlayback(),
+            ),
+          ],
+        ));
+
+    _handleRecording(BuildContext context, MainModel model) {
+      model.isRecording ? model.stopRecording() : model.startRecording();
+
+      if (!model.isRecording)
+        Scaffold.of(context).showBottomSheet((context) {
+          return _buildPlayerControls(model);
+        });
+    }
+
+    final _bodySection =
+        ScopedModelDescendant<MainModel>(builder: (_, __, model) {
+      return Column(children: <Widget>[
+        model.isRecording ? Text(model.recorderTxt) : Text(model.playerText),
+        Center(
+          child: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: model.isRecording ? Icon(Icons.stop) : Icon(Icons.mic),
+                onPressed: () => _handleRecording(context, model),
+              );
+            },
+          ),
+        ),
+      ]);
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(APP_NAME),

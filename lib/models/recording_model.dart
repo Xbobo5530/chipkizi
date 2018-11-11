@@ -33,6 +33,9 @@ abstract class RecordingModel extends Model {
   String _playerTxt = '00:00:00';
   String get playerText => _playerTxt;
 
+  Stream<PlayStatus> _playerStatus;
+  Stream<PlayStatus> get playerStatus => _playerStatus;
+
 //  FlutterSound flutterSound;
 
 //  flutterSound.setSubscriptionDuration(0.01);
@@ -52,11 +55,14 @@ abstract class RecordingModel extends Model {
       print('startRecorder: $path');
 
       _recorderSubscription = flutterSound.onRecorderStateChanged.listen((e) {
+        DateTime now = DateTime.now();
+        DateTime recordingLimitDate = now.add(Duration(seconds: 30));
         DateTime date =
             DateTime.fromMillisecondsSinceEpoch(e.currentPosition.toInt());
-        String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
 
+        String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
         _recorderTxt = txt.substring(0, 8);
+        if (_recorderTxt == '00:05:00') stopRecording();
         notifyListeners();
       });
 
@@ -133,6 +139,7 @@ abstract class RecordingModel extends Model {
 
       this._isPlaying = false;
       _isPaused = false;
+      _playerTxt = '00:00:00';
       notifyListeners();
     } catch (err) {
       print('error: $err');
