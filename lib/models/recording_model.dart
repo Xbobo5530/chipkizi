@@ -5,7 +5,6 @@ import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-//import 'package:intl/date_symbol_data_local.dart';
 
 const _tag = 'RecordingModel:';
 
@@ -40,7 +39,11 @@ abstract class RecordingModel extends Model {
 
 //  flutterSound.setSubscriptionDuration(0.01);
 
-  Future<StatusCode> uploadRecording(Recording recoding) async {
+  Future<StatusCode> handleSubmit(Recording recording) async {
+    print('$_tag at handle submit recording');
+  }
+
+  Future<StatusCode> _uploadRecording(Recording recoding) async {
     // TODO: handle recording
   }
 

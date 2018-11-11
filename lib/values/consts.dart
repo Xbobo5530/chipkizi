@@ -4,7 +4,6 @@ const RECORDINGD_COLLETION = 'Recordings';
 const UPVOTES_COLLETION = 'Recordings';
 const PLAYS_COLLETION = 'Recordings';
 
-
 // Fields
 const ID_FIELD = 'id';
 const TITLE_FIELD = 'title';
@@ -19,5 +18,6 @@ const BIO_FIELD = 'bio';
 const NAME_FIELD = 'name';
 const GENRE_FIELD = 'genre';
 
-
-
+// Nav items
+const NAV_ITEM_HOME = 0;
+const NAV_ITEM_ME = 1;
