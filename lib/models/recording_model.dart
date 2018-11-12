@@ -1,15 +1,26 @@
 import 'dart:async';
+import 'package:chipkizi/values/consts.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'dart:io';
+import 'package:uuid/uuid.dart';
 
 const _tag = 'RecordingModel:';
 
 abstract class RecordingModel extends Model {
+  final FirebaseStorage storage = FirebaseStorage();
   final Firestore _database = Firestore.instance;
+
+  List<Recording> recordings = <Recording>[];
+
+  String _defaultRecordingPath;
+  List<StorageUploadTask> _tasks = <StorageUploadTask>[];
+  String _recordingUrl;
 
   StreamSubscription _recorderSubscription;
   StreamSubscription _playerSubscription;
@@ -17,6 +28,7 @@ abstract class RecordingModel extends Model {
 
   StatusCode _uploadStatus;
   StatusCode get uploadStatus => _uploadStatus;
+
   bool _isRecording = false;
   bool get isRecording => _isRecording;
 
@@ -41,14 +53,82 @@ abstract class RecordingModel extends Model {
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
+    _uploadStatus = StatusCode.waiting;
+    notifyListeners();
+    StatusCode uploadRecordingStatus = await _uploadRecording();
+
+    if (uploadRecordingStatus == StatusCode.failed) {
+      print('$_tag error on handling submit');
+      _uploadStatus = StatusCode.failed;
+      return _uploadStatus;
+    }
+    _uploadStatus = await _createRecordingDoc(recording);
+    notifyListeners();
+    return _uploadStatus;
   }
 
-  Future<StatusCode> _uploadRecording(Recording recoding) async {
-    // TODO: handle recording
+  Future<StatusCode> _uploadRecording() async {
+    print('$_tag at _uploadRecording');
+    bool _hasError = false;
+    final String uuid = Uuid().v1();
+//    final Directory systemTempDir = Directory.systemTemp;
+    final File file = await File(
+        _defaultRecordingPath); //File('${systemTempDir.path}/foo$uuid.txt');//.create();
+//    await file.writeAsString(kTestString);
+//    assert(await file.readAsString() == kTestString);
+    final StorageReference ref =
+        storage.ref().child(RECORDINGS_BUCKET).child('$uuid.mp4');
+    final StorageUploadTask uploadTask = ref.putFile(
+      file,
+      StorageMetadata(
+        contentLanguage: 'en',
+        customMetadata: <String, String>{'activity': 'chipkizi'},
+      ),
+    );
+
+//    _tasks.add(uploadTask);
+
+    StorageTaskSnapshot snapshot =
+        await uploadTask.onComplete.catchError((error) {
+      print('$_tag error on uploading recording: $error');
+      _hasError = true;
+    });
+    if (_hasError) return StatusCode.failed;
+    _recordingUrl = await snapshot.ref.getPath();
+    notifyListeners();
+    return StatusCode.success;
+  }
+
+  Future<StatusCode> _createRecordingDoc(Recording recording) async {
+    print('$_tag at _createRecordingDoc');
+    bool _hasError = false;
+    Map<String, dynamic> recordingMap = {
+      RECORDING_URL_FIELD: _recordingUrl,
+      CREATED_BY_FIELD: recording.createdBy,
+      CREATED_AT_FIELD: recording.createdAt,
+      TITLE_FIELD: recording.title,
+      DESCRIPTION_FIELD: recording.description,
+      UPVOTE_COUNT_FIELD: 0,
+      PLAY_COUNT_FIELD: 0,
+      GENRE_FIELD: recording.genre
+    };
+    await _database
+        .collection(RECORDINGS_COLLETION)
+        .add(recordingMap)
+        .catchError((error) {
+      print('$_tag error on creating recording doc: $error');
+      _hasError = true;
+    });
+    if (_hasError) return StatusCode.failed;
+    return StatusCode.success;
   }
 
   Future<StatusCode> deleteRecording(Recording recoding) async {
     // TODO: handle delete recording
+  }
+
+  Future<StatusCode> getRecordings() async {
+    //todo pre fetch all recordings
   }
 
   Future<void> startRecording() async {
@@ -56,6 +136,8 @@ abstract class RecordingModel extends Model {
     try {
       String path = await flutterSound.startRecorder(null);
       print('startRecorder: $path');
+      _defaultRecordingPath = path;
+      notifyListeners();
 
       _recorderSubscription = flutterSound.onRecorderStateChanged.listen((e) {
         DateTime date =

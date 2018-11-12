@@ -38,21 +38,24 @@ class LoginPage extends StatelessWidget {
           builder: (_, __, model) {
             return Builder(
               builder: (context) {
-                return ProgressButton(
-                  color: Colors.white,
-                  button: IconButton(
-                    icon: Icon(
-                      Icons.lock,
-                      size: 80,
+                return Hero(
+                  tag: 'Record Button',
+                  child: ProgressButton(
+                    color: Colors.white,
+                    button: IconButton(
+                      icon: Icon(
+                        Icons.lock,
+                        size: 80,
+                      ),
+                      onPressed: () => _handleLogin(context, model),
                     ),
-                    onPressed: () => _handleLogin(context, model),
-                  ),
-                  size: 150.0,
-                  indicator: MyProgressIndicator(
-                    color: Colors.orange,
-                    progress:
-                        model.loginStatus == StatusCode.waiting ? null : 0.0,
-                    size: 50.0,
+                    size: 150.0,
+                    indicator: MyProgressIndicator(
+                      color: Colors.orange,
+                      progress:
+                          model.loginStatus == StatusCode.waiting ? null : 0.0,
+                      size: 50.0,
+                    ),
                   ),
                 );
               },

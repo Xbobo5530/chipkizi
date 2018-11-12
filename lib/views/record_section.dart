@@ -1,6 +1,6 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/values/strings.dart';
-import 'package:chipkizi/views/circular_buttom.dart';
+import 'package:chipkizi/views/circular_button.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/progress_button.dart';
 import 'package:flutter/material.dart';
@@ -59,28 +59,31 @@ class RecordSectionView extends StatelessWidget {
           child: Center(
             child: Builder(
               builder: (context) {
-                return ProgressButton(
-                  indicator: MyProgressIndicator(
-                    size: 50.0,
-                    color: Colors.red,
-                    progress: model.recorderProgress,
+                return Hero(
+                  tag: 'Record Button',
+                  child: ProgressButton(
+                    indicator: MyProgressIndicator(
+                      size: 50.0,
+                      color: Colors.red,
+                      progress: model.recorderProgress,
+                    ),
+                    button: IconButton(
+                      icon: model.isRecording
+                          ? Icon(
+                              Icons.stop,
+                              color: Colors.brown,
+                              size: 80.0,
+                            )
+                          : Icon(
+                              Icons.fiber_manual_record,
+                              color: Colors.red,
+                              size: 80.0,
+                            ),
+                      onPressed: () => _handleRecording(context, model),
+                    ),
+                    size: 150.0,
+                    color: Colors.white,
                   ),
-                  button: IconButton(
-                    icon: model.isRecording
-                        ? Icon(
-                            Icons.stop,
-                            color: Colors.brown,
-                            size: 80.0,
-                          )
-                        : Icon(
-                            Icons.fiber_manual_record,
-                            color: Colors.red,
-                            size: 80.0,
-                          ),
-                    onPressed: () => _handleRecording(context, model),
-                  ),
-                  size: 150.0,
-                  color: Colors.white,
                 );
               },
             ),
@@ -107,6 +110,7 @@ class RecordSectionView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildRecordButton(model),
+//            _buildRecordButton(model),
             model.isRecording ? _waitButton : _buildPlayerControls(model)
           ]);
     });

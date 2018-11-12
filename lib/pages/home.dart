@@ -1,7 +1,10 @@
 import 'package:chipkizi/models/main_model.dart';
+import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/pages/create_recording.dart';
+import 'package:chipkizi/pages/edit_profile.dart';
 import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/pages/my_profile.dart';
+import 'package:chipkizi/pages/searrch_delegate.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/recordings_list.dart';
@@ -21,8 +24,40 @@ class HomePage extends StatelessWidget {
     _goToLoginPage() => Navigator.push(context,
         MaterialPageRoute(builder: (_) => LoginPage(), fullscreenDialog: true));
 
-    final _appBarSection =
-        AppBar(leading: Icon(Icons.mic_none), title: Text(APP_NAME));
+    _handleSearch(MainModel model) async {
+      final Recording result = await showSearch(
+        context: context,
+        delegate: RecordingsSearch(model.recordings),
+      );
+    }
+
+    _editProfile() => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => EditProfilePage(), fullscreenDialog: true));
+
+    final _appBarSection = AppBar(
+      leading: Icon(Icons.mic_none),
+      title: Text(APP_NAME),
+      actions: <Widget>[
+        ScopedModelDescendant<MainModel>(
+          builder: (_, __, model) => model.isLoggedIn
+              ? IconButton(
+                  icon: Icon(model.selectedNavItem == NAV_ITEM_HOME
+                      ? Icons.search
+                      : Icons.edit),
+                  onPressed: model.selectedNavItem == NAV_ITEM_HOME
+                      ? () => _handleSearch(model)
+                      : () => _editProfile(),
+                )
+              : model.selectedNavItem == NAV_ITEM_HOME
+                  ? IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () => _handleSearch(model))
+                  : Container(),
+        )
+      ],
+    );
 
     final _bottomNavSection = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
@@ -41,12 +76,17 @@ class HomePage extends StatelessWidget {
 
     final _fabSection = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return FloatingActionButton(
-            child: Icon(Icons.mic),
-            heroTag: 'open recording page',
-            onPressed: model.isLoggedIn
-                ? () => _openRecordingPage(context)
-                : () => _goToLoginPage());
+        return Hero(
+          child: FloatingActionButton(
+              child: Icon(Icons.mic),
+              heroTag: 'open recording page',
+              onPressed:
+//                  _openRecordingPage(context)
+                  model.isLoggedIn
+                      ? () => _openRecordingPage(context)
+                      : () => _goToLoginPage()),
+          tag: 'Record Button',
+        );
       },
     );
 

@@ -4,6 +4,10 @@ const meText = 'Me';
 const waitText = 'Tafadhali subiri...';
 const submitText = 'Submit';
 const loginText = 'Login';
+const myRecordingsText = 'My recordings';
+
+const titleText = 'Title';
+const descriptionText = 'Description';
 
 //messages
 const errorMessage = 'Somethin went wrong, please try again.';

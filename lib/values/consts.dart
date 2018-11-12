@@ -1,6 +1,6 @@
 //collections
 const USERS_COLLECTION = 'Users';
-const RECORDINGD_COLLETION = 'Recordings';
+const RECORDINGS_COLLETION = 'Recordings';
 const UPVOTES_COLLETION = 'Recordings';
 const PLAYS_COLLETION = 'Recordings';
 
@@ -21,3 +21,6 @@ const GENRE_FIELD = 'genre';
 // Nav items
 const NAV_ITEM_HOME = 0;
 const NAV_ITEM_ME = 1;
+
+// storage
+const RECORDINGS_BUCKET = 'Recordings';
