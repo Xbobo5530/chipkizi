@@ -24,3 +24,16 @@ const NAV_ITEM_ME = 1;
 
 // storage
 const RECORDINGS_BUCKET = 'Recordings';
+
+const List<String> genres = <String>[
+  'Gospel',
+  'Hip-hop',
+  'Bongo flava',
+  'Bakurutu',
+  'Poem',
+  'Spoken word',
+  'R&B',
+  'Speech',
+  'Music',
+  'Other',
+];

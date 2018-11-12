@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CircularIconButton extends StatelessWidget {
   final IconButton button;
   final Color color;
-  CircularIconButton({this.button, this.color});
+  CircularIconButton({@required this.button, @required this.color});
 
   @override
   Widget build(BuildContext context) {

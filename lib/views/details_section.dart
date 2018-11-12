@@ -1,6 +1,8 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/circular_button.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -77,9 +79,34 @@ class DetailsSectionView extends StatelessWidget {
                         color: whitish, fontStyle: FontStyle.italic))),
           ),
         ),
+        Container(
+          height: 80.0,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: genres
+                .map((genre) => Padding(
+                      child: ChoiceChip(
+                        label: Text(genre),
+                        selected: false,
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                    ))
+                .toList(),
+          ),
+        ),
         ScopedModelDescendant<MainModel>(
           builder: (_, __, model) {
-            return RaisedButton(
+            return CircularIconButton(
+              color: Colors.white,
+              button: IconButton(
+                  onPressed: () {}, //=> _handleSubmit(model),
+                  icon: Icon(
+                    Icons.file_upload,
+                    color: Colors.green,
+                  )),
+            );
+
+            RaisedButton(
               onPressed: () => _handleSubmit(model),
               child: Text(submitText),
             );
