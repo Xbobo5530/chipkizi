@@ -10,10 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/recording.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/recording.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/recording_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/recording_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/values/consts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/values/consts.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/circular_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/circular_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/details_section.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/details_section.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/recordings_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/recordings_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -34,8 +42,8 @@
       <file leaf-file-name="details_section.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/views/details_section.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="104" column="39" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
+            <state relative-caret-position="429">
+              <caret line="110" column="35" lean-forward="true" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="35" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -74,7 +82,6 @@
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/mock_data/recording_data.dart" />
         <option value="$PROJECT_DIR$/lib/views/recordings_list_item_view.dart" />
-        <option value="$PROJECT_DIR$/lib/models/recording.dart" />
         <option value="$PROJECT_DIR$/lib/views/home_body.dart" />
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/lib/views/recording_body.dart" />
@@ -83,7 +90,6 @@
         <option value="$PROJECT_DIR$/lib/views/my_progress_indicator.dart" />
         <option value="$PROJECT_DIR$/lib/views/progress_button.dart" />
         <option value="$PROJECT_DIR$/lib/models/navigation_model.dart" />
-        <option value="$PROJECT_DIR$/lib/views/recordings_list.dart" />
         <option value="$PROJECT_DIR$/lib/views/recordings_list_item.dart" />
         <option value="$PROJECT_DIR$/test/widget_test.dart" />
         <option value="$PROJECT_DIR$/lib/views/circular_buttom.dart" />
@@ -94,12 +100,14 @@
         <option value="$PROJECT_DIR$/lib/pages/edit_profile.dart" />
         <option value="$PROJECT_DIR$/lib/pages/my_profile.dart" />
         <option value="$PROJECT_DIR$/android/app/build.gradle" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/lib/models/recording_model.dart" />
         <option value="$PROJECT_DIR$/lib/pages/home.dart" />
         <option value="$PROJECT_DIR$/lib/values/strings.dart" />
         <option value="$PROJECT_DIR$/lib/views/circular_button.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/models/recording.dart" />
         <option value="$PROJECT_DIR$/lib/values/consts.dart" />
+        <option value="$PROJECT_DIR$/lib/models/recording_model.dart" />
+        <option value="$PROJECT_DIR$/lib/views/recordings_list.dart" />
         <option value="$PROJECT_DIR$/lib/views/details_section.dart" />
       </list>
     </option>
@@ -203,7 +211,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="reco&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;string&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;consts&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;build&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/android/app/build.gradle&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;detail&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;myprofile&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/my_profile.dart&#10;progress&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/progress_button.dart&#10;main&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;mainmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;str&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;login&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/login.dart&#10;stri&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;accountmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/account_model.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;mypro&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/my_progress_indicator.dart&#10;analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
+    <property name="SearchEverywhereHistoryKey" value="des&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;model&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;consts&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;recomo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;remo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;reco&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;string&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;build&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/android/app/build.gradle&#10;detail&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;myprofile&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/my_profile.dart&#10;progress&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/progress_button.dart&#10;main&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;mainmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;str&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;login&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/login.dart&#10;stri&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;accountmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/account_model.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;mypro&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/my_progress_indicator.dart&#10;analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/recording_body.dart&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -373,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542048907419</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="chipkizi v0.0.13  genred&#10;- added genres&#10;- changed submit to round upload button">
+      <created>1542050030881</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1542050030881</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -406,7 +421,7 @@
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info id="Build Variants" order="0" show_stripe_button="false" side_tool="true" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51211804" side_tool="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.35103244" />
+      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.35034484" />
       <window_info id="Flutter Outline" order="8" side_tool="true" weight="0.32982087" />
       <window_info anchor="bottom" id="Logcat" order="10" weight="0.32859176" />
       <window_info id="Capture Tool" order="1" />
@@ -419,11 +434,11 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49928877" visible="true" weight="0.36689654" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49928877" visible="true" weight="0.36689654" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32716927" />
-      <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.487882" weight="0.32859176" />
+      <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.487882" weight="0.32827586" />
       <window_info id="Captures" order="6" show_stripe_button="false" weight="0.32982087" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" sideWeight="0.50071126" visible="true" weight="0.20333599" />
+      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.50071126" weight="0.20333599" />
       <window_info anchor="bottom" id="JProfiler" order="11" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info id="Favorites" order="7" show_stripe_button="false" side_tool="true" />
@@ -450,7 +465,8 @@
     <MESSAGE value="chipkizi v0.0.10 to the login&#10;- handled bottom bar navigation&#10;- added navigation model" />
     <MESSAGE value="chipkizi v0.0.11 code clean up&#10;- removed unused imports&#10;- simple code review" />
     <MESSAGE value="chipkizi v0.0.12 can upload&#10;- added firebase storage&#10;- can upload to firebase storage&#10;- can create doc with url" />
-    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.12 can upload&#10;- added firebase storage&#10;- can upload to firebase storage&#10;- can create doc with url" />
+    <MESSAGE value="chipkizi v0.0.13  genred&#10;- added genres&#10;- changed submit to round upload button" />
+    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.13  genred&#10;- added genres&#10;- changed submit to round upload button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -458,26 +474,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.packages">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chipkizi.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chipkizi_android.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_sound-1.1.5/example/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -567,13 +563,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="816" column="15" selection-start-line="816" selection-start-column="15" selection-end-line="816" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -721,13 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="28" column="8" lean-forward="true" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/widgets/basic.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
@@ -750,23 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="88" column="17" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/recording.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/pages/home.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -808,27 +773,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/views/circular_button.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="55" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/values/consts.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -839,10 +787,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_staggered_grid_view-0.2.3/lib/src/widgets/staggered_grid_view.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="253" column="20" selection-start-line="253" selection-start-column="20" selection-end-line="253" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/bin/cache/pkg/sky_engine/lib/core/map.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="263" column="43" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_staggered_grid_view-0.2.3/lib/src/rendering/sliver_staggered_grid.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pages/home.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="119" column="27" selection-start-line="119" selection-start-column="27" selection-end-line="119" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/recording.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.7.8/lib/audioplayers.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="83" column="103" lean-forward="true" selection-start-line="83" selection-start-column="18" selection-end-line="83" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/values/consts.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="102" selection-start-line="26" selection-start-column="102" selection-end-line="26" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="133" column="50" selection-start-line="133" selection-start-column="50" selection-end-line="133" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="36" column="72" lean-forward="true" selection-start-line="36" selection-start-column="72" selection-end-line="36" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/views/details_section.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="104" column="39" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
+        <state relative-caret-position="429">
+          <caret line="110" column="35" lean-forward="true" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="35" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>

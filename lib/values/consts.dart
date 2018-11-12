@@ -1,6 +1,6 @@
 //collections
 const USERS_COLLECTION = 'Users';
-const RECORDINGS_COLLETION = 'Recordings';
+const RECORDINGS_COLLECTION = 'Recordings';
 const UPVOTES_COLLETION = 'Recordings';
 const PLAYS_COLLETION = 'Recordings';
 
@@ -24,16 +24,5 @@ const NAV_ITEM_ME = 1;
 
 // storage
 const RECORDINGS_BUCKET = 'Recordings';
-
-const List<String> genres = <String>[
-  'Gospel',
-  'Hip-hop',
-  'Bongo flava',
-  'Bakurutu',
-  'Poem',
-  'Spoken word',
-  'R&B',
-  'Speech',
-  'Music',
-  'Other',
-];
+const RECORDING_URL_HEAD =
+    'https://firebasestorage.googleapis.com/v0/b/chipkizi-c7705.appspot.com/o';

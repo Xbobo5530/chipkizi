@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Recording {
   String id, title, description, createdBy, imageUrl, recordingUrl;
   int upvoteCount, playCount, createdAt;
-  List<String> genre;
+  List<dynamic> genre;
 
   Recording(
       {this.id,

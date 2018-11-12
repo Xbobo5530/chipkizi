@@ -9,14 +9,22 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 const _tag = 'RecordingModel:';
 
 abstract class RecordingModel extends Model {
   final FirebaseStorage storage = FirebaseStorage();
   final Firestore _database = Firestore.instance;
+//  AudioCache audioCache =  AudioCache();
+  AudioPlayer audioPlayer = AudioPlayer();
 
   List<Recording> recordings = <Recording>[];
+
+  List<String> _selectedGenres = <String>[];
+
+  Stream<QuerySnapshot> recordingsStream =
+      Firestore.instance.collection(RECORDINGS_COLLECTION).snapshots();
 
   String _defaultRecordingPath;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
@@ -51,6 +59,34 @@ abstract class RecordingModel extends Model {
 
 //  flutterSound.setSubscriptionDuration(0.01);
 
+  Map<String, bool> genres = <String, bool>{
+    'Gospel': false,
+    'Hip-hop': false,
+    'Bongo flava': false,
+    'Bakurutu': false,
+    'Poem': false,
+    'Spoken word': false,
+    'R&B': false,
+    'Speech': false,
+    'Music': false,
+    'Other': false,
+  };
+
+  updateGenres(int index) {
+    genres.update(genres.keys.elementAt(index),
+        (isSelected) => isSelected ? false : true);
+    print('$_tag the genre at index $index isSelected is ${genres[index]}');
+  }
+
+  Future<StatusCode> playFromUrl(String url) async {
+    print('$_tag the url is : $url');
+    int result = await audioPlayer.play(url);
+    if (result == 1) {
+      // success
+//      audioPlayer.completionHandler
+    }
+  }
+
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
     _uploadStatus = StatusCode.waiting;
@@ -72,7 +108,7 @@ abstract class RecordingModel extends Model {
     bool _hasError = false;
     final String uuid = Uuid().v1();
 //    final Directory systemTempDir = Directory.systemTemp;
-    final File file = await File(
+    final File file = File(
         _defaultRecordingPath); //File('${systemTempDir.path}/foo$uuid.txt');//.create();
 //    await file.writeAsString(kTestString);
 //    assert(await file.readAsString() == kTestString);
@@ -94,7 +130,8 @@ abstract class RecordingModel extends Model {
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;
-    _recordingUrl = await snapshot.ref.getPath();
+    String partUrl = await snapshot.ref.getPath();
+    _recordingUrl = '$RECORDING_URL_HEAD$partUrl';
     notifyListeners();
     return StatusCode.success;
   }
@@ -113,7 +150,7 @@ abstract class RecordingModel extends Model {
       GENRE_FIELD: recording.genre
     };
     await _database
-        .collection(RECORDINGS_COLLETION)
+        .collection(RECORDINGS_COLLECTION)
         .add(recordingMap)
         .catchError((error) {
       print('$_tag error on creating recording doc: $error');
