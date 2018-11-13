@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
                   model.isLoggedIn
                       ? () => _openRecordingPage(context)
                       : () => _goToLoginPage()),
-          tag: 'Record Button',
+          tag: TAG_MAIN_BUTTON,
         );
       },
     );

@@ -130,8 +130,9 @@ abstract class RecordingModel extends Model {
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;
-    String partUrl = await snapshot.ref.getPath();
-    _recordingUrl = '$RECORDING_URL_HEAD$partUrl';
+    String _recordingUrl = await snapshot.ref.getDownloadURL();
+    print('$_tag the download url is : $_recordingUrl');
+
     notifyListeners();
     return StatusCode.success;
   }

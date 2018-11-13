@@ -5,6 +5,7 @@ const waitText = 'Tafadhali subiri...';
 const submitText = 'Submit';
 const loginText = 'Login';
 const myRecordingsText = 'My recordings';
+const nextText = 'Next';
 
 const titleText = 'Title';
 const descriptionText = 'Description';

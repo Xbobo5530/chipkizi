@@ -22,6 +22,9 @@ const GENRE_FIELD = 'genre';
 const NAV_ITEM_HOME = 0;
 const NAV_ITEM_ME = 1;
 
+//tags
+const TAG_MAIN_BUTTON = 'Main Button';
+
 // storage
 const RECORDINGS_BUCKET = 'Recordings';
 const RECORDING_URL_HEAD =

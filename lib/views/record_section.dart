@@ -1,4 +1,5 @@
 import 'package:chipkizi/models/main_model.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/circular_button.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
@@ -60,7 +61,7 @@ class RecordSectionView extends StatelessWidget {
             child: Builder(
               builder: (context) {
                 return Hero(
-                  tag: 'Record Button',
+                  tag: TAG_MAIN_BUTTON,
                   child: ProgressButton(
                     indicator: MyProgressIndicator(
                       size: 50.0,
@@ -110,7 +111,6 @@ class RecordSectionView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildRecordButton(model),
-//            _buildRecordButton(model),
             model.isRecording ? _waitButton : _buildPlayerControls(model)
           ]);
     });

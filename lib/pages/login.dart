@@ -1,4 +1,5 @@
 import 'package:chipkizi/models/main_model.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
@@ -39,7 +40,7 @@ class LoginPage extends StatelessWidget {
             return Builder(
               builder: (context) {
                 return Hero(
-                  tag: 'Record Button',
+                  tag: TAG_MAIN_BUTTON,
                   child: ProgressButton(
                     color: Colors.white,
                     button: IconButton(

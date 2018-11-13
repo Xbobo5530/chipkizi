@@ -12,7 +12,8 @@ class RecordingsListView extends StatelessWidget {
         return StreamBuilder(
           stream: model.recordingsStream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) return CircularProgressIndicator();
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
 
             return ListView.builder(
                 itemCount: snapshot.data.documents.length,
@@ -33,8 +34,10 @@ class RecordingsListView extends StatelessWidget {
                               size: 30.0,
                               color: Colors.green,
                             ),
-                            onPressed: () =>
-                                model.playFromUrl(recording.recordingUrl),
+                            onPressed: () => model.playFromUrl(
+//                                'https://firebasestorage.googleapis.com/v0/b/chipkizi-c7705.appspot.com/o/Recordings%2Fbfdbd7f0-e440-11e8-9d50-8f593a9e6f1c.mp4?alt=media&token=346ea347-f375-4b3e-912f-150f58046c6d'
+                                  recording.recordingUrl,
+                                ),
                           ),
                         ),
                       );

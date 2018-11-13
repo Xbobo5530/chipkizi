@@ -31,85 +31,88 @@ class DetailsSectionView extends StatelessWidget {
 //      }
     }
 
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Theme(
-            data: Theme.of(context).copyWith(
-                accentColor: Colors.white, primaryColor: Colors.white),
-            child: TextField(
-              controller: _titleController,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.title,
-                    color: whitish,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.edit,
-                    color: whitish,
-                  ),
-                  labelText: titleText,
-                  labelStyle: TextStyle(
-                    color: whitish,
-                  )),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Theme(
-            data: Theme.of(context).copyWith(
-                accentColor: Colors.white, primaryColor: Colors.white),
-            child: TextField(
-                style: TextStyle(color: Colors.white),
-                controller: _descriptionController,
-                maxLines: null,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(
-                      Icons.description,
-                      color: whitish,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.edit,
-                      color: whitish,
-                    ),
-                    labelText: descriptionText,
-                    labelStyle: TextStyle(
-                        color: whitish, fontStyle: FontStyle.italic))),
-          ),
-        ),
-        ScopedModelDescendant<MainModel>(
-          builder: (_, __, model) {
-            return Container(
-              height: 150.0,
-              child: StaggeredGridView.builder(
-                itemCount: model.genres.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  print('$_tag key are: ${model.genres.keys.elementAt(index)}');
-                  return Text('${model.genres.keys.elementAt(index)}');
-                  return ChoiceChip(
-                    label: Text(model.genres.keys.elementAt(index)),
-                    selected: model.genres[index],
-                  );
-                },
-                gridDelegate:
-                    SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        staggeredTileBuilder: (count) =>
-                            StaggeredTile.fit(model.genres.length)),
+    final _titleField = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Theme(
+        data: Theme.of(context)
+            .copyWith(accentColor: Colors.white, primaryColor: Colors.white),
+        child: TextField(
+          controller: _titleController,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              prefixIcon: Icon(
+                Icons.title,
+                color: whitish,
               ),
-            );
-          },
+              suffixIcon: Icon(
+                Icons.edit,
+                color: whitish,
+              ),
+              labelText: titleText,
+              labelStyle: TextStyle(
+                color: whitish,
+              )),
         ),
-        ScopedModelDescendant<MainModel>(
-          builder: (_, __, model) {
-            return CircularIconButton(
+      ),
+    );
+
+    final _descField = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Theme(
+        data: Theme.of(context)
+            .copyWith(accentColor: Colors.white, primaryColor: Colors.white),
+        child: TextField(
+            style: TextStyle(color: Colors.white),
+            controller: _descriptionController,
+            maxLines: null,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                prefixIcon: Icon(
+                  Icons.description,
+                  color: whitish,
+                ),
+                suffixIcon: Icon(
+                  Icons.edit,
+                  color: whitish,
+                ),
+                labelText: descriptionText,
+                labelStyle:
+                    TextStyle(color: whitish, fontStyle: FontStyle.italic))),
+      ),
+    );
+
+    final _genresSection = ScopedModelDescendant<MainModel>(
+      builder: (_, __, model) {
+        return Container(
+          height: 150.0,
+          child: StaggeredGridView.builder(
+            itemCount: model.genres.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int index) {
+              print('$_tag key are: ${model.genres.keys.elementAt(index)}');
+              return Text('${model.genres.keys.elementAt(index)}');
+              return ChoiceChip(
+                label: Text(model.genres.keys.elementAt(index)),
+                selected: model.genres[index],
+              );
+            },
+            gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                staggeredTileBuilder: (count) =>
+                    StaggeredTile.fit(model.genres.length)),
+          ),
+        );
+      },
+    );
+
+    final _submitButton = ScopedModelDescendant<MainModel>(
+      builder: (_, __, model) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Hero(
+            tag: TAG_MAIN_BUTTON,
+            child: CircularIconButton(
               color: Colors.white,
               button: IconButton(
                   onPressed: () => _handleSubmit(model),
@@ -117,10 +120,26 @@ class DetailsSectionView extends StatelessWidget {
                     Icons.file_upload,
                     color: Colors.green,
                   )),
-            );
-          },
-        )
-      ],
+            ),
+          ),
+        );
+      },
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.brown,
+      appBar: AppBar(
+        elevation: 0.0,
+        title: Text(APP_NAME),
+        actions: <Widget>[_submitButton],
+      ),
+      body: ListView(
+        children: <Widget>[
+          _titleField,
+          _descField,
+          _genresSection,
+        ],
+      ),
     );
   }
 }

@@ -10,11 +10,18 @@ class RecordingPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.0,
         title: Text(APP_NAME),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.navigate_next,
+            ),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (_) => DetailsSectionView())),
+          )
+        ],
       ),
       backgroundColor: Colors.brown,
-      body: PageView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[RecordSectionView(), DetailsSectionView()]),
+      body: RecordSectionView(),
     );
   }
 }
