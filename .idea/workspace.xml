@@ -9,13 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/views/genre_chips.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/recording_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/recording_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/details_section.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/details_section.dart" afterDir="false" />
-    </list>
+    <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -403,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542100585111</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="chipkizi v0.0.17 please wait&#10;- added wait screen on submitting &#10;- partial code clean up">
+      <created>1542110450192</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1542110450192</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -449,7 +450,7 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49928877" visible="true" weight="0.3783784" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49928877" weight="0.3783784" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32716927" />
       <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.487882" weight="0.32716927" />
       <window_info id="Captures" order="6" show_stripe_button="false" weight="0.32982087" />
@@ -484,7 +485,8 @@
     <MESSAGE value="chipkizi v0.0.14 play from network&#10;- added audio players&#10;- can play from network&#10;- working on genres" />
     <MESSAGE value="chipkizi v0.0.15 recording works&#10;- moved details section to new page" />
     <MESSAGE value="chipkizi v0.0.16 animate&#10;- added transition animation on recording page and details page" />
-    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.16 animate&#10;- added transition animation on recording page and details page" />
+    <MESSAGE value="chipkizi v0.0.17 please wait&#10;- added wait screen on submitting &#10;- partial code clean up" />
+    <option name="LAST_COMMIT_MESSAGE" value="chipkizi v0.0.17 please wait&#10;- added wait screen on submitting &#10;- partial code clean up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

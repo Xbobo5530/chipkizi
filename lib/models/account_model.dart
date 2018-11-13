@@ -13,6 +13,7 @@ abstract class AccountModel extends Model {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  Map<String, User> _cachedUsers = Map();
   User _currentUser;
   User get currentUser => _currentUser;
   bool _isLoggedIn = false;
@@ -155,4 +156,21 @@ abstract class AccountModel extends Model {
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
   }
+
+  Future<User> userFromId(String userId ) async{
+    print('$_tag at userFromId');
+    bool _hasError = false;
+    if (_cachedUsers[userId] != null) return _cachedUsers[userId];
+    DocumentSnapshot document = await _database.collection(USERS_COLLECTION).document(
+      userId
+    ).get().catchError((error){
+      print('$_tag error on getting user document form id');
+      _hasError  = true;
+    });
+    if (_hasError) return null;
+    final userFromId = User.fromSnapshot(document);
+    _cachedUsers.putIfAbsent(userId, ()=>userFromId);
+    return userFromId;
+  }
+
 }
