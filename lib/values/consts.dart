@@ -11,6 +11,7 @@ const DESCRIPTION_FIELD = 'description';
 const CREATED_BY_FIELD = 'created_by';
 const IMAGE_URL_FIELD = 'image_url';
 const RECORDING_URL_FIELD = 'recording_url';
+const RECORDING_PATH_FIELD = 'recording_path';
 const UPVOTE_COUNT_FIELD = 'upvotes';
 const PLAY_COUNT_FIELD = 'play_count';
 const CREATED_AT_FIELD = 'created_at';
@@ -29,5 +30,3 @@ const TAG_NEXT_BACK_BUTTON = 'Next Back Button';
 
 // storage
 const RECORDINGS_BUCKET = 'Recordings';
-const RECORDING_URL_HEAD =
-    'https://firebasestorage.googleapis.com/v0/b/chipkizi-c7705.appspot.com/o';

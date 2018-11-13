@@ -19,7 +19,8 @@ abstract class RecordingModel extends Model {
 //  AudioCache audioCache =  AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  List<Recording> recordings = <Recording>[];
+  Map<String, Recording> _recordings = Map();
+  Map<String, Recording> get recordings => _recordings;
 
   List<String> _selectedGenres = <String>[];
 
@@ -29,6 +30,7 @@ abstract class RecordingModel extends Model {
   String _defaultRecordingPath;
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   String _recordingUrl;
+  String _recordingPath;
 
   StreamSubscription _recorderSubscription;
   StreamSubscription _playerSubscription;
@@ -36,6 +38,12 @@ abstract class RecordingModel extends Model {
 
   StatusCode _submitStatus;
   StatusCode get uploadStatus => _submitStatus;
+
+  StatusCode _upvotingRecordingStatus;
+  StatusCode get upvotingRecordingStatus => _upvotingRecordingStatus;
+
+  StatusCode _deletingRecordingStatus;
+  StatusCode get deletingRecordingStatus => _deletingRecordingStatus;
 
   bool _isRecording = false;
   bool get isRecording => _isRecording;
@@ -72,6 +80,27 @@ abstract class RecordingModel extends Model {
     'Other': false,
   };
 
+  Future<StatusCode> getRecordings() async {
+    print('$_tag at getRecordings');
+    bool _hasError = false;
+    QuerySnapshot snapshot = await _database
+        .collection(RECORDINGS_COLLECTION)
+        .getDocuments()
+        .catchError((error) {
+      print('$_tag error on getting recordings');
+      _hasError = true;
+    });
+    if (_hasError) return StatusCode.failed;
+    List<DocumentSnapshot> documents = snapshot.documents;
+    Map<String, Recording> tempMap = <String, Recording>{};
+    documents.forEach((document) {
+      Recording recording = Recording.fromSnaspshot(document);
+      tempMap.putIfAbsent(recording.id, ()=> recording);
+    });
+    _recordings =tempMap;
+    return StatusCode.success;
+  }
+
   void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
         (isSelected) => isSelected ? false : true);
@@ -84,7 +113,22 @@ abstract class RecordingModel extends Model {
     if (result == 1) {
       // success
 //      audioPlayer.completionHandler
+
+      // TODO: follow playback progress
     }
+  }
+
+  Future<StatusCode> hanldeUpvoteRecording(
+      Recording recording, String userId) async {
+    print('$_tag at upvoteRecording');
+    _upvotingRecordingStatus = StatusCode.waiting;
+    notifyListeners();
+    bool _hasError = false;
+
+    /// check if use has already upvoted
+    /// if has upvoted, update upvote count by [user]
+    /// if has not upvoted create upvote doc
+    /// update [recording]'s [upvotes] field
   }
 
   Future<StatusCode> handleSubmit(Recording recording) async {
@@ -121,6 +165,8 @@ abstract class RecordingModel extends Model {
         customMetadata: <String, String>{'activity': 'chipkizi'},
       ),
     );
+
+    /// TODO: monitor uploads
 //    _tasks.add(uploadTask);
 
     StorageTaskSnapshot snapshot =
@@ -130,6 +176,7 @@ abstract class RecordingModel extends Model {
     });
     if (_hasError) return StatusCode.failed;
     _recordingUrl = await snapshot.ref.getDownloadURL();
+    _recordingPath = await snapshot.ref.getPath();
     print('$_tag the download url is : $_recordingUrl');
 
     notifyListeners();
@@ -146,6 +193,7 @@ abstract class RecordingModel extends Model {
     _selectedGenres = tempList;
     Map<String, dynamic> recordingMap = {
       RECORDING_URL_FIELD: _recordingUrl,
+      RECORDING_PATH_FIELD: _recordingPath,
       CREATED_BY_FIELD: recording.createdBy,
       CREATED_AT_FIELD: recording.createdAt,
       TITLE_FIELD: recording.title,
@@ -165,12 +213,48 @@ abstract class RecordingModel extends Model {
     return StatusCode.success;
   }
 
-  Future<StatusCode> deleteRecording(Recording recoding) async {
-    // TODO: handle delete recording
+  Future<StatusCode> deleteRecording(Recording recording, String userId) async {
+    print('$_tag at deleteRecording');
+    _deletingRecordingStatus = StatusCode.waiting;
+    notifyListeners();
+    bool _hasError = false;
+    if (recording.createdBy != userId) {
+      _deletingRecordingStatus = StatusCode.failed;
+      notifyListeners();
+      return _deletingRecordingStatus;
+    }
+    await _database
+        .collection(RECORDINGS_COLLECTION)
+        .document(recording.id)
+        .delete()
+        .catchError((error) {
+      print('$_tag error on deleting a recording document');
+    });
+
+    if (_hasError) {
+      _deletingRecordingStatus = StatusCode.failed;
+      notifyListeners();
+      return _deletingRecordingStatus;
+    }
+    _deletingRecordingStatus = await _deleteFile(recording);
+    notifyListeners();
+    return _deletingRecordingStatus;
   }
 
-  Future<StatusCode> getRecordings() async {
-    //todo pre fetch all recordings
+  Future<StatusCode> _deleteFile(Recording recording) async {
+    print('$_tag at _deleteFile');
+    bool _hasError = false;
+    storage
+        .ref()
+        .child(RECORDINGS_BUCKET)
+        .child(recording.recordingPath)
+        .delete()
+        .catchError((error) {
+      print('$_tag error on deleting the file');
+      _hasError = true;
+    });
+    if (_hasError) return StatusCode.failed;
+    return StatusCode.success;
   }
 
   Future<void> startRecording() async {

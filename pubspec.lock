@@ -347,6 +347,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.2+4"
+  simple_coverflow:
+    dependency: "direct main"
+    description:
+      name: simple_coverflow
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -465,5 +472,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.1.0-dev.8.0 <3.0.0"
+  dart: ">=2.1.0-dev.8.0 <=2.1.0-dev.8.0.flutter-bf26f760b1"
   flutter: ">=0.2.4 <2.0.0"

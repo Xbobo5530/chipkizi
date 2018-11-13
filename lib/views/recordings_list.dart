@@ -20,7 +20,7 @@ class RecordingsListView extends StatelessWidget {
                 itemBuilder: (_, index) {
                   final document = snapshot.data.documents[index];
                   Recording recording = Recording.fromSnaspshot(document);
-                  return RecordingsListItemView(model: model,recording: recording, key: Key(recording.id));
+                  return RecordingsListItemView(recording: recording, key: Key(recording.id));
                 });
           },
         );

@@ -82,7 +82,6 @@ class HomePage extends StatelessWidget {
               child: Icon(Icons.mic),
               heroTag: 'open recording page',
               onPressed:
-//                  _openRecordingPage(context)
                   model.isLoggedIn
                       ? () => _openRecordingPage(context)
                       : () => _goToLoginPage()),
