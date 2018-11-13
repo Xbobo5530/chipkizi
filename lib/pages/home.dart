@@ -38,7 +38,8 @@ class HomePage extends StatelessWidget {
 
     final _appBarSection = AppBar(
       leading: Icon(Icons.mic_none),
-      title: Text(APP_NAME),
+      title: Hero(tag: TAG_APP_TITLE, child: Text(APP_NAME)),
+      centerTitle: true,
       actions: <Widget>[
         ScopedModelDescendant<MainModel>(
           builder: (_, __, model) => model.isLoggedIn

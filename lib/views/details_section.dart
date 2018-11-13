@@ -84,44 +84,48 @@ class DetailsSectionView extends StatelessWidget {
 
     final _genresSection = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return Container(
-          height: 150.0,
-          child: StaggeredGridView.builder(
-            itemCount: model.genres.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) {
-              print('$_tag key are: ${model.genres.keys.elementAt(index)}');
-              return Text('${model.genres.keys.elementAt(index)}');
-              return ChoiceChip(
-                label: Text(model.genres.keys.elementAt(index)),
-                selected: model.genres[index],
-              );
-            },
-            gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                staggeredTileBuilder: (count) =>
-                    StaggeredTile.fit(model.genres.length)),
-          ),
+        return StaggeredGridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: model.genres.length,
+          itemBuilder: (BuildContext context, int index) {
+            print('$_tag key are: ${model.genres.keys.elementAt(index)}');
+            return Text('${model.genres.keys.elementAt(index)}');
+            return ChoiceChip(
+              label: Text(model.genres.keys.elementAt(index)),
+              selected: model.genres[index],
+            );
+          },
+          gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              staggeredTileBuilder: (count) =>
+                  StaggeredTile.fit(model.genres.length)),
         );
       },
     );
 
     final _submitButton = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Hero(
-            tag: TAG_MAIN_BUTTON,
-            child: CircularIconButton(
-              color: Colors.white,
-              button: IconButton(
-                  onPressed: () => _handleSubmit(model),
-                  icon: Icon(
-                    Icons.file_upload,
-                    color: Colors.green,
-                  )),
+        return Hero(
+          tag: TAG_MAIN_BUTTON,
+          child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => _handleSubmit(model),
+            child: Icon(
+              Icons.file_upload,
+              color: Colors.green,
             ),
-          ),
+          )
+
+//          CircularIconButton(
+//            color: Colors.white,
+//            button: IconButton(
+//                onPressed: () => _handleSubmit(model),
+//                icon: Icon(
+//                  Icons.file_upload,
+//                  color: Colors.green,
+//                )),
+//          )
+              ,
         );
       },
     );
@@ -130,16 +134,26 @@ class DetailsSectionView extends StatelessWidget {
       backgroundColor: Colors.brown,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(APP_NAME),
-        actions: <Widget>[_submitButton],
+        title: Hero(tag: TAG_APP_TITLE, child: Text(APP_NAME)),
+        centerTitle: true,
+        leading: Hero(
+          tag: TAG_NEXT_BACK_BUTTON,
+
+
+          child: IconButton(
+              icon: Icon(Icons.navigate_before),
+              onPressed: () => Navigator.pop(context)),
+        ),
+//        actions: <Widget>[_submitButton],
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           _titleField,
           _descField,
-          _genresSection,
+          Expanded(child: _genresSection),
         ],
       ),
+      floatingActionButton: _submitButton,
     );
   }
 }

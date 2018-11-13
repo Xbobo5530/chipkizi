@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Colors.brown,
       appBar: AppBar(
         elevation: 0.0,
-        title: Text(loginText),
+        title: Hero(tag: TAG_APP_TITLE, child: Text(loginText)),
       ),
       body: Center(
         child: ScopedModelDescendant<MainModel>(
