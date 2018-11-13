@@ -5,21 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 final MainModel model = MainModel();
-void main() => runApp( MyApp(model: model));
+void main() => runApp(MyApp(model: model));
 
 class MyApp extends StatelessWidget {
   final MainModel model;
   MyApp({this.model});
   @override
   Widget build(BuildContext context) {
-    return  ScopedModel<MainModel>(
+    return ScopedModel<MainModel>(
       model: model,
-          child: MaterialApp(
+      child: MaterialApp(
         title: APP_NAME,
-        theme:  ThemeData(
+        theme: ThemeData(
           primarySwatch: Colors.brown,
         ),
-        home:  HomePage(),
+//        home: HomePage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomePage(),
+        },
       ),
     );
   }

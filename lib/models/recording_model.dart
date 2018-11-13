@@ -34,8 +34,8 @@ abstract class RecordingModel extends Model {
   StreamSubscription _playerSubscription;
   FlutterSound flutterSound = FlutterSound();
 
-  StatusCode _uploadStatus;
-  StatusCode get uploadStatus => _uploadStatus;
+  StatusCode _submitStatus;
+  StatusCode get uploadStatus => _submitStatus;
 
   bool _isRecording = false;
   bool get isRecording => _isRecording;
@@ -72,10 +72,10 @@ abstract class RecordingModel extends Model {
     'Other': false,
   };
 
-  updateGenres(int index) {
+  void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
         (isSelected) => isSelected ? false : true);
-    print('$_tag the genre at index $index isSelected is ${genres[index]}');
+    notifyListeners();
   }
 
   Future<StatusCode> playFromUrl(String url) async {
@@ -89,18 +89,18 @@ abstract class RecordingModel extends Model {
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
-    _uploadStatus = StatusCode.waiting;
+    _submitStatus = StatusCode.waiting;
     notifyListeners();
     StatusCode uploadRecordingStatus = await _uploadRecording();
 
     if (uploadRecordingStatus == StatusCode.failed) {
       print('$_tag error on handling submit');
-      _uploadStatus = StatusCode.failed;
-      return _uploadStatus;
+      _submitStatus = StatusCode.failed;
+      return _submitStatus;
     }
-    _uploadStatus = await _createRecordingDoc(recording);
+    _submitStatus = await _createRecordingDoc(recording);
     notifyListeners();
-    return _uploadStatus;
+    return _submitStatus;
   }
 
   Future<StatusCode> _uploadRecording() async {
@@ -121,7 +121,6 @@ abstract class RecordingModel extends Model {
         customMetadata: <String, String>{'activity': 'chipkizi'},
       ),
     );
-
 //    _tasks.add(uploadTask);
 
     StorageTaskSnapshot snapshot =
@@ -130,7 +129,7 @@ abstract class RecordingModel extends Model {
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;
-    String _recordingUrl = await snapshot.ref.getDownloadURL();
+    _recordingUrl = await snapshot.ref.getDownloadURL();
     print('$_tag the download url is : $_recordingUrl');
 
     notifyListeners();
@@ -140,6 +139,11 @@ abstract class RecordingModel extends Model {
   Future<StatusCode> _createRecordingDoc(Recording recording) async {
     print('$_tag at _createRecordingDoc');
     bool _hasError = false;
+    List<String> tempList = <String>[];
+    genres.forEach((genre, isSelected) {
+      if (isSelected) tempList.add(genre);
+    });
+    _selectedGenres = tempList;
     Map<String, dynamic> recordingMap = {
       RECORDING_URL_FIELD: _recordingUrl,
       CREATED_BY_FIELD: recording.createdBy,
@@ -148,7 +152,7 @@ abstract class RecordingModel extends Model {
       DESCRIPTION_FIELD: recording.description,
       UPVOTE_COUNT_FIELD: 0,
       PLAY_COUNT_FIELD: 0,
-      GENRE_FIELD: recording.genre
+      GENRE_FIELD: _selectedGenres
     };
     await _database
         .collection(RECORDINGS_COLLECTION)
