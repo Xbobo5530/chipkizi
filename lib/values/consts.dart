@@ -3,6 +3,7 @@ const USERS_COLLECTION = 'Users';
 const RECORDINGS_COLLECTION = 'Recordings';
 const UPVOTES_COLLETION = 'Recordings';
 const PLAYS_COLLETION = 'Recordings';
+const BOOKMARKS_COLLETION = 'Bookmarks';
 
 // Fields
 const ID_FIELD = 'id';
