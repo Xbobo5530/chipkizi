@@ -10,6 +10,8 @@ const TITLE_FIELD = 'title';
 const DESCRIPTION_FIELD = 'description';
 const CREATED_BY_FIELD = 'created_by';
 const IMAGE_URL_FIELD = 'image_url';
+const RECORDING_ID_FIELD = 'recording_id';
+
 const RECORDING_URL_FIELD = 'recording_url';
 const RECORDING_PATH_FIELD = 'recording_path';
 const UPVOTE_COUNT_FIELD = 'upvotes';
