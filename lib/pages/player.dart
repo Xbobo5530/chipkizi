@@ -40,12 +40,6 @@ class PlayerPage extends StatelessWidget {
       elevation: 0.0,
       leading: Hero(
         tag: TAG_MAIN_BUTTON,
-        // flightShuttleBuilder: (context, animation, duration, _,__){
-        //   return Icon(
-        //       Icons.keyboard_arrow_down,
-        //       color: Colors.white,
-        //     );
-        // },
         child: Material(
           color: Colors.transparent,
           child: IconButton(

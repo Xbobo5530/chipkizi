@@ -31,30 +31,65 @@ class UpvoteButtonView extends StatelessWidget {
       }
     }
 
-    return ScopedModelDescendant<MainModel>(
-      builder: (_, __, model) {
-        return FutureBuilder<bool>(
+    Widget _buildUpvoteButton(MainModel model) => FutureBuilder<bool>(
           initialData: false,
           future: model.hasUpvoted(recording, model.currentUser),
           builder: (context, snapshot) {
             bool hasUpvoted = snapshot.data;
-            return CircularIconButton(
-              button: IconButton(
-                icon: hasUpvoted
-                    ? Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      )
-                    : Icon(Icons.favorite_border),
-                onPressed: model.isLoggedIn ? () => _handleUpvote(context, model)
-                : ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>LoginPage(),
-                fullscreenDialog: true)),
+            return Padding(
+              padding: const EdgeInsets.only(right: 8.0, ),
+              child: CircularIconButton(
+                button: IconButton(
+                  icon: hasUpvoted
+                      ? Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : Icon(Icons.favorite_border),
+                  onPressed: model.isLoggedIn
+                      ? () => _handleUpvote(context, model)
+                      : () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => LoginPage(),
+                              fullscreenDialog: true)),
+                ),
+                color: Colors.white,
               ),
-              color: Colors.white,
             );
           },
         );
-      },
+
+    Widget _buildCounterSection(MainModel model) => Positioned(
+      bottom: 0.0,
+      right: 0.0,
+      child: Container(
+        padding: const EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: FutureBuilder<int>(
+          initialData: 0,
+          future: model.getUpvoteCountFor(recording.id),
+          builder: (context, snapshot){
+            int upvoteCount = snapshot.data;
+            return Text('$upvoteCount', style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.brown
+            ),);} ),
+      ),
+    );
+
+    return ScopedModelDescendant<MainModel>(
+          builder: (_,__,model){
+            return Stack(
+        children: <Widget>[
+          _buildUpvoteButton(model),
+          _buildCounterSection(model),
+        ],
+      );
+          } ,
     );
   }
 }

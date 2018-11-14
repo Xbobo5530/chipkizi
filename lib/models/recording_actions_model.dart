@@ -171,6 +171,21 @@ abstract class RecordingActionsModel extends Model {
     return true;
   }
 
+  Future<int>  getUpvoteCountFor(String recordingId)async{
+    print('$_tag at getUpvoteCoutFor');
+    bool _hasError = false;
+    DocumentSnapshot document = await _database
+    .collection(RECORDINGS_COLLECTION)
+    .document(recordingId).get().catchError((error){
+      print('$_tag error on getting recording doc for upvote count: $error');
+      _hasError = true;
+    });
+    if (_hasError || !document.exists) return 0;
+    Recording _recording = Recording.fromSnaspshot(document);
+    return _recording.upvoteCount;
+
+  }
+
   DocumentReference _getBookmarkDocumentRerFor(Recording recording, User user) {
     return _database
         .collection(USERS_COLLECTION)
