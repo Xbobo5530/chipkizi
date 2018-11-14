@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                     size: 150.0,
                     indicator: MyProgressIndicator(
                       color: Colors.orange,
-                      progress:
+                      value:
                           model.loginStatus == StatusCode.waiting ? null : 0.0,
                       size: 50.0,
                     ),

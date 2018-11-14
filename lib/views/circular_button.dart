@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CircularIconButton extends StatelessWidget {
-  final IconButton button;
+  /// the [button] is typically an [IconButton] 
+  /// but can be replaced with relevant [Widget]
+  /// like a [CircularProgressIndicator]
+  final Widget button;
   final Color color;
   final double size;
 

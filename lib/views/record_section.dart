@@ -20,7 +20,7 @@ class RecordSectionView extends StatelessWidget {
                   Icons.pause,
                   color: Colors.orange,
                 ),
-                onPressed: () => model.pausePlayback(),
+                onPressed: () => model.pauseRecordingPlayback(),
               ),
               color: Colors.white,
             ),
@@ -30,14 +30,14 @@ class RecordSectionView extends StatelessWidget {
                   Icons.play_arrow,
                   color: Colors.green,
                 ),
-                onPressed: () => model.playPlayback(),
+                onPressed: () => model.playRecording(),
               ),
               color: Colors.white,
             ),
             CircularIconButton(
               button: IconButton(
                 icon: Icon(Icons.stop, color: Colors.red),
-                onPressed: () => model.stopPlayback(),
+                onPressed: () => model.stopRecordingPlayback(),
               ),
               color: Colors.white,
             ),
@@ -66,7 +66,7 @@ class RecordSectionView extends StatelessWidget {
                     indicator: MyProgressIndicator(
                       size: 50.0,
                       color: Colors.red,
-                      progress: model.recorderProgress,
+                      value: model.recorderProgress,
                     ),
                     button: IconButton(
                       icon: model.isRecording

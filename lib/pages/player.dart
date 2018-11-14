@@ -1,12 +1,11 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/player_recording_card.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:simple_coverflow/simple_coverflow.dart';
+
 
 const _tag = 'PlayerPage:';
 
@@ -16,19 +15,19 @@ class PlayerPage extends StatelessWidget {
   const PlayerPage({Key key, this.recording}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _pageController = PageController(viewportFraction: 0.9);
     final _recordingSection =
         ScopedModelDescendant<MainModel>(builder: (_, __, model) {
       return PageView.builder(
-        // controller: _pageController,
-        itemCount: model.recordings.length,
+        // onPageChanged: (pageNumber)=> model.resetPlayer(),
+        itemCount: model.recordings.length - 1,
         itemBuilder: (BuildContext context, int index) {
           if (index == 0)
             return RecordingCard(
               recording: this.recording,
             );
           List<String> recordingsIds = model.recordings.keys.toList();
-          recordingsIds.shuffle();
+          recordingsIds.remove(this.recording.id);
+          // recordingsIds.shuffle();
           Recording recording = model.recordings[recordingsIds[index]];
           return RecordingCard(
             recording: recording,

@@ -126,7 +126,7 @@ class DetailsSectionView extends StatelessWidget {
       size: 150.0,
       indicator: MyProgressIndicator(
         color: Colors.orange,
-        progress: null,
+        value: null,
         size: 150.0,
       ),
     );

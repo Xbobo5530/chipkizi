@@ -1,7 +1,10 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
+import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/my_progress_indicator.dart';
+import 'package:chipkizi/views/play_button.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -42,18 +45,7 @@ class RecordingCard extends StatelessWidget {
               ),
               color: Colors.white,
             ),
-            CircularIconButton(
-              size: 60.0,
-              button: IconButton(
-                icon: Icon(
-                  Icons.play_arrow,
-                  color: Colors.green,
-                  size: 32.0,
-                ),
-                onPressed: () {},
-              ),
-              color: Colors.white,
-            ),
+            PlayButtonView(recording: recording,),
             CircularIconButton(
               button: IconButton(
                 icon: Icon(
@@ -78,9 +70,15 @@ class RecordingCard extends StatelessWidget {
     );
 
     final _infoSection = ListTile(
-      title: Text(recording.title, textAlign: TextAlign.center,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
-      subtitle: Text(recording.description, textAlign: TextAlign.center,),
+      title: Text(
+        recording.title,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+      ),
+      subtitle: Text(
+        recording.description,
+        textAlign: TextAlign.center,
+      ),
     );
 
     _buildUserInfoSection(MainModel model) => FutureBuilder<User>(

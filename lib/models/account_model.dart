@@ -158,7 +158,7 @@ abstract class AccountModel extends Model {
   }
 
   Future<User> userFromId(String userId ) async{
-    print('$_tag at userFromId');
+    // print('$_tag at userFromId');
     bool _hasError = false;
     if (_cachedUsers[userId] != null) return _cachedUsers[userId];
     DocumentSnapshot document = await _database.collection(USERS_COLLECTION).document(

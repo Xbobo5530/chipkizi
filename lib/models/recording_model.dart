@@ -9,18 +9,16 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
-import 'package:audioplayers/audioplayers.dart';
+
 
 const _tag = 'RecordingModel:';
 
 abstract class RecordingModel extends Model {
-  final FirebaseStorage storage = FirebaseStorage();
   final Firestore _database = Firestore.instance;
+  final FirebaseStorage storage = FirebaseStorage();
 //  AudioCache audioCache =  AudioCache();
-  AudioPlayer audioPlayer = AudioPlayer();
 
-  Map<String, Recording> _recordings = Map();
-  Map<String, Recording> get recordings => _recordings;
+  
 
   List<String> _selectedGenres = <String>[];
 
@@ -39,24 +37,19 @@ abstract class RecordingModel extends Model {
   StatusCode _submitStatus;
   StatusCode get uploadStatus => _submitStatus;
 
-  StatusCode _upvotingRecordingStatus;
-  StatusCode get upvotingRecordingStatus => _upvotingRecordingStatus;
-
-  StatusCode _deletingRecordingStatus;
-  StatusCode get deletingRecordingStatus => _deletingRecordingStatus;
-
+  
+  
   bool _isRecording = false;
   bool get isRecording => _isRecording;
 
   String _recorderTxt = '00:00:00';
   String get recorderTxt => _recorderTxt;
 
-  bool _isPlaying = false;
-  bool get isPlaying => _isPlaying;
-
+  
   bool _isPaused = false;
   bool get isPaused => _isPaused;
 
+  
   String _playerTxt = '00:00:00';
   String get playerText => _playerTxt;
 
@@ -80,26 +73,7 @@ abstract class RecordingModel extends Model {
     'Other': false,
   };
 
-  Future<StatusCode> getRecordings() async {
-    print('$_tag at getRecordings');
-    bool _hasError = false;
-    QuerySnapshot snapshot = await _database
-        .collection(RECORDINGS_COLLECTION)
-        .getDocuments()
-        .catchError((error) {
-      print('$_tag error on getting recordings');
-      _hasError = true;
-    });
-    if (_hasError) return StatusCode.failed;
-    List<DocumentSnapshot> documents = snapshot.documents;
-    Map<String, Recording> tempMap = <String, Recording>{};
-    documents.forEach((document) {
-      Recording recording = Recording.fromSnaspshot(document);
-      tempMap.putIfAbsent(recording.id, ()=> recording);
-    });
-    _recordings =tempMap;
-    return StatusCode.success;
-  }
+  
 
   void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
@@ -107,29 +81,17 @@ abstract class RecordingModel extends Model {
     notifyListeners();
   }
 
-  Future<StatusCode> playFromUrl(String url) async {
-    print('$_tag the url is : $url');
-    int result = await audioPlayer.play(url);
-    if (result == 1) {
-      // success
-//      audioPlayer.completionHandler
+  
 
-      // TODO: follow playback progress
-    }
-  }
+  
 
-  Future<StatusCode> hanldeUpvoteRecording(
-      Recording recording, String userId) async {
-    print('$_tag at upvoteRecording');
-    _upvotingRecordingStatus = StatusCode.waiting;
-    notifyListeners();
-    bool _hasError = false;
+  
 
-    /// check if use has already upvoted
-    /// if has upvoted, update upvote count by [user]
-    /// if has not upvoted create upvote doc
-    /// update [recording]'s [upvotes] field
-  }
+  
+
+  
+
+  
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
@@ -213,49 +175,7 @@ abstract class RecordingModel extends Model {
     return StatusCode.success;
   }
 
-  Future<StatusCode> deleteRecording(Recording recording, String userId) async {
-    print('$_tag at deleteRecording');
-    _deletingRecordingStatus = StatusCode.waiting;
-    notifyListeners();
-    bool _hasError = false;
-    if (recording.createdBy != userId) {
-      _deletingRecordingStatus = StatusCode.failed;
-      notifyListeners();
-      return _deletingRecordingStatus;
-    }
-    await _database
-        .collection(RECORDINGS_COLLECTION)
-        .document(recording.id)
-        .delete()
-        .catchError((error) {
-      print('$_tag error on deleting a recording document');
-    });
-
-    if (_hasError) {
-      _deletingRecordingStatus = StatusCode.failed;
-      notifyListeners();
-      return _deletingRecordingStatus;
-    }
-    _deletingRecordingStatus = await _deleteFile(recording);
-    notifyListeners();
-    return _deletingRecordingStatus;
-  }
-
-  Future<StatusCode> _deleteFile(Recording recording) async {
-    print('$_tag at _deleteFile');
-    bool _hasError = false;
-    storage
-        .ref()
-        .child(RECORDINGS_BUCKET)
-        .child(recording.recordingPath)
-        .delete()
-        .catchError((error) {
-      print('$_tag error on deleting the file');
-      _hasError = true;
-    });
-    if (_hasError) return StatusCode.failed;
-    return StatusCode.success;
-  }
+  
 
   Future<void> startRecording() async {
     print('$_tag at startRecording');
@@ -305,7 +225,7 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<void> playPlayback() async {
+  Future<void> playRecording() async {
     String path = await flutterSound.startPlayer(null);
     await flutterSound.setVolume(1.0);
     print('startPlayer: $path');
@@ -317,7 +237,7 @@ abstract class RecordingModel extends Model {
               e.currentPosition.toInt());
           String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
 
-          this._isPlaying = true;
+          // this._isPlaying = true;
           this._playerTxt = txt.substring(0, 8);
           _isPaused = false;
           notifyListeners();
@@ -328,21 +248,21 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<void> pausePlayback() async {
+  Future<void> pauseRecordingPlayback() async {
     String result = await flutterSound.pausePlayer();
     _isPaused = true;
     notifyListeners();
     print('pausePlayer: $result');
   }
 
-  Future<void> resumePlayback() async {
+  Future<void> resumeRecordingPlayback() async {
     String result = await flutterSound.resumePlayer();
     _isPaused = false;
     notifyListeners();
     print('resumePlayer: $result');
   }
 
-  Future<void> stopPlayback() async {
+  Future<void> stopRecordingPlayback() async {
     try {
       String result = await flutterSound.stopPlayer();
       print('stopPlayer: $result');
@@ -351,7 +271,7 @@ abstract class RecordingModel extends Model {
         _playerSubscription = null;
       }
 
-      this._isPlaying = false;
+      // this._isPlaying = false;
       _isPaused = false;
       _playerTxt = '00:00:00';
       notifyListeners();
