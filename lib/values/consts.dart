@@ -1,8 +1,8 @@
 //collections
 const USERS_COLLECTION = 'Users';
 const RECORDINGS_COLLECTION = 'Recordings';
-const UPVOTES_COLLETION = 'Recordings';
-const PLAYS_COLLETION = 'Recordings';
+const UPVOTES_COLLETION = 'Upvotes';
+const PLAYS_COLLETION = 'Plays';
 const BOOKMARKS_COLLETION = 'Bookmarks';
 
 // Fields
@@ -16,7 +16,7 @@ const RECORDING_ID_FIELD = 'recording_id';
 const RECORDING_URL_FIELD = 'recording_url';
 const RECORDING_PATH_FIELD = 'recording_path';
 const UPVOTE_COUNT_FIELD = 'upvotes';
-const PLAY_COUNT_FIELD = 'play_count';
+const PLAY_COUNT_FIELD = 'plays';
 const CREATED_AT_FIELD = 'created_at';
 const BIO_FIELD = 'bio';
 const NAME_FIELD = 'name';

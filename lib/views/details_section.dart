@@ -1,10 +1,10 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-import 'package:chipkizi/models/recording_model.dart';
+
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
-import 'package:chipkizi/views/circular_button.dart';
+
 import 'package:chipkizi/views/genre_chips.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/progress_button.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-const _tag = 'DetailsSectionView:';
+
 
 class DetailsSectionView extends StatelessWidget {
   @override

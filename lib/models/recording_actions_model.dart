@@ -65,8 +65,7 @@ abstract class RecordingActionsModel extends Model {
     return StatusCode.success;
   }
 
-  DocumentReference _getUpvoteDocumentRefFor(
-      Recording recording, User user) {
+  DocumentReference _getUpvoteDocumentRefFor(Recording recording, User user) {
     return _database
         .collection(RECORDINGS_COLLECTION)
         .document(recording.id)
@@ -85,10 +84,9 @@ abstract class RecordingActionsModel extends Model {
     /// if has upvoted, update upvote count by [user]
     /// if has not upvoted create upvote doc
     /// update [recording]'s [upvotes] field
-    DocumentSnapshot document =
-        await _getUpvoteDocumentRefFor(recording, user)
-            .get()
-            .catchError((error) {
+    DocumentSnapshot document = await _getUpvoteDocumentRefFor(recording, user)
+        .get()
+        .catchError((error) {
       print('$_tag error on getting user upvote document: $error');
       _hasError = true;
     });
@@ -159,11 +157,13 @@ abstract class RecordingActionsModel extends Model {
     return StatusCode.success;
   }
 
-  Future<bool> hasUpvoted(Recording recording, User user)async{
+  Future<bool> hasUpvoted(Recording recording, User user) async {
     print('$_tag at hasUpvoted');
+    if (user == null) return false;
     bool _hasError = false;
-    DocumentSnapshot document =  await _getUpvoteDocumentRefFor(recording, user).get()
-    .catchError((error){
+    DocumentSnapshot document = await _getUpvoteDocumentRefFor(recording, user)
+        .get()
+        .catchError((error) {
       print('$_tag error on getting upvote doc: $error');
       _hasError = true;
     });
@@ -217,15 +217,17 @@ abstract class RecordingActionsModel extends Model {
     return StatusCode.success;
   }
 
-  Future<StatusCode> _createBookmarkDoc(Recording recording, User user)async{
+  Future<StatusCode> _createBookmarkDoc(Recording recording, User user) async {
     print('$_tag at _createBookmarkDoc');
     bool _hasError = false;
     Map<String, dynamic> bookmarkMap = {
-      CREATED_AT_FIELD : DateTime.now().millisecondsSinceEpoch,
-      CREATED_BY_FIELD : user.id,
-      RECORDING_ID_FIELD : recording.id
+      CREATED_AT_FIELD: DateTime.now().millisecondsSinceEpoch,
+      CREATED_BY_FIELD: user.id,
+      RECORDING_ID_FIELD: recording.id
     };
-    await _getBookmarkDocumentRerFor(recording, user).setData(bookmarkMap).catchError((error){
+    await _getBookmarkDocumentRerFor(recording, user)
+        .setData(bookmarkMap)
+        .catchError((error) {
       print('$_tag error on creating bookmark doc: $error');
       _hasError = true;
     });
@@ -233,17 +235,18 @@ abstract class RecordingActionsModel extends Model {
     return StatusCode.success;
   }
 
-  Future<bool> hasBookmarked(Recording recording, User user)async{
+  Future<bool> hasBookmarked(Recording recording, User user) async {
     print('$_tag at hasUpvoted');
+    if (user == null) return false;
     bool _hasError = false;
-    DocumentSnapshot document =  await _getBookmarkDocumentRerFor(recording, user).get()
-    .catchError((error){
+    DocumentSnapshot document =
+        await _getBookmarkDocumentRerFor(recording, user)
+            .get()
+            .catchError((error) {
       print('$_tag error on getting bookmark doc: $error');
       _hasError = true;
     });
     if (_hasError || !document.exists) return false;
     return true;
   }
-
-  
 }

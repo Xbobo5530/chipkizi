@@ -28,12 +28,32 @@ class LoginPage extends StatelessWidget {
       }
     }
 
+    final _appBar = AppBar(
+      elevation: 0.0,
+      title: Hero(
+          tag: TAG_APP_TITLE,
+          flightShuttleBuilder: (
+            context,
+            animation,
+            duration,
+            _,
+            __,
+          ) {
+            return Icon(
+              Icons.fiber_manual_record,
+              color: Colors.white,
+            );
+          },
+          child: Text(loginText)),
+      leading: IconButton(
+        icon: Icon(Icons.keyboard_arrow_down),
+        onPressed: () => Navigator.pop(context),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Colors.brown,
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Hero(tag: TAG_APP_TITLE, child: Text(loginText)),
-      ),
+      appBar: _appBar,
       body: Center(
         child: ScopedModelDescendant<MainModel>(
           builder: (_, __, model) {

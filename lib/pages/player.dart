@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 
-const _tag = 'PlayerPage:';
+
 
 class PlayerPage extends StatelessWidget {
   final Recording recording;
@@ -40,6 +40,12 @@ class PlayerPage extends StatelessWidget {
       elevation: 0.0,
       leading: Hero(
         tag: TAG_MAIN_BUTTON,
+        // flightShuttleBuilder: (context, animation, duration, _,__){
+        //   return Icon(
+        //       Icons.keyboard_arrow_down,
+        //       color: Colors.white,
+        //     );
+        // },
         child: Material(
           color: Colors.transparent,
           child: IconButton(

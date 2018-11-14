@@ -1,10 +1,12 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
-import 'package:chipkizi/values/status_code.dart';
+import 'package:chipkizi/views/bookmark_button.dart';
+
 import 'package:chipkizi/views/circular_button.dart';
-import 'package:chipkizi/views/my_progress_indicator.dart';
+
 import 'package:chipkizi/views/play_button.dart';
+import 'package:chipkizi/views/upvote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -36,25 +38,9 @@ class RecordingCard extends StatelessWidget {
     _buildActions(MainModel model) => ButtonBar(
           alignment: MainAxisAlignment.center,
           children: <Widget>[
-            CircularIconButton(
-              button: IconButton(
-                icon: Icon(
-                  Icons.bookmark_border,
-                ),
-                onPressed: () {},
-              ),
-              color: Colors.white,
-            ),
+            BookmarkButtonView(recording: recording),
             PlayButtonView(recording: recording,),
-            CircularIconButton(
-              button: IconButton(
-                icon: Icon(
-                  Icons.favorite_border,
-                ),
-                onPressed: () {},
-              ),
-              color: Colors.white,
-            ),
+            UpvoteButtonView(recording: recording),
           ],
         );
     final _shareButton = Positioned(
