@@ -18,7 +18,7 @@ class RecordingsListItemView extends StatelessWidget {
       return FutureBuilder<User>(
         future: model.userFromId(recording.createdBy),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return Icon(Icons.music_note);
+          if (!snapshot.hasData) return Icon(Icons.mic);
           User user = snapshot.data;
           return CircleAvatar(
             backgroundColor: Colors.black12,
@@ -28,32 +28,6 @@ class RecordingsListItemView extends StatelessWidget {
       );
     });
 
-    // Future<void> _handleUpvote(MainModel model) async {
-    //   if (!model.isLoggedIn)
-    //     Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //             builder: (_) => LoginPage(), fullscreenDialog: true));
-    //   else
-    //     model.hanldeUpvoteRecording(recording, model.currentUser.id);
-    // }
-
-    // _handlePlayRecording() => Scaffold.of(context).showBottomSheet((context) {
-    //       return ListTile(
-    //         leading: _leadingSection,
-    //         title: Text(recording.title),
-    //         subtitle: FutureBuilder(
-    //             future: model.userFromId(recording.createdBy),
-    //             builder: (context, snapshot) {
-    //               if (!snapshot.hasData || snapshot.hasError)
-    //                 return Container();
-    //               User user = snapshot.data;
-    //               return Text(user.name);
-    //             }),
-    //         trailing: IconButton(
-    //             icon: Icon(Icons.favorite), onPressed: () => _handleUpvote()),
-    //       );
-    //     });
 
     return ListTile(
         leading: _leadingSection,

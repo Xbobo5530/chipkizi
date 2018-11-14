@@ -7,5 +7,6 @@ class MainModel extends Model
     with AccountModel, RecordingModel, NavigationModel {
   MainModel() {
     updateLoginStatus();
+    getRecordings();
   }
 }

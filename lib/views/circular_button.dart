@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class CircularIconButton extends StatelessWidget {
   final IconButton button;
   final Color color;
-  CircularIconButton({@required this.button, @required this.color});
+  final double size;
+
+  const CircularIconButton({Key key, this.button, this.color, this.size = 48.0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4.0,
-      color: color,
-      shape: CircleBorder(),
-      child: button,
-    );
+    return Container(
+        height: size,
+        width: size,
+        child: button,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle));
   }
 }

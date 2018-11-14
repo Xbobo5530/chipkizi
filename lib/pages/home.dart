@@ -38,7 +38,11 @@ class HomePage extends StatelessWidget {
 
     final _appBarSection = AppBar(
       leading: Icon(Icons.mic_none),
-      title: Hero(tag: TAG_APP_TITLE, child: Text(APP_NAME)),
+      title: Hero(
+        flightShuttleBuilder: (context, animatrion, direction, _,__){
+          return Icon(Icons.fiber_manual_record, color:  Colors.white,);
+        },
+        tag: TAG_APP_TITLE, child: Text(APP_NAME)),
       centerTitle: true,
       actions: <Widget>[
         ScopedModelDescendant<MainModel>(
