@@ -3,6 +3,8 @@ import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 
 import 'package:chipkizi/pages/player.dart';
+import 'package:chipkizi/values/status_code.dart';
+import 'package:chipkizi/values/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -28,16 +30,25 @@ class RecordingsListItemView extends StatelessWidget {
       );
     });
 
+    final _popUpMenu = PopupMenuButton(
+          child: Icon(Icons.more_vert),
+          itemBuilder: (BuildContext context) {
+            return <PopupMenuItem>[
+              // PopupMenuItem( child: Text(upvoteText),),
+              PopupMenuItem(value: RecordingActions.upvote, child: Text(upvoteText),),
+              PopupMenuItem(value: RecordingActions.share, child: Text(shareText),),
+              PopupMenuItem(value: RecordingActions.bookmark, child: Text(bookMarkText),),
+            ];
+          },
+        );
+
 
     return ListTile(
         leading: _leadingSection,
         title: Text(recording.title),
         isThreeLine: true,
         subtitle: Text(recording.description),
-        trailing: PopupMenuButton(
-          child: Icon(Icons.more_vert),
-          itemBuilder: (BuildContext context) {},
-        ),
+        trailing: _popUpMenu,
         onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
@@ -46,3 +57,9 @@ class RecordingsListItemView extends StatelessWidget {
         );
   }
 }
+
+enum RecordingActions{share, open, bookmark, upvote}
+const openText = 'Open';
+const shareText = 'Share';
+const bookMarkText = 'Bookmark';
+const upvoteText = 'Upvote';
