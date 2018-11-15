@@ -10,6 +10,11 @@ const nextText = 'Next';
 const titleText = 'Title';
 const descriptionText = 'Description';
 
+// const openText = 'Open';
+// const shareText = 'Share';
+// const bookMarkText = 'Bookmark';
+// const upvoteText = 'Upvote';
+
 //messages
 const errorMessage = 'Somethin went wrong, please try again.';
 const loginToViewProfileMessage = 'Please login to view your profile.';
