@@ -21,12 +21,12 @@ abstract class RecordingActionsModel extends Model {
   StatusCode _bookmarkingStatus;
   StatusCode get bookmarkingStatus => _bookmarkingStatus;
 
-  Future<StatusCode> deleteRecording(Recording recording, String userId) async {
+  Future<StatusCode> deleteRecording(Recording recording, User user) async {
     print('$_tag at deleteRecording');
     _deletingRecordingStatus = StatusCode.waiting;
     notifyListeners();
     bool _hasError = false;
-    if (recording.createdBy != userId) {
+    if (recording.createdBy != user.id) {
       _deletingRecordingStatus = StatusCode.failed;
       notifyListeners();
       return _deletingRecordingStatus;

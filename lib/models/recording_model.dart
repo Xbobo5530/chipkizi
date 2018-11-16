@@ -17,7 +17,7 @@ abstract class RecordingModel extends Model {
   final FirebaseStorage storage = FirebaseStorage();
 //  AudioCache audioCache =  AudioCache();
 
-FlutterSound flutterSound = FlutterSound();
+  FlutterSound flutterSound = FlutterSound();
 
   List<String> _selectedGenres = <String>[];
 
@@ -30,8 +30,6 @@ FlutterSound flutterSound = FlutterSound();
   String _recordingPath;
 
   StreamSubscription _recorderSubscription;
-  StreamSubscription _playerSubscription;
-  
 
   StatusCode _submitStatus;
   StatusCode get uploadStatus => _submitStatus;
@@ -42,20 +40,12 @@ FlutterSound flutterSound = FlutterSound();
   bool get isEditingTitle => _isEditingRecordingTitle;
   bool _isEditingRecordingDesc = false;
   bool get isEditingRecordingDesc => _isEditingRecordingDesc;
-
   bool _isRecording = false;
   bool get isRecording => _isRecording;
-
   String _recorderTxt = '00:00:00';
   String get recorderTxt => _recorderTxt;
-
-  
   double _recorderProgress = 0.0;
   double get recorderProgress => _recorderProgress;
-
-//  FlutterSound flutterSound;
-
-//  flutterSound.setSubscriptionDuration(0.01);
 
   Map<String, bool> genres = <String, bool>{
     'Gospel': false,
@@ -147,11 +137,35 @@ FlutterSound flutterSound = FlutterSound();
       PLAY_COUNT_FIELD: 0,
       GENRE_FIELD: _selectedGenres
     };
-    await _database
+    DocumentReference document = await _database
         .collection(RECORDINGS_COLLECTION)
         .add(recordingMap)
         .catchError((error) {
       print('$_tag error on creating recording doc: $error');
+      _hasError = true;
+    });
+    recording.id = document.documentID;
+    _createUserRecordingDocRef(recording);
+    if (_hasError) return StatusCode.failed;
+    return StatusCode.success;
+  }
+
+  Future<StatusCode> _createUserRecordingDocRef(Recording recording) async {
+    print('$_tag at _createUserRecordingDocRef');
+    bool _hasError = false;
+    Map<String, dynamic> refMap = {
+      CREATED_BY_FIELD: recording.createdBy,
+      CREATED_AT_FIELD: recording.createdAt,
+      RECORDING_ID_FIELD: recording.id,
+    };
+    await _database
+        .collection(USERS_COLLECTION)
+        .document(recording.createdBy)
+        .collection(RECORDINGS_COLLECTION)
+        .document(recording.id)
+        .setData(refMap)
+        .catchError((error) {
+      print('$_tag error on creating a recording reference for user: $error');
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;

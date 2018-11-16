@@ -49,9 +49,10 @@ abstract class PlayerModel extends Model {
     return StatusCode.success;
   }
 
-  Future<void> play(Recording recording) async {
+  Future<PlaybackStatus> play(Recording recording) async {
     print('$_tag at play');
     stop();
+    PlaybackStatus _playbackStatus;
     String path = await flutterSound
         .startPlayer(recording == null ? null : recording.recordingUrl);
     await flutterSound.setVolume(1.0);
@@ -68,10 +69,21 @@ abstract class PlayerModel extends Model {
           this._playerTxt = txt.substring(0, 8);
           _isPaused = false;
           notifyListeners();
+          
+          if (e.currentPosition == 0.0) _playbackStatus = PlaybackStatus.stopped;
+          if (e.currentPosition > 0.0) _playbackStatus = PlaybackStatus.playing;
+
+
         }
+
+        _playerSubscription.onDone((){
+          _playbackStatus = PlaybackStatus.stopped;
+        });
       });
+      return _playbackStatus;
     } catch (err) {
       print('error: $err');
+      return null;
     }
   }
 
@@ -81,11 +93,10 @@ abstract class PlayerModel extends Model {
     _playerSubscription =
          flutterSound.onPlayerStateChanged.listen((PlayStatus playStatus) {
            
-      if (playStatus == null) return PlaybackStatus.stopped;
-      if (playStatus.currentPosition == 0.0) return PlaybackStatus.stopped;
+      if (playStatus == null) _playbackStatus = PlaybackStatus.stopped;
+      if (playStatus.currentPosition == 0.0) _playbackStatus = PlaybackStatus.stopped;
+      if (playStatus.currentPosition > 0.0) _playbackStatus = PlaybackStatus.playing;
       // print('$_tag playbackStatus is: $_playbackStatus');
-      _playbackStatus = PlaybackStatus.playing;
-      return _playbackStatus;
     });
 
     _playerSubscription.onDone(() {
@@ -93,6 +104,7 @@ abstract class PlayerModel extends Model {
       _playerSubscription.cancel();
       // print('$_tag playbackStatus is: $_playbackStatus');
     });
+     print('$_tag playbackStatus is: $_playbackStatus');
     return _playbackStatus;
   }
 

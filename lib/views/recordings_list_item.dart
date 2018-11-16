@@ -94,8 +94,5 @@ class RecordingsListItemView extends StatelessWidget {
   }
 }
 
-enum RecordingActions { share, open, bookmark, upvote }
-const openText = 'Open';
-const shareText = 'Share';
-const bookMarkText = 'Bookmark';
-const upvoteText = 'Upvote';
+// enum RecordingActions { share, open, bookmark, upvote }
+
