@@ -178,7 +178,7 @@ abstract class PlayerModel extends Model {
   }
 
   List<Recording> getAllRecordings(Recording recording) {
-    print('$_tag at getAllRecordings');
+    // print('$_tag at getAllRecordings');
     List<Recording> tempList = <Recording>[];
     List<String> ids = recordings.keys.toList();
     ids.remove(recording.id);

@@ -89,21 +89,81 @@ class RecordingsListItemView extends StatelessWidget {
             _recordings = model.getAllRecordings(recording);
         }
 
-        return ListTile(
-            leading: _buildLeadingSection(model),
-            title: Text(recording.title),
-            isThreeLine: true,
-            subtitle: Text(recording.description),
-            trailing: _buildPopUpMenu(model),
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => PlayerPage(
-                          recording: recording,
-                          recordings: _recordings,
-                        ),
-                    fullscreenDialog: true)) //_handlePlayRecording(),
-            );
+        return Column(
+          children: <Widget>[
+            ListTile(
+                leading: _buildLeadingSection(model),
+                title: Text(recording.title),
+                isThreeLine: true,
+                subtitle: Column(
+                  children: <Widget>[
+                    Text(recording.description),
+                  ],
+                ),
+                trailing: _buildPopUpMenu(model),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => PlayerPage(
+                              recording: recording,
+                              recordings: _recordings,
+                            ),
+                        fullscreenDialog: true)) //_handlePlayRecording(),
+                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:8.0),
+              child: Row(
+
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Chip(
+                      label: Text('${recording.playCount}'),
+                      avatar: Icon(
+                        Icons.play_arrow,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right:8.0),
+                    child: Chip(
+                      label: Text('${recording.upvoteCount}'),
+                      avatar: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 30.0,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: recording.genre
+                            .map((genre) =>
+                            
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Chip(
+                                  label: Text(
+                                    genre,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: Colors.lightGreen,
+                                )),
+                            )
+                            
+                             
+                            .toList(),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
       },
     );
   }
