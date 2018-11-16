@@ -22,12 +22,12 @@ abstract class AccountModel extends Model {
   StatusCode get loginStatus => _loginInStatus;
   StatusCode _updatingLoginStatus;
   StatusCode get updatingLoginStatus => _updatingLoginStatus;
-  StatusCode _editingDetailsStatus;
-  StatusCode get editingDetailsStatus => _editingDetailsStatus;
-  bool _isEditingName = false;
-  bool get isEditingName => _isEditingName;
-  bool _isEditingDesc = false;
-  bool get isEditingDesc => _isEditingDesc;
+  StatusCode _editingUserDetailsStatus;
+  StatusCode get editingUserDetailsStatus => _editingUserDetailsStatus;
+  bool _isEditingUsername = false;
+  bool get isEditingName => _isEditingUsername;
+  bool _isEditingUserBio = false;
+  bool get isEditingDesc => _isEditingUserBio;
 
   Future<StatusCode> updateLoginStatus() async {
     print('$_tag at updateLoginStatus');
@@ -180,15 +180,19 @@ abstract class AccountModel extends Model {
     return userFromId;
   }
 
+  /// called when the user clicks the  edit profile icon
+  /// the [type] is a [DetailType] that will be passed to indicate
+  /// which field the user is updating
+  /// the [type] is for the user limited to [DetailType.name] and [DetailType.bio]
   void startEditingProfile(DetailType type) {
     print('$_tag at startEditingName');
     switch (type) {
       case DetailType.name:
-        _isEditingName = true;
+        _isEditingUsername = true;
         notifyListeners();
         break;
-      case DetailType.description:
-        _isEditingDesc = true;
+      case DetailType.bio:
+        _isEditingUserBio = true;
         notifyListeners();
         break;
       default:
@@ -196,15 +200,41 @@ abstract class AccountModel extends Model {
     }
   }
 
-  Future<StatusCode> editAccountDetails(User user, DetailType type) async {
-    print('$_tag at editAccountDetails');
-    _editingDetailsStatus = StatusCode.waiting;
+  /// called to reset the is editing fields whent he user has
+  /// finished editing the respective fields
+  /// the [type] is a [DetailType] a function will pass
+  /// to specify the field that needs reset
+  /// the [type] on isEditing fields will be limited to
+  /// [DetailType.name] which will reset the [_isEditingUsername] field to [false]
+  /// and teh [DetailType.bio] which will reset the [_isEditingUserBio] field to [false]
+  _resetIsEditingField (DetailType type){
     switch (type) {
       case DetailType.name:
-        _isEditingName = true;
+        _isEditingUsername = false;
+        break;
+      case DetailType.bio:
+        _isEditingUserBio = false;
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+  }
+
+  /// EditAccountDetails is called when the user finishes entering new detail
+  /// after clicking the edit profile icon
+  /// the [user] is of type [User] which is the user who is editing the profile
+  /// the [user] is typically the currenttly logged in user
+  /// the [DetailType] [type] is the specific field that the user is currently editing
+  /// the [type] for editAccountDetails is limited to [DetailType.name] and [DetailType.bio]
+  Future<StatusCode> editAccountDetails(User user, DetailType type) async {
+    print('$_tag at editAccountDetails');
+    _editingUserDetailsStatus = StatusCode.waiting;
+    switch (type) {
+      case DetailType.name:
+        _isEditingUsername = true;
         break;
       case DetailType.description:
-        _isEditingDesc = true;
+        _isEditingUserBio = true;
         break;
       default:
         print('$_tag unexpected type: $type');
@@ -228,23 +258,15 @@ abstract class AccountModel extends Model {
         .updateData(detailMap)
         .catchError((error) {
       print('$_tag error on updating user details: $error');
-      _editingDetailsStatus = StatusCode.failed;
+      _editingUserDetailsStatus = StatusCode.failed;
       _hasError = true;
+      _resetIsEditingField(type);
       notifyListeners();
     });
-    if (_hasError) return _editingDetailsStatus;
-    _editingDetailsStatus = StatusCode.success;
-    switch (type) {
-      case DetailType.name:
-        _isEditingName = false;
-        break;
-      case DetailType.description:
-        _isEditingDesc = false;
-        break;
-      default:
-        print('$_tag unexpected type: $type');
-    }
+    if (_hasError) return _editingUserDetailsStatus;
+    _editingUserDetailsStatus = StatusCode.success;
+    _resetIsEditingField(type);
     notifyListeners();
-    return _editingDetailsStatus;
+    return _editingUserDetailsStatus;
   }
 }

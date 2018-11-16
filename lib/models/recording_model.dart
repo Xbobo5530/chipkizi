@@ -36,8 +36,12 @@ abstract class RecordingModel extends Model {
 
   StatusCode _submitStatus;
   StatusCode get uploadStatus => _submitStatus;
-
-  
+  StatusCode _editingRecordingDetailsStatus;
+  StatusCode get editingRecordingDetailsStatus => _editingRecordingDetailsStatus;
+  bool _isEditingRecordingTitle = false;
+  bool get isEditingTitle => _isEditingRecordingTitle;
+  bool _isEditingRecordingDesc = false;
+  bool get isEditingRecordingDesc => _isEditingRecordingDesc;
   
   bool _isRecording = false;
   bool get isRecording => _isRecording;
@@ -279,4 +283,90 @@ abstract class RecordingModel extends Model {
       print('error: $err');
     }
   }
+
+  /// called when the user clicks the  edit recording details icon
+  /// the [type] is a [DetailType] that will be passed to indicate
+  /// which field the user is updating
+  /// the [type] is for the edit recording is limited to
+  /// [DetailType.title] and [DetailType.description]
+  void startEditingProfile(DetailType type) {
+    print('$_tag at startEditingName');
+    switch (type) {
+      case DetailType.title:
+        _isEditingRecordingTitle = true;
+        notifyListeners();
+        break;
+      case DetailType.description:
+        _isEditingRecordingDesc = true;
+        notifyListeners();
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+  }
+
+  /// called to reset the is editing fields whent he user has
+  /// finished editing the respective fields
+  /// the [type] is a [DetailType] a function will pass
+  /// to specify the field that needs reset
+  /// the [type] on isEditing fields will be limited to
+  /// [DetailType.title] which will reset the [_isEditingRecordingTitle] field to [false]
+  /// and teh [DetailType.description] which will reset the [_isEditingRecordingDesc] field to [false]
+  _resetIsEditingField (DetailType type){
+    switch (type) {
+      case DetailType.title:
+        _isEditingRecordingTitle = false;
+        break;
+      case DetailType.description:
+        _isEditingRecordingDesc = false;
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+  }
+
+  Future<StatusCode> editRecordingDetails(Recording recording, DetailType type)async{
+    print('$_tag at editRecordingDetails');
+    _editingRecordingDetailsStatus = StatusCode.waiting;
+    switch (type) {
+      case DetailType.title:
+        _isEditingRecordingTitle = true;
+        break;
+      case DetailType.description:
+        _isEditingRecordingDesc = true;
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+    notifyListeners();
+    bool _hasError = false;
+    Map<String, dynamic> detailMap = Map();
+    switch (type) {
+      case DetailType.title:
+        detailMap.putIfAbsent(TITLE_FIELD, () => recording.title);
+        break;
+      case DetailType.description:
+        detailMap.putIfAbsent(DESCRIPTION_FIELD, () => recording.description);
+        break;
+      default:
+        print('$_tag unexpected detail type: $type');
+    }
+    await _database
+        .collection(RECORDINGS_COLLECTION)
+        .document(recording.id)
+        .updateData(detailMap)
+        .catchError((error) {
+      print('$_tag error on updating user details: $error');
+      _editingRecordingDetailsStatus = StatusCode.failed;
+      _hasError = true;
+      _resetIsEditingField(type);
+      notifyListeners();
+    });
+    if (_hasError) return _editingRecordingDetailsStatus;
+    _editingRecordingDetailsStatus = StatusCode.success;
+    _resetIsEditingField(type);
+    notifyListeners();
+    return _editingRecordingDetailsStatus;
+  }
+  
 }
