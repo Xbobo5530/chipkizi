@@ -26,7 +26,7 @@ class PlayButtonView extends StatelessWidget {
                     color: Colors.red,
                     size: 32.0,
                   ),
-                  onPressed: () => model.stopPlayer(),
+                  onPressed: () => model.stop(),
                 )
 
               // : model.isPlaying
@@ -44,7 +44,7 @@ class PlayButtonView extends StatelessWidget {
                     color: Colors.green,
                     size: 32.0,
                   ),
-                  onPressed: () => model.playFromUrl(recording.recordingUrl),
+                  onPressed: () => model.play(recording) //model.playFromUrl(recording.recordingUrl),
                 ),
           color: Colors.white,
         );

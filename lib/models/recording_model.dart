@@ -10,7 +10,6 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 
-
 const _tag = 'RecordingModel:';
 
 abstract class RecordingModel extends Model {
@@ -18,7 +17,7 @@ abstract class RecordingModel extends Model {
   final FirebaseStorage storage = FirebaseStorage();
 //  AudioCache audioCache =  AudioCache();
 
-  
+FlutterSound flutterSound = FlutterSound();
 
   List<String> _selectedGenres = <String>[];
 
@@ -32,17 +31,18 @@ abstract class RecordingModel extends Model {
 
   StreamSubscription _recorderSubscription;
   StreamSubscription _playerSubscription;
-  FlutterSound flutterSound = FlutterSound();
+  
 
   StatusCode _submitStatus;
   StatusCode get uploadStatus => _submitStatus;
   StatusCode _editingRecordingDetailsStatus;
-  StatusCode get editingRecordingDetailsStatus => _editingRecordingDetailsStatus;
+  StatusCode get editingRecordingDetailsStatus =>
+      _editingRecordingDetailsStatus;
   bool _isEditingRecordingTitle = false;
   bool get isEditingTitle => _isEditingRecordingTitle;
   bool _isEditingRecordingDesc = false;
   bool get isEditingRecordingDesc => _isEditingRecordingDesc;
-  
+
   bool _isRecording = false;
   bool get isRecording => _isRecording;
 
@@ -50,13 +50,6 @@ abstract class RecordingModel extends Model {
   String get recorderTxt => _recorderTxt;
 
   
-  bool _isPaused = false;
-  bool get isPaused => _isPaused;
-
-  
-  String _playerTxt = '00:00:00';
-  String get playerText => _playerTxt;
-
   double _recorderProgress = 0.0;
   double get recorderProgress => _recorderProgress;
 
@@ -77,25 +70,11 @@ abstract class RecordingModel extends Model {
     'Other': false,
   };
 
-  
-
   void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
         (isSelected) => isSelected ? false : true);
     notifyListeners();
   }
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
@@ -179,8 +158,6 @@ abstract class RecordingModel extends Model {
     return StatusCode.success;
   }
 
-  
-
   Future<void> startRecording() async {
     print('$_tag at startRecording');
     try {
@@ -229,67 +206,12 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<void> playRecording() async {
-    String path = await flutterSound.startPlayer(null);
-    await flutterSound.setVolume(1.0);
-    print('startPlayer: $path');
-
-    try {
-      _playerSubscription = flutterSound.onPlayerStateChanged.listen((e) {
-        if (e != null) {
-          DateTime date = new DateTime.fromMillisecondsSinceEpoch(
-              e.currentPosition.toInt());
-          String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
-
-          // this._isPlaying = true;
-          this._playerTxt = txt.substring(0, 8);
-          _isPaused = false;
-          notifyListeners();
-        }
-      });
-    } catch (err) {
-      print('error: $err');
-    }
-  }
-
-  Future<void> pauseRecordingPlayback() async {
-    String result = await flutterSound.pausePlayer();
-    _isPaused = true;
-    notifyListeners();
-    print('pausePlayer: $result');
-  }
-
-  Future<void> resumeRecordingPlayback() async {
-    String result = await flutterSound.resumePlayer();
-    _isPaused = false;
-    notifyListeners();
-    print('resumePlayer: $result');
-  }
-
-  Future<void> stopRecordingPlayback() async {
-    try {
-      String result = await flutterSound.stopPlayer();
-      print('stopPlayer: $result');
-      if (_playerSubscription != null) {
-        _playerSubscription.cancel();
-        _playerSubscription = null;
-      }
-
-      // this._isPlaying = false;
-      _isPaused = false;
-      _playerTxt = '00:00:00';
-      notifyListeners();
-    } catch (err) {
-      print('error: $err');
-    }
-  }
-
   /// called when the user clicks the  edit recording details icon
   /// the [type] is a [DetailType] that will be passed to indicate
   /// which field the user is updating
   /// the [type] is for the edit recording is limited to
   /// [DetailType.title] and [DetailType.description]
-  void startEditingProfile(DetailType type) {
+  void startEditingRecordingDetails(DetailType type) {
     print('$_tag at startEditingName');
     switch (type) {
       case DetailType.title:
@@ -305,14 +227,14 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  /// called to reset the is editing fields whent he user has
+  /// called to reset the is editing fields when he user has
   /// finished editing the respective fields
   /// the [type] is a [DetailType] a function will pass
   /// to specify the field that needs reset
   /// the [type] on isEditing fields will be limited to
   /// [DetailType.title] which will reset the [_isEditingRecordingTitle] field to [false]
   /// and teh [DetailType.description] which will reset the [_isEditingRecordingDesc] field to [false]
-  _resetIsEditingField (DetailType type){
+  _resetIsEditingField(DetailType type) {
     switch (type) {
       case DetailType.title:
         _isEditingRecordingTitle = false;
@@ -325,7 +247,15 @@ abstract class RecordingModel extends Model {
     }
   }
 
-  Future<StatusCode> editRecordingDetails(Recording recording, DetailType type)async{
+  /// editRecordingDetails is called when the user finishes entering new detail
+  /// after clicking the edit recording details icon
+  /// the [recording] is of type [Recording] which is the user who is editing the recording details
+  /// the [user] is typically the currenttly logged in user
+  /// the [DetailType] [type] is the specific field that the user is currently editing
+  /// the [type] for editRecordingDetails is limited to [DetailType.name] and [DetailType.bio]
+
+  Future<StatusCode> editRecordingDetails(
+      Recording recording, DetailType type) async {
     print('$_tag at editRecordingDetails');
     _editingRecordingDetailsStatus = StatusCode.waiting;
     switch (type) {
@@ -368,5 +298,4 @@ abstract class RecordingModel extends Model {
     notifyListeners();
     return _editingRecordingDetailsStatus;
   }
-  
 }

@@ -1,31 +1,34 @@
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'dart:async';
+import 'package:intl/intl.dart' show DateFormat;
 
 const _tag = 'PlayerModel:';
-abstract class PlayerModel extends Model{
 
+abstract class PlayerModel extends Model {
   final Firestore _database = Firestore.instance;
+  FlutterSound flutterSound = FlutterSound();
+  StreamSubscription _playerSubscription;
 
-  AudioPlayer audioPlayer = AudioPlayer();
-
-  String _currentPlaybackUrl;
-
+  // AudioPlayer audioPlayer = AudioPlayer();
   Map<String, Recording> _recordings = Map();
   Map<String, Recording> get recordings => _recordings;
 
-
-
-bool _isPlaying = false;
+  bool _isPlaying = false;
   bool get isPlaying => _isPlaying;
   StatusCode _playerStatus;
   StatusCode get playerStatus => _playerStatus;
+  bool _isPaused = false;
+  bool get isPaused => _isPaused;
+  String _playerTxt = '00:00:00';
+  String get playerText => _playerTxt;
 
-
-Future<StatusCode> getRecordings() async {
+  Future<StatusCode> getRecordings() async {
     print('$_tag at getRecordings');
     bool _hasError = false;
     QuerySnapshot snapshot = await _database
@@ -45,80 +48,65 @@ Future<StatusCode> getRecordings() async {
     _recordings = tempMap;
     return StatusCode.success;
   }
-  
 
-  void resetPlayer(){
-    stopPlayer();
-    _isPlaying = false;
-    _playerStatus = StatusCode.success;
-    notifyListeners();
+  Future<void> play(Recording recording) async {
+    print('$_tag at play');
+    stop();
+    String path = await flutterSound
+        .startPlayer(recording == null ? null : recording.recordingUrl);
+    await flutterSound.setVolume(1.0);
+    print('startPlayer: $path');
+
+    try {
+      _playerSubscription = flutterSound.onPlayerStateChanged.listen((e) {
+        if (e != null) {
+          DateTime date = new DateTime.fromMillisecondsSinceEpoch(
+              e.currentPosition.toInt());
+          String txt = DateFormat('mm:ss:SS', 'en_US').format(date);
+
+          // this._isPlaying = true;
+          this._playerTxt = txt.substring(0, 8);
+          _isPaused = false;
+          notifyListeners();
+        }
+      });
+    } catch (err) {
+      print('error: $err');
+    }
   }
 
-  Future<StatusCode> playFromUrl(String url) async {
-    print('$_tag at playFromUrl\nurl is: $url');
-    _playerStatus = StatusCode.waiting;
+  Future<void> pause() async {
+    print('$_tag at pause');
+    String result = await flutterSound.pausePlayer();
+    _isPaused = true;
     notifyListeners();
-    // if (url == _currentPlaybackUrl) {
-    //   _playerStatus = await resumePlayer();
-    //   notifyListeners();
-    //   return _playerStatus;
-    // }
-    url = _currentPlaybackUrl;
-    bool _hasError = false;
-    int result = await audioPlayer.play(url);
-    if (result != 1) {
-      print('$_tag error on playing from url: status is $result');
-      _hasError = true;
-    }
+    print('pausePlayer: $result');
+  }
 
-    if (_hasError) {
-      _playerStatus = StatusCode.failed;
+  Future<void> resume() async {
+    print('$_tag at resume');
+    String result = await flutterSound.resumePlayer();
+    _isPaused = false;
+    notifyListeners();
+    print('resumePlayer: $result');
+  }
+
+  Future<void> stop() async {
+    print('$_tag at stop');
+    try {
+      String result = await flutterSound.stopPlayer();
+      print('stopPlayer: $result');
+      if (_playerSubscription != null) {
+        _playerSubscription.cancel();
+        _playerSubscription = null;
+      }
+
+      // this._isPlaying = false;
+      _isPaused = false;
+      _playerTxt = '00:00:00';
       notifyListeners();
-      return _playerStatus;
+    } catch (err) {
+      print('error: $err');
     }
-
-    _playerStatus = StatusCode.success;
-    notifyListeners();
-    return _playerStatus;
   }
-  Future<StatusCode> pausePlayer() async {
-    print('$_tag at pausePlayer');
-    bool _hasError = false;
-    int result = await audioPlayer.pause();
-    if (result != 1) {
-      _hasError = true;
-      print('$_tag error on pausing player playback');
-    }
-    if (_hasError) return StatusCode.failed;
-    return StatusCode.success;
-  }
-
-  Future<StatusCode> resumePlayer() async {
-    print('$_tag at resumePlayer');
-    bool _hasError = false;
-    int result = await audioPlayer.resume();
-    if (result != 1) {
-      _hasError = true;
-      print('$_tag error on resuming player playback');
-    }
-    if (_hasError) return StatusCode.failed;
-    return StatusCode.success;
-  }
-
-  Future<StatusCode> stopPlayer() async {
-    print('$_tag at stopPlayer');
-    bool _hasError = false;
-    int result = await audioPlayer.stop();
-    if (result != 1) {
-      _hasError = true;
-      print('$_tag error on stopping player playback');
-    }
-    if (_hasError) return StatusCode.failed;
-    _isPlaying = false;
-    notifyListeners();
-    _playerStatus = StatusCode.success;
-    return _playerStatus;
-  }
-
-  
 }

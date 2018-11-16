@@ -78,12 +78,17 @@ abstract class RecordingActionsModel extends Model {
     print('$_tag at upvoteRecording');
     _upvotingRecordingStatus = StatusCode.waiting;
     notifyListeners();
+    _upvotingRecordingStatus = await _updateRecordingVotes(recording);
+    notifyListeners();
+    _handleUserUpvoteDocs(recording, user);
+    return _upvotingRecordingStatus;
+  }
+
+  Future<StatusCode> _handleUserUpvoteDocs(
+      Recording recording, User user) async {
+    print('$_tag at _handleUserUpvoteDocs');
     bool _hasError = false;
 
-    /// check if use has already upvoted
-    /// if has upvoted, update upvote count by [user]
-    /// if has not upvoted create upvote doc
-    /// update [recording]'s [upvotes] field
     DocumentSnapshot document = await _getUpvoteDocumentRefFor(recording, user)
         .get()
         .catchError((error) {
@@ -95,14 +100,9 @@ abstract class RecordingActionsModel extends Model {
       notifyListeners();
       return _upvotingRecordingStatus;
     }
-    if (document.exists) {
-      _upvotingRecordingStatus = await _addVote(recording, user);
-      notifyListeners();
-      return _upvotingRecordingStatus;
-    }
-    _upvotingRecordingStatus = await _createVote(recording, user);
-    notifyListeners();
-    return _upvotingRecordingStatus;
+    if (document.exists) return await _addVote(recording, user);
+
+    return _createVote(recording, user);
   }
 
   Future<StatusCode> _addVote(Recording recording, User user) async {
@@ -171,19 +171,20 @@ abstract class RecordingActionsModel extends Model {
     return true;
   }
 
-  Future<int>  getUpvoteCountFor(String recordingId)async{
+  Future<int> getUpvoteCountFor(String recordingId) async {
     print('$_tag at getUpvoteCoutFor');
     bool _hasError = false;
     DocumentSnapshot document = await _database
-    .collection(RECORDINGS_COLLECTION)
-    .document(recordingId).get().catchError((error){
+        .collection(RECORDINGS_COLLECTION)
+        .document(recordingId)
+        .get()
+        .catchError((error) {
       print('$_tag error on getting recording doc for upvote count: $error');
       _hasError = true;
     });
     if (_hasError || !document.exists) return 0;
     Recording _recording = Recording.fromSnaspshot(document);
     return _recording.upvoteCount;
-
   }
 
   DocumentReference _getBookmarkDocumentRerFor(Recording recording, User user) {

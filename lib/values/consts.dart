@@ -25,8 +25,8 @@ const NAME_FIELD = 'name';
 const GENRE_FIELD = 'genre';
 
 // values
-VAL_IS_MODIFIED = 1;
-VAL_NOT_MODIFIED = 0;
+const VAL_IS_MODIFIED = 1;
+const VAL_NOT_MODIFIED = 0;
 
 // Nav items
 const NAV_ITEM_HOME = 0;
