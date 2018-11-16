@@ -8,6 +8,7 @@ import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/genre_chips.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/progress_button.dart';
+import 'package:chipkizi/views/submit_recording_success.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -159,15 +160,21 @@ class DetailsSectionView extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return model.uploadStatus == StatusCode.waiting
+        return //SubmitRecordingSuccessView();
+        
+        
+        model.uploadStatus == StatusCode.waiting
             ? _waitingScreen
-            : Scaffold(
+            : model.uploadStatus == StatusCode.success?
+            SubmitRecordingSuccessView()
+            :
+            
+            
+            Scaffold(
                 backgroundColor: Colors.brown,
                 appBar: _appBar,
                 body: Column(
                   children: <Widget>[
-//                    _titleField,
-//                    _descField,
                     _buildField(_titleController, 1, Icons.title, titleText,
                         FontWeight.bold),
                     _buildField(_descriptionController, null, Icons.description,

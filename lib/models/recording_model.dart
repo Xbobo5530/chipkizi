@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:chipkizi/models/player_model.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart' show DateFormat;
@@ -12,7 +13,7 @@ import 'package:uuid/uuid.dart';
 
 const _tag = 'RecordingModel:';
 
-abstract class RecordingModel extends Model {
+abstract class RecordingModel extends Model with PlayerModel {
   final Firestore _database = Firestore.instance;
   final FirebaseStorage storage = FirebaseStorage();
 //  AudioCache audioCache =  AudioCache();
@@ -21,11 +22,14 @@ abstract class RecordingModel extends Model {
 
   List<String> _selectedGenres = <String>[];
 
+  Recording _lastSubmittedRecording;
+  Recording get lastSubmittedRecording => _lastSubmittedRecording;
+
   Stream<QuerySnapshot> recordingsStream =
       Firestore.instance.collection(RECORDINGS_COLLECTION).snapshots();
 
   String _defaultRecordingPath;
-  List<StorageUploadTask> _tasks = <StorageUploadTask>[];
+  StorageUploadTask _task;
   String _recordingUrl;
   String _recordingPath;
 
@@ -66,6 +70,12 @@ abstract class RecordingModel extends Model {
     notifyListeners();
   }
 
+  void resetSubmitStatus(){
+    _lastSubmittedRecording = null;
+    _submitStatus = null;
+    _task.cancel();
+  }
+
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
     _submitStatus = StatusCode.waiting;
@@ -78,7 +88,7 @@ abstract class RecordingModel extends Model {
       return _submitStatus;
     }
     _submitStatus = await _createRecordingDoc(recording);
-    notifyListeners();
+    if (_submitStatus == StatusCode.success) getRecordings();
     return _submitStatus;
   }
 
@@ -103,6 +113,7 @@ abstract class RecordingModel extends Model {
 
     /// TODO: monitor uploads
 //    _tasks.add(uploadTask);
+    _task = uploadTask;
 
     StorageTaskSnapshot snapshot =
         await uploadTask.onComplete.catchError((error) {
@@ -145,6 +156,8 @@ abstract class RecordingModel extends Model {
       _hasError = true;
     });
     recording.id = document.documentID;
+    _lastSubmittedRecording = await _getRecordingFromId(recording.id);
+    notifyListeners();
     _createUserRecordingDocRef(recording);
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
@@ -171,6 +184,8 @@ abstract class RecordingModel extends Model {
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
   }
+
+
 
   Future<void> startRecording() async {
     print('$_tag at startRecording');
@@ -311,5 +326,18 @@ abstract class RecordingModel extends Model {
     _resetIsEditingField(type);
     notifyListeners();
     return _editingRecordingDetailsStatus;
+  }
+
+  Future<Recording> _getRecordingFromId(String id)async{
+    print('$_tag at _getRecordingFromId');
+    bool _hasError = false;
+    DocumentSnapshot document = await _database.collection(RECORDINGS_COLLECTION).document(id).get()
+    .catchError((error){
+      print('$_tag error on getting recording from id: $error');
+      _hasError = true;
+    });
+    if (_hasError) return null;
+    if (!document.exists) return null;  
+    return Recording.fromSnaspshot(document);
   }
 }

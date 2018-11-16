@@ -16,7 +16,9 @@ class RecordingsListItemView extends StatelessWidget {
   final ListType type;
   final List<Recording> recordings;
 
-  const RecordingsListItemView({Key key, this.recording, this.type, this.recordings}) : super(key: key);
+  const RecordingsListItemView(
+      {Key key, this.recording, this.type, this.recordings})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,19 +77,16 @@ class RecordingsListItemView extends StatelessWidget {
           },
         );
 
-        
-
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        
         List<Recording> _recordings = <Recording>[];
-        switch(type){
+        switch (type) {
           case ListType.bookmarks:
           case ListType.userRecordings:
-          _recordings = recordings;
-          break;
+            _recordings = recordings;
+            break;
           default:
-          _recordings = model.getAllRecordings(recording);
+            _recordings = model.getAllRecordings(recording);
         }
 
         return ListTile(
