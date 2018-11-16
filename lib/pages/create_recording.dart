@@ -30,15 +30,20 @@ class RecordingPage extends StatelessWidget {
             );
           },
           child: ScopedModelDescendant<MainModel>(
-            builder: (_, __, model) {
+            builder: (context, __, model) {
               return IconButton(
                 icon: Icon(
                   Icons.navigate_next,
                 ),
                 onPressed: () {
                   model.resetSubmitStatus();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => DetailsSectionView()));
+                  model.isReadyToSubmit
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => DetailsSectionView()))
+                      : Scaffold.of(context)
+                          .showSnackBar(SnackBar(content: Text(tapRecordHint)));
                 },
               );
             },

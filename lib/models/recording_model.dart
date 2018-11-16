@@ -29,6 +29,7 @@ abstract class RecordingModel extends Model with PlayerModel {
       Firestore.instance.collection(RECORDINGS_COLLECTION).snapshots();
 
   String _defaultRecordingPath;
+  bool get isReadyToSubmit => _defaultRecordingPath != null;
   StorageUploadTask _task;
   String _recordingUrl;
   String _recordingPath;
@@ -73,7 +74,7 @@ abstract class RecordingModel extends Model with PlayerModel {
   void resetSubmitStatus(){
     _lastSubmittedRecording = null;
     _submitStatus = null;
-    _task.cancel();
+    // _task.cancel();
   }
 
   Future<StatusCode> handleSubmit(Recording recording) async {

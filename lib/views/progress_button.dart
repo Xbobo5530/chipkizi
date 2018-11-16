@@ -11,7 +11,7 @@ class ProgressButton extends StatelessWidget {
 
   const ProgressButton(
       {Key key,
-      @required this.indicator,
+     this.indicator,
       @required this.size,
       @required this.button,
       @required this.color})
@@ -27,7 +27,9 @@ class ProgressButton extends StatelessWidget {
           left: 0.0,
           right: 0.0,
           child: indicator,
-        ),
+        ), 
+        indicator != null 
+        ?
         Material(
           shape: CircleBorder(),
           color: color,
@@ -38,7 +40,8 @@ class ProgressButton extends StatelessWidget {
             decoration: BoxDecoration(shape: BoxShape.circle),
             child: button,
           ),
-        ),
+        ):
+        Container(),
       ],
     );
   }

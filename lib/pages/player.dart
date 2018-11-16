@@ -1,10 +1,10 @@
-import 'package:chipkizi/models/main_model.dart';
+
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/player_recording_card.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+
 
 
 
@@ -23,23 +23,7 @@ class PlayerPage extends StatelessWidget {
     );
     
     
-    // .builder(
-    //     // onPageChanged: (pageNumber)=> model.resetPlayer(),
-    //     itemCount: recordings.length,
-    //     itemBuilder: (BuildContext context, int index) {
-    //       if (index == 0)
-    //         return RecordingCard(
-    //           recording: recording,
-    //         );
-    //       // List<String> recordingsIds = model.recordings.keys.toList();
-    //       // recordingsIds.remove(this.recording.id);
-    //       // recordingsIds.shuffle();
-    //       // Recording recording = model.recordings[recordingsIds[index]];
-    //       return RecordingCard(
-    //         recording: recordings[index],
-    //       );
-    //     },
-    //   );
+   
 
     final _appBar = AppBar(
       elevation: 0.0,
