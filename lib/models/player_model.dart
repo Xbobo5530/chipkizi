@@ -75,6 +75,27 @@ abstract class PlayerModel extends Model {
     }
   }
 
+  Future<PlaybackStatus> getPlayStatusFor(Recording recording) async {
+    print('$_tag at getPlayStatusFor');
+    PlaybackStatus _playbackStatus;
+    _playerSubscription =
+         flutterSound.onPlayerStateChanged.listen((PlayStatus playStatus) {
+           
+      if (playStatus == null) return PlaybackStatus.stopped;
+      if (playStatus.currentPosition == 0.0) return PlaybackStatus.stopped;
+      // print('$_tag playbackStatus is: $_playbackStatus');
+      _playbackStatus = PlaybackStatus.playing;
+      return _playbackStatus;
+    });
+
+    _playerSubscription.onDone(() {
+      _playbackStatus = PlaybackStatus.stopped;
+      _playerSubscription.cancel();
+      // print('$_tag playbackStatus is: $_playbackStatus');
+    });
+    return _playbackStatus;
+  }
+
   Future<void> pause() async {
     print('$_tag at pause');
     String result = await flutterSound.pausePlayer();
