@@ -45,6 +45,8 @@ class UserRecordingsPage extends StatelessWidget {
                 children: recordings
                     .map((recording) => RecordingsListItemView(
                           recording: recording,
+                          type: type,
+                          recordings: recordings,
                         ))
                     .toList());
           },

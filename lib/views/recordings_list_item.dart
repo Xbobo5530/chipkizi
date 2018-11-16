@@ -13,8 +13,10 @@ const _tag = 'RecordingsListItemView:';
 
 class RecordingsListItemView extends StatelessWidget {
   final Recording recording;
+  final ListType type;
+  final List<Recording> recordings;
 
-  const RecordingsListItemView({Key key, this.recording}) : super(key: key);
+  const RecordingsListItemView({Key key, this.recording, this.type, this.recordings}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +40,20 @@ class RecordingsListItemView extends StatelessWidget {
       }
     }
 
-    final _leadingSection =
-        ScopedModelDescendant<MainModel>(builder: (_, __, model) {
-      return FutureBuilder<User>(
-        future: model.userFromId(recording.createdBy),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return Icon(Icons.mic);
-          User user = snapshot.data;
-          return CircleAvatar(
-            backgroundColor: Colors.black12,
-            backgroundImage: NetworkImage(user.imageUrl),
-          );
-        },
-      );
-    });
+    Widget _buildLeadingSection(MainModel model) => FutureBuilder<User>(
+          future: model.userFromId(recording.createdBy),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return Icon(Icons.mic);
+            User user = snapshot.data;
+            return CircleAvatar(
+              backgroundColor: Colors.black12,
+              backgroundImage: NetworkImage(user.imageUrl),
+            );
+          },
+        );
 
-    final _popUpMenu = ScopedModelDescendant<MainModel>(
-      builder: (_, __, model) {
-        return PopupMenuButton<RecordingActions>(
+    Widget _buildPopUpMenu(MainModel model) =>
+        PopupMenuButton<RecordingActions>(
           onSelected: (action) => _handleAction(context, model, action),
           child: Icon(Icons.more_vert),
           itemBuilder: (BuildContext context) {
@@ -76,23 +74,40 @@ class RecordingsListItemView extends StatelessWidget {
             ];
           },
         );
+
+        
+
+    return ScopedModelDescendant<MainModel>(
+      builder: (_, __, model) {
+        
+        List<Recording> _recordings = <Recording>[];
+        switch(type){
+          case ListType.bookmarks:
+          case ListType.userRecordings:
+          _recordings = recordings;
+          break;
+          default:
+          _recordings = model.getAllRecordings(recording);
+        }
+
+        return ListTile(
+            leading: _buildLeadingSection(model),
+            title: Text(recording.title),
+            isThreeLine: true,
+            subtitle: Text(recording.description),
+            trailing: _buildPopUpMenu(model),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => PlayerPage(
+                          recording: recording,
+                          recordings: _recordings,
+                        ),
+                    fullscreenDialog: true)) //_handlePlayRecording(),
+            );
       },
     );
-
-    return ListTile(
-        leading: _leadingSection,
-        title: Text(recording.title),
-        isThreeLine: true,
-        subtitle: Text(recording.description),
-        trailing: _popUpMenu,
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => PlayerPage(recording: recording),
-                fullscreenDialog: true)) //_handlePlayRecording(),
-        );
   }
 }
 
 // enum RecordingActions { share, open, bookmark, upvote }
-

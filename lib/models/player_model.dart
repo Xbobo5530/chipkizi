@@ -149,7 +149,7 @@ abstract class PlayerModel extends Model {
   Future<List<Recording>> getUserRecordings(User user, ListType type) async {
     print('$_tag at getUserRecordings');
     bool _hasError = false;
-    
+
     QuerySnapshot snapshot = await _database
         .collection(USERS_COLLECTION)
         .document(user.id)
@@ -169,24 +169,26 @@ abstract class PlayerModel extends Model {
       String recordingId = document.documentID;
       Recording recording = recordings[recordingId];
 
- tempList.add(recording);
-
-      // DocumentSnapshot recordingDoc = await _database
-      //     .collection(RECORDINGS_COLLECTION)
-      //     .document(recordingId)
-      //     .get()
-      //     .catchError((error) {
-      //   print('$_tag error on getting reccording document: $error');
-      //   _hasError = false;
-      // });
-      // if (!_hasError && recordingDoc.exists) {
-      //   Recording recording = Recording.fromSnaspshot(recordingDoc);
-       
-      // }
+      tempList.add(recording);
     });
     // print('$_tag list has ${recordingsList.length} recordings');
     _userRecordingsList = tempList;
     print('$_tag list has ${_userRecordingsList.length} recordings');
     return _userRecordingsList;
+  }
+
+  List<Recording> getAllRecordings(Recording recording) {
+    print('$_tag at getAllRecordings');
+    List<Recording> tempList = <Recording>[];
+    List<String> ids = recordings.keys.toList();
+    ids.remove(recording.id);
+    ids.shuffle();
+    ids.insert(0, recording.id);
+    ids.forEach((id) {
+      Recording _recording = recordings[id];
+      tempList.add(_recording);
+    });
+
+    return tempList;
   }
 }
