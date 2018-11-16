@@ -71,7 +71,7 @@ class RecordingsListItemView extends StatelessWidget {
               ),
               PopupMenuItem(
                 value: RecordingActions.bookmark,
-                child: Text(bookMarkText),
+                child: Text(bookmarkText),
               ),
             ];
           },

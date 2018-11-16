@@ -4,7 +4,7 @@ const meText = 'Me';
 const waitText = 'Tafadhali subiri...';
 const submitText = 'Submit';
 const loginText = 'Login';
-const myRecordingsText = 'My recordings';
+
 const nextText = 'Next';
 
 const titleText = 'Title';
@@ -12,8 +12,13 @@ const descriptionText = 'Description';
 
 const openText = 'Open';
 const shareText = 'Share';
-const bookMarkText = 'Bookmark';
+const bookmarkText = 'Bookmark';
 const upvoteText = 'Upvote';
+
+const bookmarksText = 'Bookmarks';
+const recordingsText = 'recordings';
+const myRecordingsText = 'My recordings';
+
 
 //messages
 const errorMessage = 'Somethin went wrong, please try again.';

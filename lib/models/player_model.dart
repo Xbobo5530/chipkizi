@@ -1,5 +1,6 @@
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:chipkizi/models/recording.dart';
+import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +19,8 @@ abstract class PlayerModel extends Model {
   // AudioPlayer audioPlayer = AudioPlayer();
   Map<String, Recording> _recordings = Map();
   Map<String, Recording> get recordings => _recordings;
+
+  List<Recording> _userRecordingsList = <Recording>[];
 
   bool _isPlaying = false;
   bool get isPlaying => _isPlaying;
@@ -69,14 +72,13 @@ abstract class PlayerModel extends Model {
           this._playerTxt = txt.substring(0, 8);
           _isPaused = false;
           notifyListeners();
-          
-          if (e.currentPosition == 0.0) _playbackStatus = PlaybackStatus.stopped;
+
+          if (e.currentPosition == 0.0)
+            _playbackStatus = PlaybackStatus.stopped;
           if (e.currentPosition > 0.0) _playbackStatus = PlaybackStatus.playing;
-
-
         }
 
-        _playerSubscription.onDone((){
+        _playerSubscription.onDone(() {
           _playbackStatus = PlaybackStatus.stopped;
         });
       });
@@ -91,11 +93,12 @@ abstract class PlayerModel extends Model {
     print('$_tag at getPlayStatusFor');
     PlaybackStatus _playbackStatus;
     _playerSubscription =
-         flutterSound.onPlayerStateChanged.listen((PlayStatus playStatus) {
-           
+        flutterSound.onPlayerStateChanged.listen((PlayStatus playStatus) {
       if (playStatus == null) _playbackStatus = PlaybackStatus.stopped;
-      if (playStatus.currentPosition == 0.0) _playbackStatus = PlaybackStatus.stopped;
-      if (playStatus.currentPosition > 0.0) _playbackStatus = PlaybackStatus.playing;
+      if (playStatus.currentPosition == 0.0)
+        _playbackStatus = PlaybackStatus.stopped;
+      if (playStatus.currentPosition > 0.0)
+        _playbackStatus = PlaybackStatus.playing;
       // print('$_tag playbackStatus is: $_playbackStatus');
     });
 
@@ -104,7 +107,7 @@ abstract class PlayerModel extends Model {
       _playerSubscription.cancel();
       // print('$_tag playbackStatus is: $_playbackStatus');
     });
-     print('$_tag playbackStatus is: $_playbackStatus');
+    print('$_tag playbackStatus is: $_playbackStatus');
     return _playbackStatus;
   }
 
@@ -141,5 +144,49 @@ abstract class PlayerModel extends Model {
     } catch (err) {
       print('error: $err');
     }
+  }
+
+  Future<List<Recording>> getUserRecordings(User user, ListType type) async {
+    print('$_tag at getUserRecordings');
+    bool _hasError = false;
+    
+    QuerySnapshot snapshot = await _database
+        .collection(USERS_COLLECTION)
+        .document(user.id)
+        .collection(type == ListType.bookmarks
+            ? BOOKMARKS_COLLETION
+            : RECORDINGS_COLLECTION)
+        .getDocuments()
+        .catchError((error) {
+      print('$_tag error on getting user recordings documents $error');
+      _hasError = true;
+    });
+    if (_hasError) return null;
+    List<Recording> tempList = <Recording>[];
+    List<DocumentSnapshot> documents = snapshot.documents;
+    // print('$_tag list has ${documents.length} recordings');
+    documents.forEach((document) async {
+      String recordingId = document.documentID;
+      Recording recording = recordings[recordingId];
+
+ tempList.add(recording);
+
+      // DocumentSnapshot recordingDoc = await _database
+      //     .collection(RECORDINGS_COLLECTION)
+      //     .document(recordingId)
+      //     .get()
+      //     .catchError((error) {
+      //   print('$_tag error on getting reccording document: $error');
+      //   _hasError = false;
+      // });
+      // if (!_hasError && recordingDoc.exists) {
+      //   Recording recording = Recording.fromSnaspshot(recordingDoc);
+       
+      // }
+    });
+    // print('$_tag list has ${recordingsList.length} recordings');
+    _userRecordingsList = tempList;
+    print('$_tag list has ${_userRecordingsList.length} recordings');
+    return _userRecordingsList;
   }
 }
