@@ -22,6 +22,12 @@ abstract class AccountModel extends Model {
   StatusCode get loginStatus => _loginInStatus;
   StatusCode _updatingLoginStatus;
   StatusCode get updatingLoginStatus => _updatingLoginStatus;
+  StatusCode _editingDetailsStatus;
+  StatusCode get editingDetailsStatus => _editingDetailsStatus;
+  bool _isEditingName = false;
+  bool get isEditingName => _isEditingName;
+  bool _isEditingDesc = false;
+  bool get isEditingDesc => _isEditingDesc;
 
   Future<StatusCode> updateLoginStatus() async {
     print('$_tag at updateLoginStatus');
@@ -52,7 +58,7 @@ abstract class AccountModel extends Model {
       print('$_tag updating login status: $error');
       _hasError = true;
     });
-    
+
     if (_hasError || !document.exists) {
       _updatingLoginStatus = StatusCode.failed;
       notifyListeners();
@@ -65,7 +71,6 @@ abstract class AccountModel extends Model {
     _updatingLoginStatus = StatusCode.success;
     notifyListeners();
     return _updatingLoginStatus;
-
   }
 
   Future<StatusCode> loginWithGoogle() async {
@@ -157,20 +162,89 @@ abstract class AccountModel extends Model {
     return StatusCode.success;
   }
 
-  Future<User> userFromId(String userId ) async{
+  Future<User> userFromId(String userId) async {
     // print('$_tag at userFromId');
     bool _hasError = false;
     if (_cachedUsers[userId] != null) return _cachedUsers[userId];
-    DocumentSnapshot document = await _database.collection(USERS_COLLECTION).document(
-      userId
-    ).get().catchError((error){
+    DocumentSnapshot document = await _database
+        .collection(USERS_COLLECTION)
+        .document(userId)
+        .get()
+        .catchError((error) {
       print('$_tag error on getting user document form id');
-      _hasError  = true;
+      _hasError = true;
     });
     if (_hasError) return null;
     final userFromId = User.fromSnapshot(document);
-    _cachedUsers.putIfAbsent(userId, ()=>userFromId);
+    _cachedUsers.putIfAbsent(userId, () => userFromId);
     return userFromId;
   }
 
+  void startEditingProfile(DetailType type) {
+    print('$_tag at startEditingName');
+    switch (type) {
+      case DetailType.name:
+        _isEditingName = true;
+        notifyListeners();
+        break;
+      case DetailType.description:
+        _isEditingDesc = true;
+        notifyListeners();
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+  }
+
+  Future<StatusCode> editAccountDetails(User user, DetailType type) async {
+    print('$_tag at editAccountDetails');
+    _editingDetailsStatus = StatusCode.waiting;
+    switch (type) {
+      case DetailType.name:
+        _isEditingName = true;
+        break;
+      case DetailType.description:
+        _isEditingDesc = true;
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+    notifyListeners();
+    bool _hasError = false;
+    Map<String, dynamic> detailMap = Map();
+    switch (type) {
+      case DetailType.name:
+        detailMap.putIfAbsent(NAME_FIELD, () => user.name);
+        break;
+      case DetailType.bio:
+        detailMap.putIfAbsent(BIO_FIELD, () => user.bio);
+        break;
+      default:
+        print('$_tag unexpected detail type: $type');
+    }
+    await _database
+        .collection(USERS_COLLECTION)
+        .document(user.id)
+        .updateData(detailMap)
+        .catchError((error) {
+      print('$_tag error on updating user details: $error');
+      _editingDetailsStatus = StatusCode.failed;
+      _hasError = true;
+      notifyListeners();
+    });
+    if (_hasError) return _editingDetailsStatus;
+    _editingDetailsStatus = StatusCode.success;
+    switch (type) {
+      case DetailType.name:
+        _isEditingName = false;
+        break;
+      case DetailType.description:
+        _isEditingDesc = false;
+        break;
+      default:
+        print('$_tag unexpected type: $type');
+    }
+    notifyListeners();
+    return _editingDetailsStatus;
+  }
 }
