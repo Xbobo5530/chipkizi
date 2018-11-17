@@ -79,123 +79,129 @@ class RecordingsListItemView extends StatelessWidget {
           },
         );
 
+    Widget _buildChips(Icon icon, String label) => Container(
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Row(
+              children: <Widget>[
+                icon,
+                Text(
+                  label,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        );
+
+    final _playLikeSection =
+        recording.playCount == 0 && recording.upvoteCount == 0
+            ? Container()
+            : Container(
+                padding: const EdgeInsets.all(2.0),
+                decoration: BoxDecoration(
+                    color: Colors.brown,
+                    borderRadius: BorderRadius.all(Radius.circular(2.0))),
+                child: Row(
+                  children: <Widget>[
+                    recording.playCount == 0
+                        ? Container()
+                        : _buildChips(
+                            Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                              size: 14.0,
+                            ),
+                            '${recording.playCount}'),
+                    recording.upvoteCount == 0
+                        ? Container()
+                        : _buildChips(
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                              size: 14.0,
+                            ),
+                            '${recording.upvoteCount}')
+                  ],
+                ),
+              );
+
+    Widget _buildGenreChip(String genre) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                genre,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 12.0),
+              ),
+            ),
+            decoration: BoxDecoration(
+                color: Colors.lightGreen,
+                borderRadius: BorderRadius.circular(16.0)),
+          ),
+        );
+
+    final _subtitle = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0),
+          child: Text(
+            recording.description,
+          ),
+        ),
+        recording.genre.length == 0
+            ? Container()
+            : Container(
+                height: 30.0,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: recording.genre
+                      .map((genre) => _buildGenreChip(genre))
+                      .toList(),
+                ),
+              )
+      ],
+    );
+
+    final _titleSection = Padding(
+      padding: const EdgeInsets.only(
+        bottom: 4.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[Text(recording.title), _playLikeSection],
+      ),
+    );
+
+    _openRecording(List<Recording> recordings) => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => PlayerPage(
+                  recording: recording,
+                  recordings: recordings,
+                  key: Key(recording.id),
+                ),
+            fullscreenDialog: true) //_handlePlayRecording(),
+        );
+
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
         List<Recording> _recordings = <Recording>[];
         switch (type) {
           case ListType.bookmarks:
           case ListType.userRecordings:
-            _recordings = recordings;
+            _recordings = model.arrangeRecordings(recording, recordings);
             break;
           default:
             _recordings = model.getAllRecordings(recording);
         }
 
-        Widget _buildChips(Icon icon, String label) => Container(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Row(
-                  children: <Widget>[
-                    icon,
-                    Text(
-                      label,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            );
-
-        final _playLikeSection = recording.playCount == 0 && recording.upvoteCount == 0 ?
-        Container(): Container(
-          padding: const EdgeInsets.all(2.0),
-          decoration: BoxDecoration(
-              color: Colors.brown,
-              borderRadius: BorderRadius.all(Radius.circular(2.0))),
-          child: Row(
-            children: <Widget>[
-              recording.playCount == 0 ?
-              Container() : _buildChips(
-                  Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 14.0,
-                  ),
-                  '${recording.playCount}'),
-              recording.upvoteCount == 0 ?
-              Container() : _buildChips(
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                    size: 14.0,
-                  ),
-                  '${recording.upvoteCount}')
-            ],
-          ),
-        );
-
-        Widget _buildGenreChip(String genre) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    genre,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 12.0),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.lightGreen,
-                    borderRadius: BorderRadius.circular(16.0)),
-              ),
-            );
-
-        final _subtitle = Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Text(
-                recording.description,
-              ),
-            ),
-            recording.genre.length == 0
-                ? Container()
-                : Container(
-                    height: 30.0,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: recording.genre
-                          .map((genre) => _buildGenreChip(genre))
-                          .toList(),
-                    ),
-                  )
-          ],
-        );
-
-        final _titleSection = Padding(
-          padding: const EdgeInsets.only(
-            bottom: 4.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[Text(recording.title), _playLikeSection],
-          ),
-        );
-
-        _openRecording() => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => PlayerPage(
-                      recording: recording,
-                      recordings: _recordings,
-                    ),
-                fullscreenDialog: true) //_handlePlayRecording(),
-            );
         return Column(
           children: <Widget>[
             ListTile(
@@ -203,7 +209,7 @@ class RecordingsListItemView extends StatelessWidget {
               title: _titleSection,
               subtitle: _subtitle,
               trailing: _buildPopUpMenu(model),
-              onTap: () => _openRecording(),
+              onTap: () => _openRecording(_recordings),
             ),
             Divider()
           ],
@@ -212,5 +218,3 @@ class RecordingsListItemView extends StatelessWidget {
     );
   }
 }
-
-// enum RecordingActions { share, open, bookmark, upvote }

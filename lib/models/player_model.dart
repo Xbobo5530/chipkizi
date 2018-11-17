@@ -191,4 +191,16 @@ abstract class PlayerModel extends Model {
 
     return tempList;
   }
+
+  List<Recording> arrangeRecordings(
+      Recording recording, List<Recording> recordings) {
+    List<Recording> tempList = <Recording>[];
+
+    recordings.forEach((rec) {
+      if (rec.id != recording.id) tempList.add(rec);
+    });
+    tempList.insert(0, recording);
+    //print('$_tag ');
+    return tempList;
+  }
 }
