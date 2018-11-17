@@ -36,6 +36,7 @@ const NAV_ITEM_ME = 1;
 const TAG_MAIN_BUTTON = 'Main Button';
 const TAG_APP_TITLE = 'App Bar Title';
 const TAG_NEXT_BACK_BUTTON = 'Next Back Button';
+const TAG_IMAGE = 'Image Section';
 
 // storage
 const RECORDINGS_BUCKET = 'Recordings';

@@ -4,6 +4,7 @@ import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/login.dart';
 
 import 'package:chipkizi/pages/player.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:flutter/material.dart';
@@ -47,9 +48,12 @@ class RecordingsListItemView extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) return Icon(Icons.mic);
             User user = snapshot.data;
-            return CircleAvatar(
-              backgroundColor: Colors.black12,
-              backgroundImage: NetworkImage(user.imageUrl),
+            return Hero(
+              tag: TAG_IMAGE,
+                          child: CircleAvatar(
+                backgroundColor: Colors.black12,
+                backgroundImage: NetworkImage(user.imageUrl),
+              ),
             );
           },
         );

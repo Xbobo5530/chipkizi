@@ -1,9 +1,8 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
-
-import 'package:chipkizi/views/circular_button.dart';
 
 import 'package:chipkizi/views/play_button.dart';
 import 'package:chipkizi/views/upvote_button.dart';
@@ -27,10 +26,13 @@ class RecordingCard extends StatelessWidget {
             );
           final User user = snapshot.data;
           return Center(
-            child: CircleAvatar(
-              radius: 60.0,
-              backgroundColor: Colors.black12,
-              backgroundImage: NetworkImage(user.imageUrl),
+            child: Hero(
+              tag: TAG_IMAGE,
+                          child: CircleAvatar(
+                radius: 60.0,
+                backgroundColor: Colors.black12,
+                backgroundImage: NetworkImage(user.imageUrl),
+              ),
             ),
           );
         });
@@ -39,7 +41,12 @@ class RecordingCard extends StatelessWidget {
           alignment: MainAxisAlignment.center,
           children: <Widget>[
             BookmarkButtonView(recording: recording),
-            PlayButtonView(recording: recording,),
+            Hero(
+              tag: TAG_MAIN_BUTTON,
+                          child: PlayButtonView(
+                recording: recording,
+              ),
+            ),
             UpvoteButtonView(recording: recording),
           ],
         );
@@ -52,6 +59,21 @@ class RecordingCard extends StatelessWidget {
           icon: Icon(Icons.share),
           onPressed: () {},
         ),
+      ),
+    );
+
+    final _closeButton = Positioned(
+      top: 0.0,
+      left:  0.0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+                icon: Icon(
+                  Icons.close,
+                  // color: Colors.white,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
       ),
     );
 
@@ -99,11 +121,11 @@ class RecordingCard extends StatelessWidget {
         ));
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 28.0),
       child: ScopedModelDescendant<MainModel>(
         builder: (_, __, model) {
           return Stack(
-            children: <Widget>[_buildCardSection(model), _shareButton],
+            children: <Widget>[_buildCardSection(model), _shareButton, _closeButton],
           );
         },
       ),

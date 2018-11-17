@@ -13,10 +13,14 @@ class CircularIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: size,
-        width: size,
-        child: button,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle));
+    return Material
+    (
+      shape: CircleBorder(),
+          child: Container(
+          height: size,
+          width: size,
+          child: button,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+    );
   }
 }

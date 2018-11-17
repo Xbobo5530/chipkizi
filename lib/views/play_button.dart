@@ -39,7 +39,6 @@ class _State extends State<PlayButtonView> {
 
   @override
   Widget build(BuildContext context) {
-    
     _handlePlay(MainModel model) async {
       print('$_tag at _handlePlay');
       if (!_isDisposed)
