@@ -2,6 +2,7 @@ import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
+import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
 
 import 'package:chipkizi/views/play_button.dart';
@@ -34,7 +35,9 @@ class RecordingCard extends StatelessWidget {
           );
         });
 
-    _buildActions(MainModel model) => ButtonBar(
+    _buildActions(MainModel model) => Column( children: [
+      ButtonBar(children: <Widget>[RaisedButton(child: Text(commentsText),onPressed: (){},)],),
+      ButtonBar(
           alignment: MainAxisAlignment.center,
           children: <Widget>[
             BookmarkButtonView(recording: recording),
@@ -46,7 +49,9 @@ class RecordingCard extends StatelessWidget {
             ),
             UpvoteButtonView(recording: recording),
           ],
-        );
+        ),
+        
+        ]);
     final _shareButton = Positioned(
       top: 0.0,
       right: 0.0,
