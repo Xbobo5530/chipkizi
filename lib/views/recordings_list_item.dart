@@ -92,7 +92,6 @@ class RecordingsListItemView extends StatelessWidget {
         }
 
         Widget _buildChips(Icon icon, String label) => Container(
-              
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Row(
@@ -108,21 +107,24 @@ class RecordingsListItemView extends StatelessWidget {
               ),
             );
 
-        final _playLikeSection = Container(
+        final _playLikeSection = recording.playCount == 0 && recording.upvoteCount == 0 ?
+        Container(): Container(
           padding: const EdgeInsets.all(2.0),
           decoration: BoxDecoration(
               color: Colors.brown,
               borderRadius: BorderRadius.all(Radius.circular(2.0))),
           child: Row(
             children: <Widget>[
-              _buildChips(
+              recording.playCount == 0 ?
+              Container() : _buildChips(
                   Icon(
                     Icons.play_arrow,
                     color: Colors.white,
                     size: 14.0,
                   ),
                   '${recording.playCount}'),
-              _buildChips(
+              recording.upvoteCount == 0 ?
+              Container() : _buildChips(
                   Icon(
                     Icons.favorite,
                     color: Colors.white,
@@ -161,23 +163,29 @@ class RecordingsListItemView extends StatelessWidget {
                 recording.description,
               ),
             ),
-            Container(
-              height: 30.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: recording.genre
-                    .map((genre) => _buildGenreChip(genre))
-                    .toList(),
-              ),
-            )
+            recording.genre.length == 0
+                ? Container()
+                : Container(
+                    height: 30.0,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: recording.genre
+                          .map((genre) => _buildGenreChip(genre))
+                          .toList(),
+                    ),
+                  )
           ],
         );
 
-        final _titleSection = Padding(padding: const EdgeInsets.only(bottom: 4.0, 
-        ),child:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[Text(recording.title), _playLikeSection],
-        ),);
+        final _titleSection = Padding(
+          padding: const EdgeInsets.only(
+            bottom: 4.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[Text(recording.title), _playLikeSection],
+          ),
+        );
 
         _openRecording() => Navigator.push(
             context,
