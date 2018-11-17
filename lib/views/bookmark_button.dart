@@ -4,10 +4,12 @@ import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 const _tag = 'BookmarkButtonView:';
+
 class BookmarkButtonView extends StatelessWidget {
   final Recording recording;
 
@@ -38,23 +40,31 @@ class BookmarkButtonView extends StatelessWidget {
           builder: (context, snapshot) {
             bool hasBookmarked = snapshot.data;
             return CircularIconButton(
-              button: IconButton(
-                icon: hasBookmarked
-                    ? Icon(
-                        Icons.bookmark,
-                        color: Colors.orange,
-                      )
-                    : Icon(
-                        Icons.bookmark_border,
-                      ),
-                onPressed: model.isLoggedIn
-                    ? () => _handleBookmark(context, model)
-                    : () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => LoginPage(),
-                            fullscreenDialog: true)),
-              ),
+              button: model.bookmarkingStatus == StatusCode.waiting
+                  ? MyProgressIndicator(
+                      color: Colors.brown,
+                      size: 15.0,
+                      value: null,
+                      strokeWidth: 4.0,
+                      isCentered: true,
+                    )
+                  : IconButton(
+                      icon: hasBookmarked
+                          ? Icon(
+                              Icons.bookmark,
+                              color: Colors.orange,
+                            )
+                          : Icon(
+                              Icons.bookmark_border,
+                            ),
+                      onPressed: model.isLoggedIn
+                          ? () => _handleBookmark(context, model)
+                          : () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => LoginPage(),
+                                  fullscreenDialog: true)),
+                    ),
               color: Colors.white,
             );
           },
