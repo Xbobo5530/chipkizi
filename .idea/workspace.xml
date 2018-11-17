@@ -9,7 +9,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="" />
+    <list default="true" id="c8004ddc-993e-49dc-bafb-f92dab977a68" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/chipkizi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chipkizi.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/details_section.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/details_section.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/recordings_list_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/recordings_list_item.dart" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -26,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="details_section.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/views/details_section.dart">
+      <file leaf-file-name="recordings_list.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/views/recordings_list.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+            <state relative-caret-position="90">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -53,7 +57,7 @@
       <find>expan</find>
     </findStrings>
   </component>
-  <component name="FlutterView" splitter-proportion="0.6044944" />
+  <component name="FlutterView" splitter-proportion="0.7112903" />
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -75,7 +79,6 @@
         <option value="$PROJECT_DIR$/lib/views/my_progress_indicator.dart" />
         <option value="$PROJECT_DIR$/lib/views/progress_button.dart" />
         <option value="$PROJECT_DIR$/lib/models/navigation_model.dart" />
-        <option value="$PROJECT_DIR$/lib/views/recordings_list_item.dart" />
         <option value="$PROJECT_DIR$/test/widget_test.dart" />
         <option value="$PROJECT_DIR$/lib/views/circular_buttom.dart" />
         <option value="$PROJECT_DIR$/lib/models/main_model.dart" />
@@ -97,6 +100,7 @@
         <option value="$PROJECT_DIR$/lib/views/genre_chips.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/lib/views/details_section.dart" />
+        <option value="$PROJECT_DIR$/lib/views/recordings_list_item.dart" />
       </list>
     </option>
   </component>
@@ -106,100 +110,13 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="values" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chipkizi" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Flutter Plugins" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Flutter Plugins" type="70bed36:NamedLibraryElementNode" />
-              <item name="firebase_storage-1.0.4" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Flutter Plugins" type="70bed36:NamedLibraryElementNode" />
-              <item name="firebase_storage-1.0.4" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Flutter Plugins" type="70bed36:NamedLibraryElementNode" />
-              <item name="firebase_storage-1.0.4" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chipkizi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Flutter Plugins" type="70bed36:NamedLibraryElementNode" />
-              <item name="firebase_storage-1.0.4" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <option name="show-excluded-files" value="false" />
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="main.dart&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/main.dart&#10;main&#9;RUN_CONFIGURATION&#9;main.dart&#10;string&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;deta&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;de&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;detail&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;DETAI&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;const&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;recomod&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;login&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/login.dart&#10;CREATE&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;details&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;rec&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;socts&#9;null&#9;null&#10;RECORSE&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/record_section.dart&#10;list&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list.dart&#10;reco&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;des&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;model&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;consts&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;recomo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;remo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;build&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/android/app/build.gradle&#10;myprofile&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/my_profile.dart&#10;progress&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/progress_button.dart&#10;mainmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;str&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;stri&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;accountmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/account_model.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;mypro&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/my_progress_indicator.dart&#10;analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
+    <property name="SearchEverywhereHistoryKey" value="list&#9;null&#9;null&#10;item&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;consts&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;card&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/player_recording_card.dart&#10;main.dart&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/main.dart&#10;main&#9;RUN_CONFIGURATION&#9;main.dart&#10;string&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;deta&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;de&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;detail&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;DETAI&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;recor&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;const&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/consts.dart&#10;recomod&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;home&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/home.dart&#10;login&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/login.dart&#10;CREATE&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;details&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;rec&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;socts&#9;null&#9;null&#10;RECORSE&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/record_section.dart&#10;reco&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;des&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/details_section.dart&#10;model&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;recomo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;remo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/recording_model.dart&#10;yam&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;build&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/android/app/build.gradle&#10;myprofile&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/my_profile.dart&#10;progress&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/progress_button.dart&#10;mainmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/main_model.dart&#10;str&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;stri&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/values/strings.dart&#10;accountmo&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/models/account_model.dart&#10;create&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/pages/create_recording.dart&#10;mypro&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/my_progress_indicator.dart&#10;analyzer&#9;FILE&#9;file:///Users/Sean/Dev/sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.33.0/lib/analyzer.dart&#10;recordingli&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/lib/views/recordings_list_item.dart&#10;yaml&#9;FILE&#9;file:///Users/Sean/Dev/Projects/Chipkizi/chipkizi/pubspec.yaml&#10;manife&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/android/app/src/main/AndroidManifest.xml&#10;itemview&#9;null&#9;null&#10;homebo&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/views/home_body.dart&#10;recordings&#9;null&#9;null&#10;ya&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/pubspec.yaml&#10;HOME&#9;FILE&#9;file:///Users/Sean/Dev/AndroidStudioProjects/chipkizi/lib/pages/home.dart" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -432,33 +349,32 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="994" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
-      <window_info id="Build Variants" order="0" show_stripe_button="false" side_tool="true" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51211804" side_tool="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.35034484" />
-      <window_info id="Flutter Outline" order="8" side_tool="true" weight="0.32982087" />
-      <window_info anchor="bottom" id="Logcat" order="10" weight="0.32859176" />
-      <window_info id="Capture Tool" order="1" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Structure" order="5" show_stripe_button="false" side_tool="true" weight="0.24973656" />
-      <window_info anchor="right" id="Device File Explorer" order="5" show_stripe_button="false" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32859176" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32827586" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="3" />
+      <window_info id="Build Variants" order="0" show_stripe_button="false" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51211804" side_tool="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Dart Analysis" order="9" weight="0.3499289" />
       <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49928877" weight="0.3783784" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32716927" />
       <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.487882" weight="0.32716927" />
+      <window_info id="Flutter Outline" order="8" side_tool="true" weight="0.32982087" />
+      <window_info anchor="bottom" id="Logcat" order="10" weight="0.32859176" />
       <window_info id="Captures" order="6" show_stripe_button="false" weight="0.32982087" />
+      <window_info id="Capture Tool" order="1" />
+      <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="4" sideWeight="0.50071126" weight="0.20246659" />
       <window_info anchor="bottom" id="JProfiler" order="11" />
+      <window_info id="Structure" order="5" show_stripe_button="false" side_tool="true" weight="0.24973656" />
+      <window_info anchor="right" id="Device File Explorer" order="5" show_stripe_button="false" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
       <window_info id="Favorites" order="7" show_stripe_button="false" side_tool="true" />
-      <window_info id="Flutter Inspector" order="9" side_tool="true" weight="0.32982087" />
+      <window_info id="Flutter Inspector" order="9" side_tool="true" weight="0.32887974" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32827586" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -494,13 +410,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/packages/flutter/lib/src/material/material.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="165" column="8" selection-start-line="165" selection-start-column="8" selection-end-line="165" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/navigation_model.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -515,24 +424,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list_item.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-654">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/widget_test.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret lean-forward="true" />
-          <folding>
-            <element signature="e#0#1118#0" expanded="true" />
-            <element signature="e#354#397#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -550,9 +445,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -560,9 +452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -570,9 +459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -630,10 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
           <caret line="199" column="46" selection-start-line="199" selection-start-column="34" selection-end-line="199" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#7471#0" expanded="true" />
-            <element signature="e#166#186#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -688,11 +570,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../sdk/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_staggered_grid_view-0.2.3/lib/src/rendering/sliver_staggered_grid.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-8" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/recording.dart">
@@ -713,16 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="67" column="47" lean-forward="true" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -777,13 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/values/consts.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/pages/create_recording.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -798,16 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
           <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="91" column="17" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -873,30 +724,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/main_model.dart">
+    <entry file="file://$PROJECT_DIR$/lib/views/details_section.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        <state relative-caret-position="345">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/details_section.dart">
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        <state relative-caret-position="255">
+          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/values/consts.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="38" column="32" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/player_recording_card.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="111" column="30" lean-forward="true" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/main_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/recording_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list_item.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/recordings_list.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>

@@ -26,14 +26,11 @@ class RecordingCard extends StatelessWidget {
             );
           final User user = snapshot.data;
           return Center(
-            child: Hero(
-              tag: 'TAG_IMAGE',
-                          child: CircleAvatar(
+            child: CircleAvatar(
                 radius: 60.0,
                 backgroundColor: Colors.black12,
                 backgroundImage: NetworkImage(user.imageUrl),
               ),
-            ),
           );
         });
 

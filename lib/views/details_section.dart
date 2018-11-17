@@ -34,8 +34,6 @@ class DetailsSectionView extends StatelessWidget {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(errorMessage),
           ));
-        if (submitStatus == StatusCode.success)
-          Navigator.pushNamed(context, '/');
       }
     }
 
@@ -182,15 +180,16 @@ class DetailsSectionView extends StatelessWidget {
                             textColor: Colors.brown,
                             child: Text(openRecordingText),
                             onPressed: () async {
-                              Recording newRecording = model.lastSubmittedRecording;
-                              List<Recording> recordings = model.getAllRecordings(newRecording);
+                              Recording newRecording =
+                                  model.lastSubmittedRecording;
+                              List<Recording> recordings =
+                                  model.getAllRecordings(newRecording);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PlayerPage(
-                                          recording:
-                                              newRecording, 
-                                              recordings: recordings,
+                                          recording: newRecording,
+                                          recordings: recordings,
                                         ),
                                   ),
                                   ModalRoute.withName('/'));

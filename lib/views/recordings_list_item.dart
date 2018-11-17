@@ -4,7 +4,7 @@ import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/login.dart';
 
 import 'package:chipkizi/pages/player.dart';
-import 'package:chipkizi/values/consts.dart';
+
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +48,10 @@ class RecordingsListItemView extends StatelessWidget {
           builder: (context, snapshot) {
             if (!snapshot.hasData) return Icon(Icons.mic);
             User user = snapshot.data;
-            return Hero(
-              tag: TAG_IMAGE,
-                          child: CircleAvatar(
-                backgroundColor: Colors.black12,
-                backgroundImage: NetworkImage(user.imageUrl),
-              ),
+            return CircleAvatar(
+              radius: 24.0,
+              backgroundColor: Colors.black12,
+              backgroundImage: NetworkImage(user.imageUrl),
             );
           },
         );
@@ -93,79 +91,113 @@ class RecordingsListItemView extends StatelessWidget {
             _recordings = model.getAllRecordings(recording);
         }
 
+        Widget _buildChips(Icon icon, String label) => Container(
+              
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Row(
+                  children: <Widget>[
+                    icon,
+                    Text(
+                      label,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            );
+
+        final _playLikeSection = Container(
+          padding: const EdgeInsets.all(2.0),
+          decoration: BoxDecoration(
+              color: Colors.brown,
+              borderRadius: BorderRadius.all(Radius.circular(2.0))),
+          child: Row(
+            children: <Widget>[
+              _buildChips(
+                  Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 14.0,
+                  ),
+                  '${recording.playCount}'),
+              _buildChips(
+                  Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                    size: 14.0,
+                  ),
+                  '${recording.upvoteCount}')
+            ],
+          ),
+        );
+
+        Widget _buildGenreChip(String genre) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    genre,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 12.0),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    color: Colors.lightGreen,
+                    borderRadius: BorderRadius.circular(16.0)),
+              ),
+            );
+
+        final _subtitle = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: Text(
+                recording.description,
+              ),
+            ),
+            Container(
+              height: 30.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: recording.genre
+                    .map((genre) => _buildGenreChip(genre))
+                    .toList(),
+              ),
+            )
+          ],
+        );
+
+        final _titleSection = Padding(padding: const EdgeInsets.only(bottom: 4.0, 
+        ),child:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[Text(recording.title), _playLikeSection],
+        ),);
+
+        _openRecording() => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => PlayerPage(
+                      recording: recording,
+                      recordings: _recordings,
+                    ),
+                fullscreenDialog: true) //_handlePlayRecording(),
+            );
         return Column(
           children: <Widget>[
             ListTile(
-                leading: _buildLeadingSection(model),
-                title: Text(recording.title),
-                isThreeLine: true,
-                subtitle: Column(
-                  children: <Widget>[
-                    Text(recording.description),
-                  ],
-                ),
-                trailing: _buildPopUpMenu(model),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => PlayerPage(
-                              recording: recording,
-                              recordings: _recordings,
-                            ),
-                        fullscreenDialog: true)) //_handlePlayRecording(),
-                ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:8.0),
-              child: Row(
-
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: Chip(
-                      label: Text('${recording.playCount}'),
-                      avatar: Icon(
-                        Icons.play_arrow,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right:8.0),
-                    child: Chip(
-                      label: Text('${recording.upvoteCount}'),
-                      avatar: Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 30.0,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: recording.genre
-                            .map((genre) =>
-                            
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                              child: Chip(
-                                  label: Text(
-                                    genre,
-                                    style: TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  backgroundColor: Colors.lightGreen,
-                                )),
-                            )
-                            
-                             
-                            .toList(),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              leading: _buildLeadingSection(model),
+              title: _titleSection,
+              subtitle: _subtitle,
+              trailing: _buildPopUpMenu(model),
+              onTap: () => _openRecording(),
             ),
+            Divider()
           ],
         );
       },
