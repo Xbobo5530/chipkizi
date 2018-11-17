@@ -18,8 +18,9 @@ class RecordingsListItemView extends StatelessWidget {
   final List<Recording> recordings;
 
   const RecordingsListItemView(
-      {Key key,@required this.recording, this.type, this.recordings}) 
-      : assert(recording != null),super(key: key);
+      {Key key, @required this.recording, this.type, this.recordings})
+      : assert(recording != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +176,7 @@ class RecordingsListItemView extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Text(recording.title), _playLikeSection],
+        children: <Widget>[Expanded(child: Text(recording.title)), _playLikeSection],
       ),
     );
 

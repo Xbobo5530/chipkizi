@@ -27,10 +27,10 @@ class RecordingCard extends StatelessWidget {
           final User user = snapshot.data;
           return Center(
             child: CircleAvatar(
-                radius: 60.0,
-                backgroundColor: Colors.black12,
-                backgroundImage: NetworkImage(user.imageUrl),
-              ),
+              radius: 60.0,
+              backgroundColor: Colors.black12,
+              backgroundImage: NetworkImage(user.imageUrl),
+            ),
           );
         });
 
@@ -40,7 +40,7 @@ class RecordingCard extends StatelessWidget {
             BookmarkButtonView(recording: recording),
             Hero(
               tag: TAG_MAIN_BUTTON,
-                          child: PlayButtonView(
+              child: PlayButtonView(
                 recording: recording,
               ),
             ),
@@ -61,16 +61,23 @@ class RecordingCard extends StatelessWidget {
 
     final _closeButton = Positioned(
       top: 0.0,
-      left:  0.0,
+      left: 0.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  // color: Colors.white,
-                ),
-                onPressed: () => Navigator.pop(context),
+        child: ScopedModelDescendant<MainModel>(
+          builder: (_, __, model) {
+            return IconButton(
+              icon: Icon(
+                Icons.close,
+                // color: Colors.white,
               ),
+              onPressed: () {
+                model.stop();
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
       ),
     );
 
@@ -122,7 +129,11 @@ class RecordingCard extends StatelessWidget {
       child: ScopedModelDescendant<MainModel>(
         builder: (_, __, model) {
           return Stack(
-            children: <Widget>[_buildCardSection(model), _shareButton, _closeButton],
+            children: <Widget>[
+              _buildCardSection(model),
+              _shareButton,
+              _closeButton
+            ],
           );
         },
       ),
