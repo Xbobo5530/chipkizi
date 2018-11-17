@@ -25,24 +25,43 @@ class HomePage extends StatelessWidget {
         MaterialPageRoute(builder: (_) => LoginPage(), fullscreenDialog: true));
 
     _handleSearch(MainModel model) async {
-      final Recording result = await showSearch(
+      await showSearch(
         context: context,
         delegate: RecordingsSearch(model.recordings),
       );
     }
 
-    _editProfile() => Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => EditProfilePage(), fullscreenDialog: true));
+    _logout(MainModel model) async {
+      await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(confirmLogoutText),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {model.logout();Navigator.pop(context);},
+                  child: Text(logoutText),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(cancelText),
+                )
+              ],
+            );
+          });
+    }
 
     final _appBarSection = AppBar(
       leading: Icon(Icons.mic_none),
       title: Hero(
-        flightShuttleBuilder: (context, animatrion, direction, _,__){
-          return Icon(Icons.fiber_manual_record, color:  Colors.white,);
-        },
-        tag: TAG_APP_TITLE, child: Text(APP_NAME)),
+          flightShuttleBuilder: (context, animatrion, direction, _, __) {
+            return Icon(
+              Icons.fiber_manual_record,
+              color: Colors.white,
+            );
+          },
+          tag: TAG_APP_TITLE,
+          child: Text(APP_NAME)),
       centerTitle: true,
       actions: <Widget>[
         ScopedModelDescendant<MainModel>(
@@ -50,10 +69,10 @@ class HomePage extends StatelessWidget {
               ? IconButton(
                   icon: Icon(model.selectedNavItem == NAV_ITEM_HOME
                       ? Icons.search
-                      : Icons.edit),
+                      : Icons.exit_to_app),
                   onPressed: model.selectedNavItem == NAV_ITEM_HOME
                       ? () => _handleSearch(model)
-                      : () => _editProfile(),
+                      : () => _logout(model),
                 )
               : model.selectedNavItem == NAV_ITEM_HOME
                   ? IconButton(
@@ -85,10 +104,9 @@ class HomePage extends StatelessWidget {
           child: FloatingActionButton(
               child: Icon(Icons.mic),
               heroTag: 'open recording page',
-              onPressed:
-                  model.isLoggedIn
-                      ? () => _openRecordingPage(context)
-                      : () => _goToLoginPage()),
+              onPressed: model.isLoggedIn
+                  ? () => _openRecordingPage(context)
+                  : () => _goToLoginPage()),
           tag: TAG_MAIN_BUTTON,
         );
       },

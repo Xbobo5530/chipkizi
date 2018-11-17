@@ -5,6 +5,8 @@ const waitText = 'Tafadhali subiri...';
 const submitSuccessText = 'Congrats!!!\nYour recording has successfully been submited.';
 const submitText = 'Submit';
 const loginText = 'Login';
+const logoutText = 'Logout';
+const cancelText = 'Cancel';
 
 const nextText = 'Next';
 
@@ -27,3 +29,5 @@ const openRecordingText = 'Open recording';
 const errorMessage = 'Somethin went wrong, please try again.';
 const loginToViewProfileMessage = 'Please login to view your profile.';
 const tapRecordHint = 'Please tap the record button to continue';
+
+const confirmLogoutText = 'Are you sure you want to logout?';

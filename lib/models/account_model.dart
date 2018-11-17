@@ -269,4 +269,16 @@ abstract class AccountModel extends Model {
     notifyListeners();
     return _editingUserDetailsStatus;
   }
+
+  Future<StatusCode> logout()async{
+    print('$_tag at logout');
+    bool _hasError = false;
+    await _auth.signOut().catchError((error){
+      print('$_tag error on logging out: $error');
+      _hasError = true;
+    });
+    if (_hasError) {updateLoginStatus(); return StatusCode.failed;}
+    updateLoginStatus();
+    return StatusCode.success;
+  }
 }
