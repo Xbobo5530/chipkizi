@@ -19,9 +19,7 @@ abstract class RecordingModel extends Model with PlayerModel {
 //  AudioCache audioCache =  AudioCache();
 
   FlutterSound flutterSound = FlutterSound();
-
   List<String> _selectedGenres = <String>[];
-
   Recording _lastSubmittedRecording;
   Recording get lastSubmittedRecording => _lastSubmittedRecording;
 
@@ -52,6 +50,11 @@ abstract class RecordingModel extends Model with PlayerModel {
   double _recorderProgress = 0.0;
   double get recorderProgress => _recorderProgress;
 
+  String _tempTitle;
+  String get tempTitle => _tempTitle;
+  String _tempDescription;
+  String get tempDescription => _tempDescription;
+
   Map<String, bool> genres = <String, bool>{
     'Gospel': false,
     'Hip-hop': false,
@@ -65,16 +68,39 @@ abstract class RecordingModel extends Model with PlayerModel {
     'Other': false,
   };
 
+  void setTempValues(String value, DetailType type) {
+    switch (type) {
+      case DetailType.title:
+        _tempTitle = value;
+        notifyListeners();
+        break;
+      case DetailType.description:
+        _tempDescription = value;
+        notifyListeners();
+        break;
+      default:
+    print('$_tag unexpected type: $type');
+    } 
+  }
+
+  
+
   void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
         (isSelected) => isSelected ? false : true);
     notifyListeners();
   }
 
-  void resetSubmitStatus(){
+  void resetSubmitStatus() {
     _lastSubmittedRecording = null;
     _submitStatus = null;
     // _task.cancel();
+  }
+
+  void resetTempDetailsFieldValues(){
+    _tempTitle = null;
+    _tempDescription = null;
+    notifyListeners();
   }
 
   Future<StatusCode> handleSubmit(Recording recording) async {
@@ -185,8 +211,6 @@ abstract class RecordingModel extends Model with PlayerModel {
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
   }
-
-
 
   Future<void> startRecording() async {
     print('$_tag at startRecording');
@@ -329,16 +353,19 @@ abstract class RecordingModel extends Model with PlayerModel {
     return _editingRecordingDetailsStatus;
   }
 
-  Future<Recording> _getRecordingFromId(String id)async{
+  Future<Recording> _getRecordingFromId(String id) async {
     print('$_tag at _getRecordingFromId');
     bool _hasError = false;
-    DocumentSnapshot document = await _database.collection(RECORDINGS_COLLECTION).document(id).get()
-    .catchError((error){
+    DocumentSnapshot document = await _database
+        .collection(RECORDINGS_COLLECTION)
+        .document(id)
+        .get()
+        .catchError((error) {
       print('$_tag error on getting recording from id: $error');
       _hasError = true;
     });
     if (_hasError) return null;
-    if (!document.exists) return null;  
+    if (!document.exists) return null;
     return Recording.fromSnaspshot(document);
   }
 }

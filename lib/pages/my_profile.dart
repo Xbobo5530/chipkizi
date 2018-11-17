@@ -93,6 +93,13 @@ class MyProfilePage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.person,
+                color: Colors.grey,
+              ),
+            ),
             Expanded(
               child: Text(model.currentUser.name),
             ),
@@ -104,7 +111,15 @@ class MyProfilePage extends StatelessWidget {
         ),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.description,
+                color: Colors.grey,
+              ),
+            ),
             Expanded(
                 child: model.currentUser.bio != null
                     ? Text(model.currentUser.bio)
@@ -142,6 +157,7 @@ class MyProfilePage extends StatelessWidget {
             children: <Widget>[
               _buildImageSection(model.currentUser.imageUrl),
               _buildInfoSection(model),
+              Divider(),
               _buildRecordingsSection(
                   model, myRecordingsText, ListType.userRecordings, Icons.mic),
               _buildRecordingsSection(
