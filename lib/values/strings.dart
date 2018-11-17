@@ -10,6 +10,9 @@ const cancelText = 'Cancel';
 
 const nextText = 'Next';
 
+const nameText = 'Name';
+const bioText = 'Bio';
+
 const titleText = 'Title';
 const descriptionText = 'Description';
 

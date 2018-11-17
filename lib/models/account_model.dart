@@ -185,7 +185,7 @@ abstract class AccountModel extends Model {
   /// which field the user is updating
   /// the [type] is for the user limited to [DetailType.name] and [DetailType.bio]
   void startEditingProfile(DetailType type) {
-    print('$_tag at startEditingName');
+    print('$_tag at startEditingProfile');
     switch (type) {
       case DetailType.name:
         _isEditingUsername = true;
@@ -207,7 +207,7 @@ abstract class AccountModel extends Model {
   /// the [type] on isEditing fields will be limited to
   /// [DetailType.name] which will reset the [_isEditingUsername] field to [false]
   /// and teh [DetailType.bio] which will reset the [_isEditingUserBio] field to [false]
-  _resetIsEditingField (DetailType type){
+  resetIsEditingField (DetailType type){
     switch (type) {
       case DetailType.name:
         _isEditingUsername = false;
@@ -260,12 +260,12 @@ abstract class AccountModel extends Model {
       print('$_tag error on updating user details: $error');
       _editingUserDetailsStatus = StatusCode.failed;
       _hasError = true;
-      _resetIsEditingField(type);
+      resetIsEditingField(type);
       notifyListeners();
     });
     if (_hasError) return _editingUserDetailsStatus;
     _editingUserDetailsStatus = StatusCode.success;
-    _resetIsEditingField(type);
+    resetIsEditingField(type);
     notifyListeners();
     return _editingUserDetailsStatus;
   }
