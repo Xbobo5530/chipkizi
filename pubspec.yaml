@@ -19,7 +19,7 @@ dependencies:
 
   flutter_sound: ^1.1.5
 #  audio_recorder: ^0.0.6
-  audioplayers: ^0.7.8
+  # audioplayers: ^0.7.8
   firebase_auth: ^0.6.2+1
   google_sign_in: ^3.2.4
   scoped_model: ^0.3.0
@@ -27,8 +27,9 @@ dependencies:
   intl: ^0.15.6
   firebase_storage: ^1.0.4
   uuid: ^1.0.0
-  flutter_staggered_grid_view: ^0.2.3
-  simple_coverflow: ^0.0.6
+  # flutter_staggered_grid_view: ^0.2.3
+  # simple_coverflow: ^0.0.6
+  flutter_launcher_icons: ^0.6.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,6 +39,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/icon/ic_launcher.png"
+  image_path_android: "assets/icon/ic_launcher.png"
+  image_path_ios: "assets/icon/ic_launcher.png"
+  adaptive_icon_background: "#FF795548"
+  adaptive_icon_foreground: "assets/icon/ic_launcher.png"
 
 analyzer:
   language:

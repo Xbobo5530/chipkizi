@@ -16,7 +16,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="chipkizi"
+        android:label="Chipkizi"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
