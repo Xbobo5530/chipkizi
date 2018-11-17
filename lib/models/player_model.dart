@@ -82,6 +82,7 @@ abstract class PlayerModel extends Model {
           _playbackStatus = PlaybackStatus.stopped;
         });
       });
+      _updatePlayCount(recording);
       return _playbackStatus;
     } catch (err) {
       print('error: $err');
@@ -202,5 +203,19 @@ abstract class PlayerModel extends Model {
     tempList.insert(0, recording);
     //print('$_tag ');
     return tempList;
+  }
+
+  Future<void> _updatePlayCount(Recording recording) async {
+    print('$_tag at _updatePlayCount');
+    
+    await _database.runTransaction((transaction) async {
+      DocumentSnapshot freshSnapshot = await transaction.get(
+          _database.collection(RECORDINGS_COLLECTION).document(recording.id));
+      await transaction.update(freshSnapshot.reference,
+          {PLAY_COUNT_FIELD: freshSnapshot[PLAY_COUNT_FIELD] + 1});
+    }).catchError((error) {
+      print(
+          '$_tag failed to do transaction to update recording play count: $error');
+    });
   }
 }

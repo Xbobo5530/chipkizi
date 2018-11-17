@@ -62,12 +62,8 @@ class RecordingsSearch extends SearchDelegate<Recording> {
         genreString = '$genreString $genre';
       });
       if ((recording.title.toLowerCase().contains(query.toLowerCase())) ||
-          recording.description.toLowerCase().contains(query.toLowerCase() )||
-          
-
-          genreString.toLowerCase().contains(query.toLowerCase()
-
-          ))
+          recording.description.toLowerCase().contains(query.toLowerCase()) ||
+          genreString.toLowerCase().contains(query.toLowerCase()))
         resultsList.add(recording);
     });
     return ListView.builder(
