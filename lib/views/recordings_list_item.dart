@@ -18,8 +18,8 @@ class RecordingsListItemView extends StatelessWidget {
   final List<Recording> recordings;
 
   const RecordingsListItemView(
-      {Key key, this.recording, this.type, this.recordings})
-      : super(key: key);
+      {Key key,@required this.recording, this.type, this.recordings}) 
+      : assert(recording != null),super(key: key);
 
   @override
   Widget build(BuildContext context) {
