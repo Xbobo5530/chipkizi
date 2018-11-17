@@ -32,9 +32,15 @@ class RecordingsSearch extends SearchDelegate<Recording> {
   @override
   Widget buildResults(BuildContext context) {
     List<Recording> resultsList = <Recording>[];
+    String genreString = '';
     recordings.forEach((id, recording) {
+      recording.genre.forEach((genre) {
+        genreString = '$genreString $genre';
+        print(genreString);
+      });
       if ((recording.title.toLowerCase().contains(query.toLowerCase())) ||
-          recording.description.toLowerCase().contains(query.toLowerCase()))
+          recording.description.toLowerCase().contains(query.toLowerCase()) ||
+          genreString.toLowerCase().contains(query.toLowerCase()))
         resultsList.add(recording);
     });
     return ListView.builder(
@@ -48,11 +54,20 @@ class RecordingsSearch extends SearchDelegate<Recording> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    
     List<Recording> resultsList = <Recording>[];
+    String genreString = '';
+
     recordings.forEach((id, recording) {
+      recording.genre.forEach((genre) {
+        genreString = '$genreString $genre';
+      });
       if ((recording.title.toLowerCase().contains(query.toLowerCase())) ||
-          recording.description.toLowerCase().contains(query.toLowerCase()))
+          recording.description.toLowerCase().contains(query.toLowerCase() )||
+          
+
+          genreString.toLowerCase().contains(query.toLowerCase()
+
+          ))
         resultsList.add(recording);
     });
     return ListView.builder(
