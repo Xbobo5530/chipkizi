@@ -27,7 +27,7 @@ class RecordingCard extends StatelessWidget {
           final User user = snapshot.data;
           return Center(
             child: Hero(
-              tag: TAG_IMAGE,
+              tag: 'TAG_IMAGE',
                           child: CircleAvatar(
                 radius: 60.0,
                 backgroundColor: Colors.black12,

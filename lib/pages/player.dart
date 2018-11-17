@@ -12,6 +12,7 @@ class PlayerPage extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(recordings);
     final _recordingSection = SafeArea(
       child: PageView(
         children: recordings
