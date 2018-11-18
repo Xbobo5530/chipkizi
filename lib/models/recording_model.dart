@@ -23,8 +23,10 @@ abstract class RecordingModel extends Model with PlayerModel {
   Recording _lastSubmittedRecording;
   Recording get lastSubmittedRecording => _lastSubmittedRecording;
 
-  Stream<QuerySnapshot> recordingsStream =
-      Firestore.instance.collection(RECORDINGS_COLLECTION).snapshots();
+  Stream<QuerySnapshot> recordingsStream = Firestore.instance
+      .collection(RECORDINGS_COLLECTION)
+      .orderBy(CREATED_AT_FIELD, descending: true)
+      .snapshots();
 
   String _defaultRecordingPath;
   bool get isReadyToSubmit => _defaultRecordingPath != null;
@@ -80,11 +82,9 @@ abstract class RecordingModel extends Model with PlayerModel {
         notifyListeners();
         break;
       default:
-    print('$_tag unexpected type: $type');
-    } 
+        print('$_tag unexpected type: $type');
+    }
   }
-
-  
 
   void updateGenres(int index) {
     genres.update(genres.keys.elementAt(index),
@@ -98,7 +98,7 @@ abstract class RecordingModel extends Model with PlayerModel {
     // _task.cancel();
   }
 
-  void resetTempDetailsFieldValues(){
+  void resetTempDetailsFieldValues() {
     _tempTitle = null;
     _tempDescription = null;
     notifyListeners();

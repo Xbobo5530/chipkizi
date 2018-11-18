@@ -83,8 +83,7 @@ class DetailsSectionView extends StatelessWidget {
       });
     });
 
-    Future<void> _updateFields(
-        MainModel model, DetailType type /*, String value*/) async {
+    Future<void> _updateFields(MainModel model, DetailType type) async {
       print('$_tag at _updateFields');
       String value;
       switch (type) {
@@ -129,10 +128,10 @@ class DetailsSectionView extends StatelessWidget {
                 FlatButton(
                     child: Text(submitText),
                     onPressed: () {
-                      final value = type == DetailType.title
+                      type == DetailType.title
                           ? _titleController.text.trim()
                           : _descriptionController.text.trim();
-                      _updateFields(model, type /*, value*/);
+                      _updateFields(model, type);
                       Navigator.pop(context);
                     }),
               ],
@@ -143,25 +142,36 @@ class DetailsSectionView extends StatelessWidget {
     Widget _buildBody(MainModel model) => Column(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.title, color: Colors.white,),
-              title:
-                  Text(model.tempTitle != null ? model.tempTitle : titleText,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
-                  ),),
-              trailing: Icon(Icons.edit, color: Colors.white70,),
+              leading: Icon(
+                Icons.title,
+                color: Colors.white,
+              ),
+              title: Text(
+                model.tempTitle != null ? model.tempTitle : titleText,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              trailing: Icon(
+                Icons.edit,
+                color: Colors.white70,
+              ),
               onTap: () => _showEditDialog(model, DetailType.title),
             ),
             ListTile(
-              leading: Icon(Icons.description, color: Colors.white,),
-              title: Text(model.tempDescription != null
-                  ? model.tempDescription
-                  : descriptionText,
-                  style: TextStyle(
-                    color: Colors.white 
-                  ),),
-              trailing: Icon(Icons.edit, color: Colors.white70,),
+              leading: Icon(
+                Icons.description,
+                color: Colors.white,
+              ),
+              title: Text(
+                model.tempDescription != null
+                    ? model.tempDescription
+                    : descriptionText,
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: Icon(
+                Icons.edit,
+                color: Colors.white70,
+              ),
               onTap: () => _showEditDialog(model, DetailType.description),
             ),
             Expanded(child: _genresSection),

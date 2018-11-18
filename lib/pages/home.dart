@@ -1,7 +1,7 @@
 import 'package:chipkizi/models/main_model.dart';
-import 'package:chipkizi/models/recording.dart';
+
 import 'package:chipkizi/pages/create_recording.dart';
-import 'package:chipkizi/pages/edit_profile.dart';
+
 import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/pages/my_profile.dart';
 import 'package:chipkizi/pages/searrch_delegate.dart';
