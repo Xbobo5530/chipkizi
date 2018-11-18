@@ -4,7 +4,6 @@ import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
-
 import 'package:chipkizi/views/play_button.dart';
 import 'package:chipkizi/views/upvote_button.dart';
 import 'package:flutter/material.dart';

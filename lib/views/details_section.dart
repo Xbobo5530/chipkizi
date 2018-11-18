@@ -1,26 +1,24 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
-
 import 'package:chipkizi/views/genre_chips.dart';
-
 import 'package:chipkizi/views/wait_view.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+const _tag = 'DetailsSectionView:';
+
 class DetailsSectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final whitish = Colors.white70;
     final _titleController = TextEditingController();
     final _descriptionController = TextEditingController();
 
     Future<void> _handleSubmit(BuildContext context, MainModel model) async {
-      final title = _titleController.text.trim();
-      final description = _descriptionController.text.trim();
+      final title = model.tempTitle;
+      final description = model.tempDescription;
       if (title.isNotEmpty && description.isNotEmpty) {
         final recording = Recording(
             title: title,
@@ -48,33 +46,6 @@ class DetailsSectionView extends StatelessWidget {
             onPressed: () => Navigator.pop(context)),
       ),
     );
-
-    // Widget _buildField(TextEditingController controller, int maxLines,
-    //         IconData iconData, String labelText, FontWeight labelFontWeight) =>
-    //     Padding(
-    //       padding: const EdgeInsets.all(8.0),
-    //       child: Theme(
-    //         data: Theme.of(context).copyWith(
-    //             accentColor: Colors.white, primaryColor: Colors.white),
-    //         child: TextField(
-    //             style: TextStyle(color: Colors.white),
-    //             controller: controller,
-    //             maxLines: maxLines,
-    //             decoration: InputDecoration(
-    //                 border: InputBorder.none,
-    //                 prefixIcon: Icon(
-    //                   iconData,
-    //                   color: whitish,
-    //                 ),
-    //                 suffixIcon: Icon(
-    //                   Icons.edit,
-    //                   color: whitish,
-    //                 ),
-    //                 labelText: labelText,
-    //                 labelStyle: TextStyle(
-    //                     fontWeight: labelFontWeight, color: whitish))),
-    //       ),
-    //     );
 
     final _genresSection = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
@@ -112,7 +83,25 @@ class DetailsSectionView extends StatelessWidget {
       });
     });
 
-    Future<void> _hanldeSubmit(MainModel model, DetailType type) async {}
+    Future<void> _updateFields(
+        MainModel model, DetailType type /*, String value*/) async {
+      print('$_tag at _updateFields');
+      String value;
+      switch (type) {
+        case DetailType.title:
+          value = _titleController.text.trim();
+
+          break;
+        case DetailType.description:
+          value = _descriptionController.text.trim();
+          break;
+        default:
+          print('$_tag unexpected type');
+      }
+
+      if (value == null || value.isEmpty) return null;
+      model.setTempValues(value, type);
+    }
 
     _showEditDialog(MainModel model, DetailType type) async {
       await showDialog(
@@ -125,6 +114,9 @@ class DetailsSectionView extends StatelessWidget {
                 autofocus: true,
                 maxLines: type == DetailType.title ? 1 : null,
                 cursorColor: Colors.brown,
+                textCapitalization: type == DetailType.title
+                    ? TextCapitalization.words
+                    : TextCapitalization.sentences,
                 controller: type == DetailType.title
                     ? _titleController
                     : _descriptionController,
@@ -137,7 +129,10 @@ class DetailsSectionView extends StatelessWidget {
                 FlatButton(
                     child: Text(submitText),
                     onPressed: () {
-                      _hanldeSubmit(model, type);
+                      final value = type == DetailType.title
+                          ? _titleController.text.trim()
+                          : _descriptionController.text.trim();
+                      _updateFields(model, type /*, value*/);
                       Navigator.pop(context);
                     }),
               ],
@@ -148,50 +143,27 @@ class DetailsSectionView extends StatelessWidget {
     Widget _buildBody(MainModel model) => Column(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.title),
+              leading: Icon(Icons.title, color: Colors.white,),
               title:
-                  Text(model.tempTitle != null ? model.tempTitle : titleText),
-              trailing: Icon(Icons.edit),
+                  Text(model.tempTitle != null ? model.tempTitle : titleText,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                  ),),
+              trailing: Icon(Icons.edit, color: Colors.white70,),
               onTap: () => _showEditDialog(model, DetailType.title),
             ),
-
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.description, color: Colors.white,),
               title: Text(model.tempDescription != null
                   ? model.tempDescription
-                  : descriptionText),
-              trailing: Icon(Icons.edit),
+                  : descriptionText,
+                  style: TextStyle(
+                    color: Colors.white 
+                  ),),
+              trailing: Icon(Icons.edit, color: Colors.white70,),
               onTap: () => _showEditDialog(model, DetailType.description),
             ),
-
-            // Row(
-            //   children: <Widget>[
-            //     Icon(Icons.title),
-            //     Expanded(
-            //       child: Text(titleText),
-            //     ),
-            //     IconButton(
-            //       icon: Icon(Icons.edit),
-            //       onPressed: (){},
-            //     )
-            //   ],
-            // ),
-            // Row(
-            //   children: <Widget>[
-            //     Icon(Icons.description),
-            //     Expanded(
-            //       child: Text(descriptionText),
-            //     ),
-            //     IconButton(
-            //       icon: Icon(Icons.edit),
-            //       onPressed: (){},
-            //     )
-            //   ],
-            // ),
-            // _buildField(
-            //     _titleController, 1, Icons.title, titleText, FontWeight.bold),
-            // _buildField(_descriptionController, null, Icons.description,
-            //     descriptionText, FontWeight.normal),
             Expanded(child: _genresSection),
           ],
         );

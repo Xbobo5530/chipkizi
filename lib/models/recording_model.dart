@@ -69,6 +69,7 @@ abstract class RecordingModel extends Model with PlayerModel {
   };
 
   void setTempValues(String value, DetailType type) {
+    print('$_tag at setTempValues');
     switch (type) {
       case DetailType.title:
         _tempTitle = value;
