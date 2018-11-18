@@ -9,7 +9,7 @@ const logoutText = 'Logout';
 const cancelText = 'Cancel';
 
 const nextText = 'Next';
-
+const commentsText = 'Comments';
 const nameText = 'Name';
 const bioText = 'Bio';
 
