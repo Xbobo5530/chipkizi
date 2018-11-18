@@ -184,7 +184,8 @@ class RecordingCard extends StatelessWidget {
           return Stack(
             children: <Widget>[
               _buildCardSection(model),
-              _shareButton,
+              //TODO: enabke share button
+              //_shareButton,
               _closeButton
             ],
           );

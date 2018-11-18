@@ -8,3 +8,5 @@ build/
 
 .flutter-plugins
 android/app/google-services.json
+android/key.properties
+android/app/proguard-rules.pro

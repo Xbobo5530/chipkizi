@@ -207,7 +207,7 @@ abstract class AccountModel extends Model {
   /// the [type] on isEditing fields will be limited to
   /// [DetailType.name] which will reset the [_isEditingUsername] field to [false]
   /// and teh [DetailType.bio] which will reset the [_isEditingUserBio] field to [false]
-  resetIsEditingField (DetailType type){
+  resetIsEditingField(DetailType type) {
     switch (type) {
       case DetailType.name:
         _isEditingUsername = false;
@@ -266,18 +266,28 @@ abstract class AccountModel extends Model {
     if (_hasError) return _editingUserDetailsStatus;
     _editingUserDetailsStatus = StatusCode.success;
     resetIsEditingField(type);
+    _updateCachedUserInfo(user);
     notifyListeners();
     return _editingUserDetailsStatus;
   }
 
-  Future<StatusCode> logout()async{
+  _updateCachedUserInfo(User user){
+    print('$_tag rat _updateCachedUserInfo\nremoving cahced user');
+    final userId = user.id;
+    _cachedUsers.remove(userId);
+  }
+
+  Future<StatusCode> logout() async {
     print('$_tag at logout');
     bool _hasError = false;
-    await _auth.signOut().catchError((error){
+    await _auth.signOut().catchError((error) {
       print('$_tag error on logging out: $error');
       _hasError = true;
     });
-    if (_hasError) {updateLoginStatus(); return StatusCode.failed;}
+    if (_hasError) {
+      updateLoginStatus();
+      return StatusCode.failed;
+    }
     updateLoginStatus();
     return StatusCode.success;
   }

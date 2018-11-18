@@ -69,10 +69,11 @@ class RecordingsListItemView extends StatelessWidget {
                 value: RecordingActions.upvote,
                 child: Text(upvoteText),
               ),
-              PopupMenuItem(
-                value: RecordingActions.share,
-                child: Text(shareText),
-              ),
+              //TODO: enable share and finish
+              // PopupMenuItem(
+              //   value: RecordingActions.share,
+              //   child: Text(shareText),
+              // ),
               PopupMenuItem(
                 value: RecordingActions.bookmark,
                 child: Text(bookmarkText),
@@ -210,7 +211,8 @@ class RecordingsListItemView extends StatelessWidget {
               leading: _buildLeadingSection(model),
               title: _titleSection,
               subtitle: _subtitle,
-              trailing: _buildPopUpMenu(model),
+              //TODO: rethink the menu button
+              //trailing: _buildPopUpMenu(model),
               onTap: () => _openRecording(_recordings),
             ),
             Divider()
