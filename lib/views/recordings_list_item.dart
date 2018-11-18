@@ -7,6 +7,7 @@ import 'package:chipkizi/pages/player.dart';
 
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/genre_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -128,24 +129,24 @@ class RecordingsListItemView extends StatelessWidget {
                 ),
               );
 
-    Widget _buildGenreChip(String genre) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                genre,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 12.0),
-              ),
-            ),
-            decoration: BoxDecoration(
-                color: Colors.lightGreen,
-                borderRadius: BorderRadius.circular(16.0)),
-          ),
-        );
+    // Widget _buildGenreChip(String genre) => Padding(
+    //       padding: const EdgeInsets.symmetric(horizontal: 2.0),
+    //       child: Container(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Center(
+    //           child: Text(
+    //             genre,
+    //             style: TextStyle(
+    //                 fontWeight: FontWeight.bold,
+    //                 color: Colors.white,
+    //                 fontSize: 12.0),
+    //           ),
+    //         ),
+    //         decoration: BoxDecoration(
+    //             color: Colors.lightGreen,
+    //             borderRadius: BorderRadius.circular(16.0)),
+    //       ),
+    //     );
 
     final _subtitle = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +164,7 @@ class RecordingsListItemView extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: recording.genre
-                      .map((genre) => _buildGenreChip(genre))
+                      .map((genre) => GenreChipView(genre: genre))
                       .toList(),
                 ),
               )

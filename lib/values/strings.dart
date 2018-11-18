@@ -15,6 +15,7 @@ const bioText = 'Bio';
 
 const titleText = 'Title';
 const descriptionText = 'Description';
+const genresText = 'Genres';
 
 const openText = 'Open';
 const shareText = 'Share';
@@ -26,6 +27,8 @@ const recordingsText = 'recordings';
 const myRecordingsText = 'My recordings';
 const goHomeText = 'Open homepage';
 const openRecordingText = 'Open recording';
+const browseRecordingsText = 'Browse recordings';
+const makeRecordingText = 'Create a recording';
 
 
 //messages
@@ -34,3 +37,6 @@ const loginToViewProfileMessage = 'Please login to view your profile.';
 const tapRecordHint = 'Please tap the record button to continue';
 
 const confirmLogoutText = 'Are you sure you want to logout?';
+
+const noBookmarksText = 'You have not saved any recordings';
+const noRecordingsText = 'You have not yet made any recordings';

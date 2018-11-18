@@ -8,7 +8,7 @@ class CircularIconButton extends StatelessWidget {
   final Color color;
   final double size;
 
-  const CircularIconButton({Key key, this.button, this.color, this.size = 48.0})
+  const CircularIconButton({Key key, @required this.button, @required this.color, this.size = 48.0})
       : super(key: key);
 
   @override

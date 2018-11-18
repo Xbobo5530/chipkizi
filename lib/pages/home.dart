@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
     _handleSearch(MainModel model) async {
       await showSearch(
         context: context,
-        delegate: RecordingsSearch(model.recordings),
+        delegate: RecordingsSearch(recordings: model.recordings),
       );
     }
 

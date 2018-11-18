@@ -6,7 +6,9 @@ class ProgressButton extends StatelessWidget {
   /// for example a [Builder] that eventually returns a [MyProgressIndicator]
   final Widget indicator;
   final double size;
-  final IconButton button;
+  /// typically an [IconButton] but can be assigned to another fitting widget 
+  /// like an [Icon], a [CircleAvatar] or a [Text] widget
+  final Widget button;
   final Color color;
 
   const ProgressButton(

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class RecordingsSearch extends SearchDelegate<Recording> {
   final Map<String, Recording> recordings;
 
-  RecordingsSearch(this.recordings);
+  RecordingsSearch({@required this.recordings});
 
   @override
   List<Widget> buildActions(BuildContext context) {

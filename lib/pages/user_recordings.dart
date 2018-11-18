@@ -3,11 +3,13 @@ import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/empty_view.dart';
 import 'package:chipkizi/views/recordings_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 const _tag = 'UserRecordingsPage:';
+
 class UserRecordingsPage extends StatelessWidget {
   final User user;
   final ListType type;
@@ -56,7 +58,21 @@ class UserRecordingsPage extends StatelessWidget {
       builder: (_, __, model) {
         return Scaffold(
           appBar: _buildAppBar(model),
-          body: _buildBody(model),
+          body: FutureBuilder(
+            future: model.getUserRecordings(user, type),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              List<Recording> recordings = snapshot.data;
+              return recordings.length == 0
+                  ? EmptyView(
+                      type: type,
+                    )
+                  : _buildBody(model);
+            },
+          ),
         );
       },
     );

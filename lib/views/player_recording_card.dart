@@ -4,6 +4,8 @@ import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
+import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/genre_chip.dart';
 import 'package:chipkizi/views/play_button.dart';
 import 'package:chipkizi/views/upvote_button.dart';
 import 'package:flutter/material.dart';
@@ -34,22 +36,52 @@ class RecordingCard extends StatelessWidget {
           );
         });
 
-    _buildActions(MainModel model) => Column( children: [
-      ButtonBar(children: <Widget>[RaisedButton(child: Text(commentsText),onPressed: (){},)],),
-      ButtonBar(
-          alignment: MainAxisAlignment.center,
-          children: <Widget>[
-            BookmarkButtonView(recording: recording),
-            Hero(
-              tag: TAG_MAIN_BUTTON,
-              child: PlayButtonView(
-                recording: recording,
+    _buildActions(MainModel model) => Column(children: [
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              BookmarkButtonView(recording: recording),
+              Hero(
+                tag: TAG_MAIN_BUTTON,
+                child: PlayButtonView(
+                  recording: recording,
+                ),
               ),
-            ),
-            UpvoteButtonView(recording: recording),
-          ],
-        ),
-        
+              UpvoteButtonView(recording: recording),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircularIconButton(
+                size: 40.0,
+                button: IconButton(
+                  icon: Icon(
+                    Icons.stop,
+                    color: Colors.brown,
+                  ),
+                  onPressed: () => model.stop(),
+                ),
+                color: Colors.white,
+              ),
+            ],
+          ),
+
+          SizedBox(height: 8.0,)
+
+
+          // TODO: add comments
+          // ButtonBar(
+          //   alignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //     RaisedButton(
+          //       color: Colors.white,
+          //       textColor: Colors.brown,
+          //       child: Text(commentsText),
+          //       onPressed: () {},
+          //     )
+          //   ],
+          // ),
         ]);
     final _shareButton = Positioned(
       top: 0.0,
@@ -85,46 +117,63 @@ class RecordingCard extends StatelessWidget {
       ),
     );
 
-    final _infoSection = ListTile(
-      title: Text(
-        recording.title,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-      ),
-      subtitle: Text(
-        recording.description,
-        textAlign: TextAlign.center,
-      ),
-    );
-
-    _buildUserInfoSection(MainModel model) => FutureBuilder<User>(
+    _buildInfoSection(MainModel model) => FutureBuilder<User>(
           future: model.userFromId(recording.createdBy),
           builder: (_, snapshot) {
             if (!snapshot.hasData) return Container();
             final user = snapshot.data;
             return ListTile(
-              title: Text(
-                user.name,
-                textAlign: TextAlign.center,
-              ),
-              subtitle: user.bio != null
-                  ? Text(
-                      user.name,
-                      textAlign: TextAlign.center,
-                    )
-                  : Container(),
-            );
+                title: Text(
+                  recording.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+                subtitle: Text(
+                  user.name,
+                  textAlign: TextAlign.center,
+                ));
           },
         );
+    final _genresSection = ExpansionTile(
+      leading: Icon(Icons.dashboard),
+      title: Text(genresText),
+      children: recording.genre
+          .map((genre) => Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 40.0),
+              child: GenreChipView(genre: genre)))
+          .toList(),
+    );
+
+    final _descriptionSection = ExpansionTile(
+      leading: Icon(Icons.description),
+      title: Text(descriptionText),
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            recording.description,
+            textAlign: TextAlign.start,
+          ),
+        )
+      ],
+    );
+
     _buildCardSection(MainModel model) => Card(
         color: Colors.white70,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              height: 40.0,
+            ),
             _buildImageSection(model),
-            _infoSection,
-            _buildUserInfoSection(model),
-            _buildActions(model)
+            _buildInfoSection(model),
+            _buildActions(model),
+            _descriptionSection,
+            recording.genre != null && recording.genre.length > 0
+                ? _genresSection
+                : Container(),
           ],
         ));
 
