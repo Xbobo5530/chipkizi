@@ -21,11 +21,7 @@ class MyProgressIndicator extends StatelessWidget {
       this.isCentered = false
       })
       : super(key: key);
-//  MyProgressIndicator({
-//    @required this.color,
-//    @required this.progress,
-//    @required this.size,
-//  });
+
   @override
   Widget build(BuildContext context) {
     return Container(

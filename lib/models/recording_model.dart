@@ -184,7 +184,7 @@ abstract class RecordingModel extends Model with PlayerModel {
       _hasError = true;
     });
     recording.id = document.documentID;
-    _lastSubmittedRecording = await _getRecordingFromId(recording.id);
+    _lastSubmittedRecording = await getRecordingFromId(recording.id);
     notifyListeners();
     _createUserRecordingDocRef(recording);
     if (_hasError) return StatusCode.failed;
@@ -354,7 +354,7 @@ abstract class RecordingModel extends Model with PlayerModel {
     return _editingRecordingDetailsStatus;
   }
 
-  Future<Recording> _getRecordingFromId(String id) async {
+  Future<Recording> getRecordingFromId(String id) async {
     print('$_tag at _getRecordingFromId');
     bool _hasError = false;
     DocumentSnapshot document = await _database
