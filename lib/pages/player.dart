@@ -1,11 +1,12 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-import 'package:chipkizi/values/consts.dart';
-import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/player_recording_card.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+const _tag = 'PlayerPage:';
 
 class PlayerPage extends StatelessWidget {
   final Recording recording;
@@ -24,9 +25,10 @@ class PlayerPage extends StatelessWidget {
               if (!snapshot.hasData)
                 return Center(
                   child: MyProgressIndicator(
-                    color: Colors.white,
-                    size: 28.0,
+                    color: Colors.white70,
+                    size: 32.0,
                     value: null,
+                    strokeWidth: 4.0,
                   ),
                 );
               return RecordingCard(
@@ -37,32 +39,34 @@ class PlayerPage extends StatelessWidget {
             });
       },
     );
-    final _recordingSection = SafeArea(
-      child: PageView(
-        children: recording == null
-            ? _recordingFromNetwork
-            : recordings
-                .map((recording) => RecordingCard(
-                    recording: recording,
-                    key: Key(
-                      recording.id,
-                    )))
-                .toList(),
-      ),
-    );
 
-    final _appBar = AppBar(
-      elevation: 0.0,
-      leading: Hero(
-        tag: 'TAG_MAIN_BUTTON',
-        child: Material(
-          color: Colors.transparent,
-          child: Container(),
-        ),
-      ),
-      title: Hero(
-        tag: TAG_APP_TITLE,
-        child: Text(APP_NAME),
+    final _recordingSection = SafeArea(
+      child: ScopedModelDescendant<MainModel>(
+        builder: (_, __, model) {
+          /// fail safe
+          /// if recordings are added by others
+          /// [updateRecordings(Recording recording)]
+          /// should be ran to add new recordings to the cache
+          if (!model.recordings.containsKey(recording.id))
+            model.updateRecordings(recording);
+
+          print('$_tag the selected recording id is: ${recording.id}');
+
+          return PageView(
+            ///TODO: test
+            children:  
+                     
+                    recordings == null
+                ? <Widget>[_recordingFromNetwork]
+                : recordings
+                    .map((recording) => RecordingCard(
+                        recording: recording,
+                        key: Key(
+                          recording.id,
+                        )))
+                    .toList(),
+          );
+        },
       ),
     );
 

@@ -52,7 +52,11 @@ class HomePage extends StatelessWidget {
     }
 
     final _appBarSection = AppBar(
-      leading: Icon(Icons.mic_none),
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset('images/ic_launcher.png', 
+        ),
+      ),
       title: Hero(
           flightShuttleBuilder: (context, animatrion, direction, _, __) {
             return Icon(

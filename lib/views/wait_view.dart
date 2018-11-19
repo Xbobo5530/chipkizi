@@ -50,9 +50,48 @@ class WaitView extends StatelessWidget {
                 fontStyle: FontStyle.italic),
           ),
         );
+
+    final _homeButton = RaisedButton(
+      color: Colors.white,
+      textColor: Colors.brown,
+      child: Text(goHomeText),
+      onPressed: () {
+        Navigator.popUntil(context, ModalRoute.withName('/'));
+      },
+    );
+
+    Widget _buildPlayerButton(MainModel model) => RaisedButton(
+          color: Colors.white,
+          textColor: Colors.brown,
+          child: Text(openRecordingText),
+          onPressed: () async {
+            Recording newRecording = model.lastSubmittedRecording;
+            List<Recording> recordings = model.getAllRecordings(newRecording);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PlayerPage(
+                        recording: newRecording,
+                        recordings: recordings,
+                      ),
+                ),
+                ModalRoute.withName('/'));
+          },
+        );
+
+    Widget _buildActions(MainModel model) => ButtonBar(
+          alignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _homeButton,
+            _buildPlayerButton(model),
+          ],
+        );
+
     return ScopedModelDescendant<MainModel>(
-          builder:(_,__,model){
-            return Scaffold(
+      builder: (_, __, model) {
+        if (model.uploadStatus == StatusCode.success)
+          model.updateRecordings(model.lastSubmittedRecording);
+        return Scaffold(
             backgroundColor: Colors.brown,
             body: Center(
               child: Column(
@@ -61,46 +100,12 @@ class WaitView extends StatelessWidget {
                   _buildProgressButton(model),
                   _buildTextSection(model),
                   model.uploadStatus == StatusCode.success
-                      ? ButtonBar(
-                          alignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            RaisedButton(
-                              color: Colors.white,
-                              textColor: Colors.brown,
-                              child: Text(goHomeText),
-                              onPressed: () {
-                                Navigator.popUntil(
-                                    context, ModalRoute.withName('/'));
-                              },
-                            ),
-                            RaisedButton(
-                              color: Colors.white,
-                              textColor: Colors.brown,
-                              child: Text(openRecordingText),
-                              onPressed: () async {
-                                Recording newRecording =
-                                    model.lastSubmittedRecording;
-                                List<Recording> recordings =
-                                    model.getAllRecordings(newRecording);
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PlayerPage(
-                                            recording: newRecording,
-                                            recordings: recordings,
-                                          ),
-                                    ),
-                                    ModalRoute.withName('/'));
-                              },
-                            ),
-                          ],
-                        )
+                      ? _buildActions(model)
                       : Container(),
                 ],
               ),
-            )
-            );} ,
-          
+            ));
+      },
     );
   }
 }

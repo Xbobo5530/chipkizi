@@ -116,9 +116,11 @@ abstract class RecordingModel extends Model with PlayerModel {
       return _submitStatus;
     }
     _submitStatus = await _createRecordingDoc(recording);
-    if (_submitStatus == StatusCode.success) getRecordings();
+    //if (_submitStatus == StatusCode.success) _updateRecordings();//getRecordings();
     return _submitStatus;
   }
+
+  
 
   Future<StatusCode> _uploadRecording() async {
     print('$_tag at _uploadRecording');

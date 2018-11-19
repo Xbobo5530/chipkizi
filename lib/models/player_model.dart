@@ -19,6 +19,8 @@ abstract class PlayerModel extends Model {
   // AudioPlayer audioPlayer = AudioPlayer();
   Map<String, Recording> _recordings = Map();
   Map<String, Recording> get recordings => _recordings;
+  StatusCode _gettingRecordingsStatus;
+  StatusCode get gettingRecordingStatus => _gettingRecordingsStatus;
 
   List<Recording> _userRecordingsList = <Recording>[];
 
@@ -33,6 +35,8 @@ abstract class PlayerModel extends Model {
 
   Future<StatusCode> getRecordings() async {
     print('$_tag at getRecordings');
+    _gettingRecordingsStatus = StatusCode.waiting;
+    notifyListeners();
     bool _hasError = false;
     QuerySnapshot snapshot = await _database
         .collection(RECORDINGS_COLLECTION)
@@ -40,6 +44,8 @@ abstract class PlayerModel extends Model {
         .catchError((error) {
       print('$_tag error on getting recordings');
       _hasError = true;
+      _gettingRecordingsStatus = StatusCode.failed;
+      notifyListeners();
     });
     if (_hasError) return StatusCode.failed;
     List<DocumentSnapshot> documents = snapshot.documents;
@@ -49,7 +55,8 @@ abstract class PlayerModel extends Model {
       tempMap.putIfAbsent(recording.id, () => recording);
     });
     _recordings = tempMap;
-    return StatusCode.success;
+    _gettingRecordingsStatus = StatusCode.success;
+    return _gettingRecordingsStatus;
   }
 
   Future<PlaybackStatus> play(Recording recording) async {
@@ -180,6 +187,8 @@ abstract class PlayerModel extends Model {
 
   List<Recording> getAllRecordings(Recording recording) {
     // print('$_tag at getAllRecordings');
+    if (!_recordings.containsKey(recording.id)) return null;
+    
     List<Recording> tempList = <Recording>[];
     List<String> ids = recordings.keys.toList();
     ids.remove(recording.id);
@@ -189,8 +198,17 @@ abstract class PlayerModel extends Model {
       Recording _recording = recordings[id];
       tempList.add(_recording);
     });
-
+    
     return tempList;
+  }
+
+  /// after a new [recording] has been submitted
+  /// update the [_recordings] map to make it so all listeners can
+  /// get it
+  void updateRecordings(Recording recording) {
+    print('$_tag at udate recordings');
+    _recordings.putIfAbsent(recording.id, () => recording);
+    notifyListeners();
   }
 
   List<Recording> arrangeRecordings(
@@ -207,7 +225,7 @@ abstract class PlayerModel extends Model {
 
   Future<void> _updatePlayCount(Recording recording) async {
     print('$_tag at _updatePlayCount');
-    
+
     await _database.runTransaction((transaction) async {
       DocumentSnapshot freshSnapshot = await transaction.get(
           _database.collection(RECORDINGS_COLLECTION).document(recording.id));
