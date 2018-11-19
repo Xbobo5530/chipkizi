@@ -56,6 +56,18 @@ class RecordSectionView extends StatelessWidget {
       }
     }
 
+    Widget _buildIcon(MainModel model) => model.isRecording
+        ? Icon(
+            Icons.stop,
+            color: Colors.brown,
+            size: 80.0,
+          )
+        : Icon(
+            Icons.fiber_manual_record,
+            color: Colors.red,
+            size: 80.0,
+          );
+
     Widget _buildRecordButton(MainModel model) => Expanded(
           child: Center(
             child: Builder(
@@ -69,17 +81,7 @@ class RecordSectionView extends StatelessWidget {
                       value: model.recorderProgress,
                     ),
                     button: IconButton(
-                      icon: model.isRecording
-                          ? Icon(
-                              Icons.stop,
-                              color: Colors.brown,
-                              size: 80.0,
-                            )
-                          : Icon(
-                              Icons.fiber_manual_record,
-                              color: Colors.red,
-                              size: 80.0,
-                            ),
+                      icon: _buildIcon(model),
                       onPressed: () => _handleRecording(context, model),
                     ),
                     size: 150.0,

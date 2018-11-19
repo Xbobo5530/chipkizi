@@ -32,6 +32,31 @@ class BookmarkButtonView extends StatelessWidget {
       }
     }
 
+    final _progressIndicator = MyProgressIndicator(
+      color: Colors.brown,
+      size: 15.0,
+      value: null,
+      strokeWidth: 4.0,
+      isCentered: true,
+    );
+
+    Widget _buildIconButton(MainModel model, bool hasBookmarked) => IconButton(
+          icon: hasBookmarked
+              ? Icon(
+                  Icons.bookmark,
+                  color: Colors.orange,
+                )
+              : Icon(
+                  Icons.bookmark_border,
+                ),
+          onPressed: model.isLoggedIn
+              ? () => _handleBookmark(context, model)
+              : () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => LoginPage(), fullscreenDialog: true)),
+        );
+
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
         return FutureBuilder<bool>(
@@ -41,30 +66,8 @@ class BookmarkButtonView extends StatelessWidget {
             bool hasBookmarked = snapshot.data;
             return CircularIconButton(
               button: model.bookmarkingStatus == StatusCode.waiting
-                  ? MyProgressIndicator(
-                      color: Colors.brown,
-                      size: 15.0,
-                      value: null,
-                      strokeWidth: 4.0,
-                      isCentered: true,
-                    )
-                  : IconButton(
-                      icon: hasBookmarked
-                          ? Icon(
-                              Icons.bookmark,
-                              color: Colors.orange,
-                            )
-                          : Icon(
-                              Icons.bookmark_border,
-                            ),
-                      onPressed: model.isLoggedIn
-                          ? () => _handleBookmark(context, model)
-                          : () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => LoginPage(),
-                                  fullscreenDialog: true)),
-                    ),
+                  ? _progressIndicator
+                  : _buildIconButton(model, hasBookmarked),
               color: Colors.white,
             );
           },
