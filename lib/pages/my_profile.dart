@@ -45,7 +45,11 @@ class MyProfilePage extends StatelessWidget {
             return AlertDialog(
               title: Text(type == DetailType.name ? nameText : bioText),
               content: TextField(
-                maxLines: null,
+                maxLines: type == DetailType.name
+                ? 1: null,
+                textCapitalization: type == DetailType.name
+                ? TextCapitalization.words
+                : TextCapitalization.sentences,
                 cursorColor: Colors.brown,
                 controller: type == DetailType.name
                     ? _nameFieldController
