@@ -99,7 +99,7 @@ class RecordSectionView extends StatelessWidget {
         FlatButton(
             onPressed: null,
             child: Text(
-              waitText,
+              recordingText,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

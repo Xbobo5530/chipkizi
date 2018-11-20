@@ -2,6 +2,7 @@ const APP_NAME = 'Chipkizi';
 const homeText = 'Home';
 const meText = 'Me';
 const waitText = 'Please wait...';
+const recordingText = 'Recording...';
 const submitSuccessText = 'Congrats!!!\nYour recording has successfully been submited.';
 const submitText = 'Submit';
 const loginText = 'Login';
