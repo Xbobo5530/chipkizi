@@ -10,3 +10,5 @@ build/
 android/app/google-services.json
 android/key.properties
 android/app/proguard-rules.pro
+ios/Runner/GoogleService-Info.plist
+ios/Runner/Info.plist
