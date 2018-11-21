@@ -12,3 +12,6 @@ android/key.properties
 android/app/proguard-rules.pro
 ios/Runner/GoogleService-Info.plist
 ios/Runner/Info.plist
+ios/Runner/GoogleService-Info-4.plist
+ios/Runner/Info.plist
+ios/Runner/Info.plist
