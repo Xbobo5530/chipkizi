@@ -15,13 +15,11 @@ abstract class PlayerModel extends Model {
   final Firestore _database = Firestore.instance;
   FlutterSound flutterSound = FlutterSound();
   StreamSubscription _playerSubscription;
-
-  // AudioPlayer audioPlayer = AudioPlayer();
   Map<String, Recording> _recordings = Map();
   Map<String, Recording> get recordings => _recordings;
   StatusCode _gettingRecordingsStatus;
   StatusCode get gettingRecordingStatus => _gettingRecordingsStatus;
-
+  Map<String, User> _cachedUsers = Map();
   List<Recording> _userRecordingsList = <Recording>[];
 
   bool _isPlaying = false;
@@ -50,13 +48,36 @@ abstract class PlayerModel extends Model {
     if (_hasError) return StatusCode.failed;
     List<DocumentSnapshot> documents = snapshot.documents;
     Map<String, Recording> tempMap = <String, Recording>{};
-    documents.forEach((document) {
+    documents.forEach((document) async {
       Recording recording = Recording.fromSnaspshot(document);
+      User user = await _userFromId(recording.createdBy);
+      if (user != null) {
+        recording.username = user.name;
+        recording.userImageUrl = user.imageUrl;
+      }
       tempMap.putIfAbsent(recording.id, () => recording);
     });
     _recordings = tempMap;
     _gettingRecordingsStatus = StatusCode.success;
     return _gettingRecordingsStatus;
+  }
+
+  Future<User> _userFromId(String userId) async {
+    // print('$_tag at userFromId');
+    bool _hasError = false;
+    if (_cachedUsers[userId] != null) return _cachedUsers[userId];
+    DocumentSnapshot document = await _database
+        .collection(USERS_COLLECTION)
+        .document(userId)
+        .get()
+        .catchError((error) {
+      print('$_tag error on getting user document form id');
+      _hasError = true;
+    });
+    if (_hasError) return null;
+    final userFromId = User.fromSnapshot(document);
+    _cachedUsers.putIfAbsent(userId, () => userFromId);
+    return userFromId;
   }
 
   Future<PlaybackStatus> play(Recording recording) async {
@@ -235,5 +256,15 @@ abstract class PlayerModel extends Model {
       print(
           '$_tag failed to do transaction to update recording play count: $error');
     });
+  }
+
+  Future<Recording> refineRecording(Recording recording)async{
+    print('$_tag at refineRecording');
+    User user = await _userFromId(recording.createdBy);
+    if (user != null){
+      recording.username = user.name;
+      recording.userImageUrl = user.imageUrl;
+    }
+    return recording;
   }
 }

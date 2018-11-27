@@ -43,42 +43,43 @@ class RecordingsListItemView extends StatelessWidget {
       }
     }
 
-    Widget _buildLeadingSection(MainModel model) => FutureBuilder<User>(
-          future: model.userFromId(recording.createdBy),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return Icon(Icons.mic);
-            User user = snapshot.data;
-            return CircleAvatar(
-              radius: 24.0,
-              backgroundColor: Colors.black12,
-              backgroundImage: NetworkImage(user.imageUrl),
-            );
-          },
-        );
+    final _leadingSeciton = recording.userImageUrl == null
+        ? CircleAvatar(
+          radius: 24.0,
+            backgroundColor: Colors.brown,
+            backgroundImage: AssetImage('images/ic_launcher.png')
+            )
+        : CircleAvatar(
+            radius: 24.0,
+            backgroundColor: Colors.black12,
+            backgroundImage: NetworkImage(recording.userImageUrl),
+          );
 
-    Widget _buildPopUpMenu(MainModel model) =>
-        PopupMenuButton<RecordingActions>(
-          onSelected: (action) => _handleAction(context, model, action),
-          child: Icon(Icons.more_vert),
-          itemBuilder: (BuildContext context) {
-            return <PopupMenuItem<RecordingActions>>[
-              // PopupMenuItem( child: Text(upvoteText),),
-              PopupMenuItem(
-                value: RecordingActions.upvote,
-                child: Text(upvoteText),
-              ),
-              //TODO: enable share and finish
-              // PopupMenuItem(
-              //   value: RecordingActions.share,
-              //   child: Text(shareText),
-              // ),
-              PopupMenuItem(
-                value: RecordingActions.bookmark,
-                child: Text(bookmarkText),
-              ),
-            ];
-          },
-        );
+   
+
+    // Widget _buildPopUpMenu(MainModel model) =>
+    //     PopupMenuButton<RecordingActions>(
+    //       onSelected: (action) => _handleAction(context, model, action),
+    //       child: Icon(Icons.more_vert),
+    //       itemBuilder: (BuildContext context) {
+    //         return <PopupMenuItem<RecordingActions>>[
+    //           // PopupMenuItem( child: Text(upvoteText),),
+    //           PopupMenuItem(
+    //             value: RecordingActions.upvote,
+    //             child: Text(upvoteText),
+    //           ),
+    //           //TODO: enable share and finish
+    //           // PopupMenuItem(
+    //           //   value: RecordingActions.share,
+    //           //   child: Text(shareText),
+    //           // ),
+    //           PopupMenuItem(
+    //             value: RecordingActions.bookmark,
+    //             child: Text(bookmarkText),
+    //           ),
+    //         ];
+    //       },
+    //     );
 
     Widget _buildChips(Icon icon, String label) => Container(
           child: Padding(
@@ -128,8 +129,6 @@ class RecordingsListItemView extends StatelessWidget {
                 ),
               );
 
-   
-
     final _subtitle = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -159,7 +158,10 @@ class RecordingsListItemView extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Expanded(child: Text(recording.title)), _playLikeSection],
+        children: <Widget>[
+          Expanded(child: Text(recording.title)),
+          _playLikeSection
+        ],
       ),
     );
 
@@ -189,11 +191,9 @@ class RecordingsListItemView extends StatelessWidget {
         return Column(
           children: <Widget>[
             ListTile(
-              leading: _buildLeadingSection(model),
+              leading: _leadingSeciton,
               title: _titleSection,
               subtitle: _subtitle,
-              //TODO: rethink the menu button
-              //trailing: _buildPopUpMenu(model),
               onTap: () => _openRecording(_recordings),
             ),
             Divider()

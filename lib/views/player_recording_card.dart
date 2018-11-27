@@ -1,6 +1,5 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
@@ -18,23 +17,31 @@ class RecordingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _buildImageSection(MainModel model) => FutureBuilder<User>(
-        future: model.userFromId(recording.createdBy),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Icon(
-              Icons.mic,
-              size: 45.0,
-            );
-          final User user = snapshot.data;
-          return Center(
+    final _imageSection = recording.imageUrl != null
+        ? Center(
             child: CircleAvatar(
               radius: 60.0,
               backgroundColor: Colors.black12,
-              backgroundImage: NetworkImage(user.imageUrl),
+              backgroundImage: NetworkImage(recording.imageUrl),
             ),
-          );
-        });
+          )
+        : recording.userImageUrl != null
+            ? Center(
+                child: CircleAvatar(
+                  radius: 60.0,
+                  backgroundColor: Colors.black12,
+                  backgroundImage: NetworkImage(recording.userImageUrl),
+                ),
+              )
+            : Center(
+                child: CircleAvatar(
+                  radius: 60.0,
+                  backgroundColor: Colors.black12,
+                  backgroundImage: AssetImage('images/ic_launcher.png'),
+                ),
+              );
+
+    
 
     _buildActions(MainModel model) => Column(children: [
           ButtonBar(
@@ -67,8 +74,9 @@ class RecordingCard extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 8.0,)
-
+          SizedBox(
+            height: 8.0,
+          )
 
           // TODO: add comments
           // ButtonBar(
@@ -83,17 +91,17 @@ class RecordingCard extends StatelessWidget {
           //   ],
           // ),
         ]);
-     _buildShareButton(MainModel model) => Positioned(
-      top: 0.0,
-      right: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-          icon: Icon(Icons.share),
-          onPressed: () =>model.shareRecording(recording),
-        ),
-      ),
-    );
+    _buildShareButton(MainModel model) => Positioned(
+          top: 0.0,
+          right: 0.0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () => model.shareRecording(recording),
+            ),
+          ),
+        );
 
     final _closeButton = Positioned(
       top: 0.0,
@@ -117,23 +125,21 @@ class RecordingCard extends StatelessWidget {
       ),
     );
 
-    _buildInfoSection(MainModel model) => FutureBuilder<User>(
-          future: model.userFromId(recording.createdBy),
-          builder: (_, snapshot) {
-            if (!snapshot.hasData) return Container();
-            final user = snapshot.data;
-            return ListTile(
-                title: Text(
-                  recording.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-                subtitle: Text(
-                  user.name,
-                  textAlign: TextAlign.center,
-                ));
-          },
-        );
+    final _infoSection = ListTile(
+      title: Text(
+        recording.title,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+      ),
+      subtitle: recording.username != null
+          ? Text(
+              recording.username,
+              textAlign: TextAlign.center,
+            )
+          : null,
+    );
+
+    
     final _genresSection = ExpansionTile(
       leading: Icon(Icons.dashboard),
       title: Text(genresText),
@@ -167,8 +173,10 @@ class RecordingCard extends StatelessWidget {
             SizedBox(
               height: 40.0,
             ),
-            _buildImageSection(model),
-            _buildInfoSection(model),
+            // _buildImageSection(model),
+            _imageSection,
+            _infoSection,
+            // _buildInfoSection(model),
             _buildActions(model),
             _descriptionSection,
             recording.genre != null && recording.genre.length > 0
@@ -184,7 +192,6 @@ class RecordingCard extends StatelessWidget {
           return Stack(
             children: <Widget>[
               _buildCardSection(model),
-              //TODO: enabke share button
               _buildShareButton(model),
               _closeButton
             ],
