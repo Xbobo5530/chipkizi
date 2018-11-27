@@ -31,7 +31,7 @@ const myRecordingsText = 'My recordings';
 const goHomeText = 'Open homepage';
 const openRecordingText = 'Open recording';
 const browseRecordingsText = 'Browse recordings';
-const makeRecordingText = 'Create a recording';
+const createRecordingText = 'Create a recording';
 
 const newRecordingText = 'New recording';
 

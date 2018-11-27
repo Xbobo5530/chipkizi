@@ -42,50 +42,80 @@ class EmptyView extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-        backgroundColor: Colors.brown,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _roundButtonSection,
-              Text(
-                type == ListType.bookmarks ? noBookmarksText : noRecordingsText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    color: Colors.white,
-                    textColor: Colors.brown,
-                    child: Text(goHomeText),
-                    onPressed: () {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
-                    },
-                  ),
-                  ScopedModelDescendant<MainModel>(
-                    builder: (_, __, model) {
-                      return RaisedButton(
-                          color: Colors.white,
-                          textColor: Colors.brown,
-                          child: Text(type == ListType.bookmarks
-                              ? browseRecordingsText
-                              : makeRecordingText),
-                          onPressed: type == ListType.bookmarks
-                              ? () => _goToPlayer(model)
-                              : () => _goToCreateRecording());
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
-        ));
+    String _getText() {
+      switch (type) {
+        case ListType.userRecordings:
+          return newRecordingText;
+          break;
+        case ListType.bookmarks:
+        case ListType.upvotes:
+          return browseRecordingsText;
+          break;
+        default:
+          return browseRecordingsText;
+      }
+    }
+
+    _handleSecondaryAction(MainModel model) {
+      switch (type) {
+        case ListType.userRecordings:
+          _goToCreateRecording();
+          break;
+        case ListType.bookmarks:
+        case ListType.upvotes:
+          _goToPlayer(model);
+          break;
+        default:
+          _goToPlayer(model);
+      }
+    }
+
+    final _secondaryButton = ScopedModelDescendant<MainModel>(
+      builder: (_, __, model) {
+        return RaisedButton(
+            color: Colors.white,
+            textColor: Colors.brown,
+            child: Text(_getText()),
+            onPressed: () {
+              _handleSecondaryAction(model);
+            });
+      },
+    );
+
+    final _primaryButton = RaisedButton(
+      color: Colors.white,
+      textColor: Colors.brown,
+      child: Text(goHomeText),
+      onPressed: () {
+        Navigator.popUntil(context, ModalRoute.withName('/'));
+      },
+    );
+
+    final _actions = ButtonBar(
+      alignment: MainAxisAlignment.center,
+      children: <Widget>[
+        _primaryButton,
+        _secondaryButton,
+      ],
+    );
+
+    final _textSection = Text(
+      type == ListType.bookmarks ? noBookmarksText : noRecordingsText,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontSize: 20.0,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic),
+    );
+
+    final _body = Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[_roundButtonSection, _textSection, _actions],
+      ),
+    );
+
+    return Scaffold(backgroundColor: Colors.brown, body: _body);
   }
 }

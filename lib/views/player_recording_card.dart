@@ -1,6 +1,7 @@
 import 'package:chipkizi/models/comment.dart';
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
+import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
@@ -81,18 +82,7 @@ class RecordingCard extends StatelessWidget {
             height: 8.0,
           )
 
-          // TODO: add comments
-          // ButtonBar(
-          //   alignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     RaisedButton(
-          //       color: Colors.white,
-          //       textColor: Colors.brown,
-          //       child: Text(commentsText),
-          //       onPressed: () {},
-          //     )
-          //   ],
-          // ),
+         
         ]);
     _buildShareButton(MainModel model) => Positioned(
           top: 0.0,
@@ -249,7 +239,12 @@ class RecordingCard extends StatelessWidget {
           FlatButton(
             textColor: Colors.brown,
             child: Text(addCommentText),
-            onPressed: () => _handleAddComment(model),
+            onPressed: model.isLoggedIn
+                ? () => _handleAddComment(model)
+                : () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => LoginPage(), fullscreenDialog: true)),
           )
         ]);
 

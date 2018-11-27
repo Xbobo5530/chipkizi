@@ -93,15 +93,19 @@ class HomePage extends StatelessWidget {
 
     final _bottomNavSection = ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return BottomNavigationBar(
-          currentIndex: model.selectedNavItem,
-          onTap: (selectedItem) => model.updateSelectedNavItem(selectedItem),
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text(homeText)),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), title: Text(meText)),
-          ],
+        return Material(
+          elevation: 8.0,
+                  child: BottomNavigationBar(
+            
+            currentIndex: model.selectedNavItem,
+            onTap: (selectedItem) => model.updateSelectedNavItem(selectedItem),
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home), title: Text(homeText)),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle), title: Text(meText)),
+            ],
+          ),
         );
       },
     );
