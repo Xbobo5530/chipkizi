@@ -2,9 +2,11 @@ import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
+import 'package:chipkizi/values/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:share/share.dart';
 
 const _tag = 'RecordingActionsModel:';
 
@@ -264,5 +266,10 @@ abstract class RecordingActionsModel extends Model {
     });
     if (_hasError || !document.exists) return false;
     return true;
+  }
+
+  shareRecording(Recording recording)async{
+    final shareMessage = 'Listen to ${recording.title} on $APP_NAME\n$DEEP_LINK_URL${recording.id}';
+    Share.share(shareMessage);
   }
 }

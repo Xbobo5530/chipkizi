@@ -83,14 +83,14 @@ class RecordingCard extends StatelessWidget {
           //   ],
           // ),
         ]);
-    final _shareButton = Positioned(
+     _buildShareButton(MainModel model) => Positioned(
       top: 0.0,
       right: 0.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
           icon: Icon(Icons.share),
-          onPressed: () {},
+          onPressed: () =>model.shareRecording(recording),
         ),
       ),
     );
@@ -185,7 +185,7 @@ class RecordingCard extends StatelessWidget {
             children: <Widget>[
               _buildCardSection(model),
               //TODO: enabke share button
-              //_shareButton,
+              _buildShareButton(model),
               _closeButton
             ],
           );

@@ -120,8 +120,6 @@ abstract class RecordingModel extends Model with PlayerModel {
     return _submitStatus;
   }
 
-  
-
   Future<StatusCode> _uploadRecording() async {
     print('$_tag at _uploadRecording');
     bool _hasError = false;

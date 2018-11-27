@@ -2,7 +2,15 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Recording {
-  String id, title, description, createdBy, imageUrl, recordingUrl, recordingPath;
+  String id,
+      title,
+      description,
+      createdBy,
+      username,
+      userImageUrl,
+      imageUrl,
+      recordingUrl,
+      recordingPath;
   int upvoteCount, playCount, createdAt;
   List<dynamic> genre;
 
@@ -11,6 +19,8 @@ class Recording {
       this.title,
       this.description,
       this.createdBy,
+      this.username,
+      this.userImageUrl,
       this.imageUrl,
       this.recordingPath,
       this.recordingUrl,

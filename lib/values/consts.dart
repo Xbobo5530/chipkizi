@@ -40,3 +40,6 @@ const TAG_IMAGE = 'Image Section';
 
 // storage
 const RECORDINGS_BUCKET = 'Recordings';
+
+// urls
+const DEEP_LINK_URL = 'http://chipkizi.nyayozangu.com/app/';
