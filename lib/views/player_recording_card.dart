@@ -1,12 +1,16 @@
+import 'package:chipkizi/models/comment.dart';
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/values/consts.dart';
+import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
 import 'package:chipkizi/views/circular_button.dart';
 import 'package:chipkizi/views/genre_chip.dart';
+import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/play_button.dart';
 import 'package:chipkizi/views/upvote_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -17,6 +21,7 @@ class RecordingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _commentConttoller = TextEditingController();
     final _imageSection = recording.imageUrl != null
         ? Center(
             child: CircleAvatar(
@@ -40,8 +45,6 @@ class RecordingCard extends StatelessWidget {
                   backgroundImage: AssetImage('images/ic_launcher.png'),
                 ),
               );
-
-    
 
     _buildActions(MainModel model) => Column(children: [
           ButtonBar(
@@ -139,7 +142,6 @@ class RecordingCard extends StatelessWidget {
           : null,
     );
 
-    
     final _genresSection = ExpansionTile(
       leading: Icon(Icons.dashboard),
       title: Text(genresText),
@@ -165,23 +167,107 @@ class RecordingCard extends StatelessWidget {
       ],
     );
 
+    _buildCommentsList(MainModel model, List<DocumentSnapshot> documents) =>
+        ExpansionTile(
+            leading: Icon(Icons.comment),
+            title: Text(commentsText),
+            children: documents.map((document) {
+              Comment comment = Comment.fromSnapshot(document);
+              return FutureBuilder<Comment>(
+                  future: model.refineComment(comment),
+                  initialData: comment,
+                  builder: (context, snapshot) => ListTile(
+                        title: Text(comment.message),
+                        leading: CircleAvatar(
+                          radius: 16.0,
+                          backgroundColor: Colors.brown,
+                          backgroundImage: comment.userImageUrl == null
+                              ? AssetImage(ASSET_LAUNCHER_ICON)
+                              : NetworkImage(comment.userImageUrl),
+                        ),
+                      ));
+            }).toList());
+
+    Future<bool> _getUserInput() => showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(addCommentText),
+              content: TextField(
+                controller: _commentConttoller,
+                textCapitalization: TextCapitalization.sentences,
+                autofocus: true,
+                maxLines: null,
+                decoration: InputDecoration(hintText: enterCommentText),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  textColor: Colors.grey,
+                  child: Text(cancelText),
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                FlatButton(
+                  child: Text(submitText),
+                  onPressed: () {
+                    final message = _commentConttoller.text.trim();
+                    if (message.isNotEmpty) Navigator.pop(context, true);
+                  },
+                )
+              ],
+            ));
+
+    _handleAddComment(MainModel model) async {
+      bool _hasSubmittedComment = await _getUserInput();
+      if (!_hasSubmittedComment) return null;
+      final message = _commentConttoller.text.trim();
+      Comment _comment = Comment(
+          message: message,
+          createdBy: model.currentUser.id,
+          createdAt: DateTime.now().millisecondsSinceEpoch,
+          recordingId: recording.id);
+      StatusCode submitStatus = await model.submitComment(_comment);
+      if (submitStatus == StatusCode.failed)
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+    }
+
+    _buildCommentsSection(MainModel model) => Column(children: <Widget>[
+          StreamBuilder<QuerySnapshot>(
+            stream: model.commentsStream(recording),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return Center(
+                    child: MyProgressIndicator(
+                  value: null,
+                  strokeWidth: 2.0,
+                ));
+              List<DocumentSnapshot> documents = snapshot.data.documents;
+              if (documents.length == 0) return Container();
+              return _buildCommentsList(model, documents);
+            },
+          ),
+          FlatButton(
+            textColor: Colors.brown,
+            child: Text(addCommentText),
+            onPressed: () => _handleAddComment(model),
+          )
+        ]);
+
     _buildCardSection(MainModel model) => Card(
         color: Colors.white70,
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 40.0,
             ),
-            // _buildImageSection(model),
             _imageSection,
             _infoSection,
-            // _buildInfoSection(model),
             _buildActions(model),
             _descriptionSection,
             recording.genre != null && recording.genre.length > 0
                 ? _genresSection
                 : Container(),
+            _buildCommentsSection(model)
           ],
         ));
 

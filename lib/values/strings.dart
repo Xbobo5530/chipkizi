@@ -11,6 +11,8 @@ const cancelText = 'Cancel';
 
 const nextText = 'Next';
 const commentsText = 'Comments';
+const addCommentText = 'Add comment';
+const enterCommentText = 'Enter a comment';
 const nameText = 'Name';
 const bioText = 'Bio';
 

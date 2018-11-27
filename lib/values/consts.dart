@@ -13,6 +13,7 @@ const TITLE_FIELD = 'title';
 const DESCRIPTION_FIELD = 'description';
 const CREATED_BY_FIELD = 'created_by';
 const IMAGE_URL_FIELD = 'image_url';
+const IMAGE_PATH_FIELD = 'image_path';
 const RECORDING_ID_FIELD = 'recording_id';
 const MESSAGE_FIELD = 'message';
 const IS_MODIFIED_FIELD = 'is_modified';

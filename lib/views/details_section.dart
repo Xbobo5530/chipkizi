@@ -138,6 +138,7 @@ class DetailsSectionView extends StatelessWidget {
               ),
               actions: <Widget>[
                 FlatButton(
+                  textColor: Colors.grey,
                   child: Text(cancelText),
                   onPressed: () => Navigator.pop(context),
                 ),

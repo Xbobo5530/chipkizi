@@ -94,4 +94,4 @@ dependencies {
 //    api 'com.google.firebase:firebase-storage:16.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
-//com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+// com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

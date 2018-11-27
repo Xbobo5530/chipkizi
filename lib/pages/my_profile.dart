@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/user_recordings.dart';
@@ -5,6 +7,7 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/my_progress_indicator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -16,6 +19,31 @@ class MyProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _nameFieldController = TextEditingController();
     final _bioFieldController = TextEditingController();
+
+    _handleUpdateImage(MainModel model, File image) async {
+      model.setUplaodWaitingStatus();
+
+      StatusCode uplaodStatus =
+          await model.uploadFile(image.path, FileType.userImages);
+      if (uplaodStatus == StatusCode.failed) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text(errorMessage)));
+        model.resetFileDetails();
+        return null;
+      }
+      User currentUser = model.currentUser;
+      currentUser.imageUrl = model.fileUrl;
+      currentUser.imagePath = model.filePath;
+      StatusCode updateProfileStatus =
+          await model.editAccountDetails(currentUser, DetailType.imageUrl);
+      if (updateProfileStatus == StatusCode.failed) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text(errorMessage)));
+        model.resetFileDetails();
+        return null;
+      }
+      model.resetFileDetails();
+    }
 
     Future<void> _handleEdit(MainModel model, DetailType type) async {
       User _userWithNewDetails = model.currentUser;
@@ -66,6 +94,7 @@ class MyProfilePage extends StatelessWidget {
               ),
               actions: <Widget>[
                 FlatButton(
+                  textColor: Colors.grey,
                   child: Text(cancelText),
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -85,32 +114,49 @@ class MyProfilePage extends StatelessWidget {
           });
     }
 
-    Widget _buildImageSection(String imageUrl) => Center(
-            child: Stack(
-          children: <Widget>[
-            CircleAvatar(
-              radius: 60.0,
-              backgroundColor: Colors.brown,
-              backgroundImage: imageUrl != null
-                  ? NetworkImage(imageUrl)
-                  : AssetImage(ASSET_LAUNCHER_ICON),
-            ),
-            Positioned(
-              bottom: 0.0,
-              right: 0.0,
-              child: CircularIconButton(
-                size: 40.0,
-                button: IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: Colors.white,
+    Widget _buildImageSection(MainModel model) => Center(
+            child: FutureBuilder(
+          future: model.imageFile,
+          builder: (context, snapshot) => Stack(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 60.0,
+                    backgroundColor: Colors.brown,
+                    backgroundImage: snapshot.hasData
+                        ? FileImage(snapshot.data)
+                        : model.currentUser.imageUrl != null
+                            ? NetworkImage(model.currentUser.imageUrl)
+                            : AssetImage(ASSET_LAUNCHER_ICON),
                   ),
-                  onPressed: () {},
-                ),
-                color: Colors.brown,
+                  Positioned(
+                    bottom: 0.0,
+                    right: 0.0,
+                    child: CircularIconButton(
+                      size: 40.0,
+                      button: IconButton(
+                        icon:
+                            model.editingUserDetailsStatus == StatusCode.waiting
+                                ? MyProgressIndicator(
+                                    strokeWidth: 2.0,
+                                    color: Colors.white,
+                                    size: 15.0,
+                                    value: null,
+                                  )
+                                : Icon(
+                                    model.imageFile != null
+                                        ? Icons.done
+                                        : Icons.edit,
+                                    color: Colors.white,
+                                  ),
+                        onPressed: model.imageFile != null
+                            ? () => _handleUpdateImage(model, snapshot.data)
+                            : () => model.getFile(),
+                      ),
+                      color: Colors.brown,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
         ));
 
     Widget _buildInfoSection(MainModel model) => ListTile(
@@ -179,7 +225,7 @@ class MyProfilePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListView(
             children: <Widget>[
-              _buildImageSection(model.currentUser.imageUrl),
+              _buildImageSection(model),
               _buildInfoSection(model),
               Divider(),
               _buildRecordingsSection(

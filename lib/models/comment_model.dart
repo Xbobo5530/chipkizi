@@ -1,4 +1,6 @@
 import 'package:chipkizi/models/comment.dart';
+import 'package:chipkizi/models/recording.dart';
+import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +13,17 @@ abstract class CommentModel extends Model {
 
   StatusCode _submittingCommentStatus;
   StatusCode get submittingCommentStatus => _submittingCommentStatus;
+
+  CollectionReference _commentsColRef(Recording recording) => _database
+      .collection(RECORDINGS_COLLECTION)
+      .document(recording.id)
+      .collection(COMMENTS_COLLECTION);
+
+  Stream<QuerySnapshot> commentsStream(Recording recording) =>
+      _commentsColRef(recording)
+          .orderBy(CREATED_AT_FIELD, descending: true)
+          .limit(10)
+          .snapshots();
 
   Future<StatusCode> submitComment(Comment comment) async {
     print('$_tag at submitComment');
@@ -41,6 +54,12 @@ abstract class CommentModel extends Model {
     return _submittingCommentStatus;
   }
 
+  DocumentReference _commentDocRef(Comment comment) => _database
+      .collection(RECORDINGS_COLLECTION)
+      .document(comment.recordingId)
+      .collection(COMMENTS_COLLECTION)
+      .document(comment.id);
+      
   Future<StatusCode> editComment(Comment comment) async {
     print('$_tag at editComment');
     _submittingCommentStatus = StatusCode.waiting;
@@ -50,13 +69,7 @@ abstract class CommentModel extends Model {
       MESSAGE_FIELD: comment.message,
       IS_MODIFIED_FIELD: VAL_IS_MODIFIED
     };
-    await _database
-        .collection(RECORDINGS_COLLECTION)
-        .document(comment.id)
-        .collection(COMMENTS_COLLECTION)
-        .document(comment.id)
-        .updateData(updateMap)
-        .catchError((error) {
+    await _commentDocRef(comment).updateData(updateMap).catchError((error) {
       print('$_tag error on updating comment: $error');
       _submittingCommentStatus = StatusCode.failed;
       notifyListeners();
@@ -82,5 +95,28 @@ abstract class CommentModel extends Model {
     });
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
+  }
+
+  DocumentReference _userDocRef(String userId) =>
+      _database.collection(USERS_COLLECTION).document(userId);
+
+  Future<User> _userFromId(String userId) async {
+    bool _hasError = false;
+    DocumentSnapshot document =
+        await _userDocRef(userId).get().catchError((error) {
+      print('$_tag error on getting user doc $error');
+      _hasError = true;
+    });
+    if (_hasError || !document.exists) return null;
+    return User.fromSnapshot(document);
+  }
+
+  Future<Comment> refineComment(Comment comment) async {
+    print('$_tag at refineComment');
+    User user = await _userFromId(comment.createdBy);
+    if (user == null) return comment;
+    comment.username = user.name;
+    comment.userImageUrl = user.imageUrl;
+    return comment;
   }
 }

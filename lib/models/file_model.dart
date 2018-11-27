@@ -19,6 +19,7 @@ abstract class FileModel extends Model {
   String get fileUrl => _fileUrl;
 
   Future<File> _imageFile;
+  Future<File> get imageFile => _imageFile;
 
   StatusCode _uploadStatus;
   StatusCode get uploadStatus => _uploadStatus;
