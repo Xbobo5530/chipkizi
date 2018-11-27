@@ -31,6 +31,8 @@ const openRecordingText = 'Open recording';
 const browseRecordingsText = 'Browse recordings';
 const makeRecordingText = 'Create a recording';
 
+const newRecordingText = 'New recording';
+
 
 //messages
 const errorMessage = 'Somethin went wrong, please try again.';

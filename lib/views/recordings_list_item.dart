@@ -3,6 +3,7 @@ import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/pages/player.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/genre_chip.dart';
@@ -47,7 +48,7 @@ class RecordingsListItemView extends StatelessWidget {
         ? CircleAvatar(
           radius: 24.0,
             backgroundColor: Colors.brown,
-            backgroundImage: AssetImage('images/ic_launcher.png')
+            backgroundImage: AssetImage(ASSET_LAUNCHER_ICON)
             )
         : CircleAvatar(
             radius: 24.0,

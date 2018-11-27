@@ -274,7 +274,7 @@ abstract class PlayerModel extends Model {
   }
 
   Future<Recording> refineRecording(Recording recording) async {
-    print('$_tag at refineRecording');
+    // print('$_tag at refineRecording');
     User user = await _userFromId(recording.createdBy);
     if (user != null) {
       recording.username = user.name;

@@ -1,8 +1,10 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/user_recordings.dart';
+import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/circular_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -45,11 +47,10 @@ class MyProfilePage extends StatelessWidget {
             return AlertDialog(
               title: Text(type == DetailType.name ? nameText : bioText),
               content: TextField(
-                maxLines: type == DetailType.name
-                ? 1: null,
+                maxLines: type == DetailType.name ? 1 : null,
                 textCapitalization: type == DetailType.name
-                ? TextCapitalization.words
-                : TextCapitalization.sentences,
+                    ? TextCapitalization.words
+                    : TextCapitalization.sentences,
                 cursorColor: Colors.brown,
                 controller: type == DetailType.name
                     ? _nameFieldController
@@ -85,13 +86,32 @@ class MyProfilePage extends StatelessWidget {
     }
 
     Widget _buildImageSection(String imageUrl) => Center(
-        child: imageUrl != null
-            ? CircleAvatar(
-                radius: 60.0,
-                backgroundColor: Colors.brown,
-                backgroundImage: NetworkImage(imageUrl),
-              )
-            : Icon(Icons.account_circle));
+            child: Stack(
+          children: <Widget>[
+            CircleAvatar(
+              radius: 60.0,
+              backgroundColor: Colors.brown,
+              backgroundImage: imageUrl != null
+                  ? NetworkImage(imageUrl)
+                  : AssetImage(ASSET_LAUNCHER_ICON),
+            ),
+            Positioned(
+              bottom: 0.0,
+              right: 0.0,
+              child: CircularIconButton(
+                size: 40.0,
+                button: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {},
+                ),
+                color: Colors.brown,
+              ),
+            ),
+          ],
+        ));
 
     Widget _buildInfoSection(MainModel model) => ListTile(
         title: Row(

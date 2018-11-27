@@ -15,7 +15,7 @@ class WaitView extends StatelessWidget {
           color: Colors.white,
           button: IconButton(
             onPressed: () {},
-            icon: model.uploadStatus == StatusCode.success
+            icon: model.submitStatus == StatusCode.success
                 ? Icon(
                     Icons.done,
                     size: 80.0,
@@ -27,7 +27,7 @@ class WaitView extends StatelessWidget {
                   ),
           ),
           size: 150.0,
-          indicator: model.uploadStatus == StatusCode.success
+          indicator: model.submitStatus == StatusCode.success
               ? Container()
               : MyProgressIndicator(
                   color: Colors.orange,
@@ -39,7 +39,7 @@ class WaitView extends StatelessWidget {
     Widget _buildTextSection(MainModel model) => Padding(
           padding: const EdgeInsets.all(24.0),
           child: Text(
-            model.uploadStatus == StatusCode.success
+            model.submitStatus == StatusCode.success
                 ? submitSuccessText
                 : waitText,
             textAlign: TextAlign.center,
@@ -89,7 +89,7 @@ class WaitView extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        if (model.uploadStatus == StatusCode.success)
+        if (model.submitStatus == StatusCode.success)
           model.updateRecordings(model.lastSubmittedRecording);
         return Scaffold(
             backgroundColor: Colors.brown,
@@ -99,7 +99,7 @@ class WaitView extends StatelessWidget {
                 children: <Widget>[
                   _buildProgressButton(model),
                   _buildTextSection(model),
-                  model.uploadStatus == StatusCode.success
+                  model.submitStatus == StatusCode.success
                       ? _buildActions(model)
                       : Container(),
                 ],

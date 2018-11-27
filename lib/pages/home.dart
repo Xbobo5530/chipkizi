@@ -39,7 +39,10 @@ class HomePage extends StatelessWidget {
               content: Text(confirmLogoutText),
               actions: <Widget>[
                 FlatButton(
-                  onPressed: () {model.logout();Navigator.pop(context);},
+                  onPressed: () {
+                    model.logout();
+                    Navigator.pop(context);
+                  },
                   child: Text(logoutText),
                 ),
                 FlatButton(
@@ -54,7 +57,8 @@ class HomePage extends StatelessWidget {
     final _appBarSection = AppBar(
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset('images/ic_launcher.png', 
+        child: Image.asset(
+          'images/ic_launcher.png',
         ),
       ),
       title: Hero(
@@ -107,7 +111,7 @@ class HomePage extends StatelessWidget {
         return Hero(
           child: FloatingActionButton(
               child: Icon(Icons.mic),
-              heroTag: 'open recording page',
+              heroTag: 'TAG_MAIN_BUTTON,',//'open recording page',
               onPressed: model.isLoggedIn
                   ? () => _openRecordingPage(context)
                   : () => _goToLoginPage()),

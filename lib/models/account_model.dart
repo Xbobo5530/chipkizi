@@ -236,6 +236,7 @@ abstract class AccountModel extends Model {
       case DetailType.description:
         _isEditingUserBio = true;
         break;
+
       default:
         print('$_tag unexpected type: $type');
     }
@@ -248,6 +249,9 @@ abstract class AccountModel extends Model {
         break;
       case DetailType.bio:
         detailMap.putIfAbsent(BIO_FIELD, () => user.bio);
+        break;
+      case DetailType.imageUrl:
+        detailMap.putIfAbsent(IMAGE_URL_FIELD, () => user.imageUrl);
         break;
       default:
         print('$_tag unexpected detail type: $type');
@@ -271,7 +275,7 @@ abstract class AccountModel extends Model {
     return _editingUserDetailsStatus;
   }
 
-  _updateCachedUserInfo(User user){
+  _updateCachedUserInfo(User user) {
     print('$_tag rat _updateCachedUserInfo\nremoving cahced user');
     final userId = user.id;
     _cachedUsers.remove(userId);

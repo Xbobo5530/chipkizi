@@ -5,6 +5,7 @@ const UPVOTES_COLLETION = 'Upvotes';
 const PLAYS_COLLETION = 'Plays';
 const BOOKMARKS_COLLETION = 'Bookmarks';
 const COMMENTS_COLLECTION = 'Comments';
+const MESSAGES_COLLECTION = 'Messages';
 
 // Fields
 const ID_FIELD = 'id';
@@ -39,7 +40,18 @@ const TAG_NEXT_BACK_BUTTON = 'Next Back Button';
 const TAG_IMAGE = 'Image Section';
 
 // storage
-const RECORDINGS_BUCKET = 'Recordings';
+const RECORDINGS_BUCKET = 'recordings';
+const USER_IMAGE_BUCKET = 'user_images';
+const RECORDINGS_IMAGE_BUCKET = 'recordings_images';
+const OTHER_BUCKET = 'other';
 
 // urls
 const DEEP_LINK_URL = 'http://chipkizi.nyayozangu.com/app/';
+
+//assets
+const ASSET_LAUNCHER_ICON  = 'images/ic_launcher.png';
+
+//messaging
+const SUBSCRIPTION_UPDATES = 'Updates';
+const BODY_FIELD = 'body';
+

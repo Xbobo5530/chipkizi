@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:chipkizi/models/player_model.dart';
 import 'package:chipkizi/values/consts.dart';
+import 'package:chipkizi/values/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:chipkizi/models/recording.dart';
@@ -8,12 +8,12 @@ import 'package:chipkizi/values/status_code.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'dart:io';
-import 'package:uuid/uuid.dart';
+// import 'dart:io';
+// import 'package:uuid/uuid.dart';
 
 const _tag = 'RecordingModel:';
 
-abstract class RecordingModel extends Model with PlayerModel {
+abstract class RecordingModel extends Model {
   final Firestore _database = Firestore.instance;
   final FirebaseStorage storage = FirebaseStorage();
 //  AudioCache audioCache =  AudioCache();
@@ -29,6 +29,7 @@ abstract class RecordingModel extends Model with PlayerModel {
       .snapshots();
 
   String _defaultRecordingPath;
+  String get defaultRecordingPath => _defaultRecordingPath;
   bool get isReadyToSubmit => _defaultRecordingPath != null;
   StorageUploadTask _task;
   String _recordingUrl;
@@ -37,7 +38,7 @@ abstract class RecordingModel extends Model with PlayerModel {
   StreamSubscription _recorderSubscription;
 
   StatusCode _submitStatus;
-  StatusCode get uploadStatus => _submitStatus;
+  StatusCode get submitStatus => _submitStatus;
   StatusCode _editingRecordingDetailsStatus;
   StatusCode get editingRecordingDetailsStatus =>
       _editingRecordingDetailsStatus;
@@ -51,7 +52,6 @@ abstract class RecordingModel extends Model with PlayerModel {
   String get recorderTxt => _recorderTxt;
   double _recorderProgress = 0.0;
   double get recorderProgress => _recorderProgress;
-
   String _tempTitle;
   String get tempTitle => _tempTitle;
   String _tempDescription;
@@ -59,6 +59,8 @@ abstract class RecordingModel extends Model with PlayerModel {
 
   Map<String, bool> genres = <String, bool>{
     'Gospel': false,
+    'Inpirational quotes' : false,
+    'Instrumental': false,
     'Hip-hop': false,
     'Bongo flava': false,
     'Bakurutu': false,
@@ -104,58 +106,94 @@ abstract class RecordingModel extends Model with PlayerModel {
     notifyListeners();
   }
 
-  Future<StatusCode> handleSubmit(Recording recording) async {
-    print('$_tag at handle submit recording');
+  setSubmitStatus(){
     _submitStatus = StatusCode.waiting;
     notifyListeners();
-    StatusCode uploadRecordingStatus = await _uploadRecording();
+  }
 
-    if (uploadRecordingStatus == StatusCode.failed) {
-      print('$_tag error on handling submit');
-      _submitStatus = StatusCode.failed;
-      return _submitStatus;
-    }
+  Future<StatusCode> handleSubmit(Recording recording) async {
+    print('$_tag at handle submit recording');
+    // _submitStatus = StatusCode.waiting;
+    // notifyListeners();
+   
     _submitStatus = await _createRecordingDoc(recording);
-    //if (_submitStatus == StatusCode.success) _updateRecordings();//getRecordings();
+    
     return _submitStatus;
   }
 
-  Future<StatusCode> _uploadRecording() async {
-    print('$_tag at _uploadRecording');
+  Future<Recording> _refineRecording(Recording recording) async {
+    print('$_tag create notification doc');
     bool _hasError = false;
-    final String uuid = Uuid().v1();
-//    final Directory systemTempDir = Directory.systemTemp;
-    final File file = File(
-        _defaultRecordingPath); //File('${systemTempDir.path}/foo$uuid.txt');//.create();
-//    await file.writeAsString(kTestString);
-//    assert(await file.readAsString() == kTestString);
-    final StorageReference ref =
-        storage.ref().child(RECORDINGS_BUCKET).child('$uuid.mp4');
-    final StorageUploadTask uploadTask = ref.putFile(
-      file,
-      StorageMetadata(
-        contentLanguage: 'en',
-        customMetadata: <String, String>{'activity': 'chipkizi'},
-      ),
-    );
-
-    /// TODO: monitor uploads
-//    _tasks.add(uploadTask);
-    _task = uploadTask;
-
-    StorageTaskSnapshot snapshot =
-        await uploadTask.onComplete.catchError((error) {
-      print('$_tag error on uploading recording: $error');
+    DocumentSnapshot document = await _database
+        .collection(USERS_COLLECTION)
+        .document(recording.createdBy)
+        .get()
+        .catchError((error) {
+      print('$_tag error on getting user document');
       _hasError = true;
     });
-    if (_hasError) return StatusCode.failed;
-    _recordingUrl = await snapshot.ref.getDownloadURL();
-    _recordingPath = await snapshot.ref.getPath();
-    print('$_tag the download url is : $_recordingUrl');
-
-    notifyListeners();
-    return StatusCode.success;
+    if (_hasError || !document.exists) return recording;
+    return Recording.fromSnaspshot(document);
   }
+
+  Future<void> _createNotificationDoc(Recording recording) async {
+    print('$_tag at _createNotificationDoc');
+    Recording refinedRecording = await _refineRecording(recording);
+    final username = refinedRecording.username != null
+        ? refinedRecording.username
+        : APP_NAME;
+
+    Map<String, dynamic> notificationMap = {
+      TITLE_FIELD: newRecordingText,
+      BODY_FIELD:
+          '${refinedRecording.title}\n$username\n${refinedRecording.description}'
+          ,
+          RECORDING_ID_FIELD: recording.id
+    };
+    _database
+        .collection(MESSAGES_COLLECTION)
+        .add(notificationMap)
+        .catchError((error) {
+      print('$_tag error on creating notication doc');
+    });
+  }
+
+//   Future<StatusCode> _uploadRecording() async {
+//     print('$_tag at _uploadRecording');
+//     bool _hasError = false;
+//     final String uuid = Uuid().v1();
+// //    final Directory systemTempDir = Directory.systemTemp;
+//     final File file = File(
+//         _defaultRecordingPath); //File('${systemTempDir.path}/foo$uuid.txt');//.create();
+// //    await file.writeAsString(kTestString);
+// //    assert(await file.readAsString() == kTestString);
+//     final StorageReference ref =
+//         storage.ref().child(RECORDINGS_BUCKET).child('$uuid.mp4');
+//     final StorageUploadTask uploadTask = ref.putFile(
+//       file,
+//       StorageMetadata(
+//         contentLanguage: 'en',
+//         customMetadata: <String, String>{'activity': 'chipkizi'},
+//       ),
+//     );
+
+//     /// TODO: monitor uploads
+// //    _tasks.add(uploadTask);
+//     _task = uploadTask;
+
+//     StorageTaskSnapshot snapshot =
+//         await uploadTask.onComplete.catchError((error) {
+//       print('$_tag error on uploading recording: $error');
+//       _hasError = true;
+//     });
+//     if (_hasError) return StatusCode.failed;
+//     _recordingUrl = await snapshot.ref.getDownloadURL();
+//     _recordingPath = await snapshot.ref.getPath();
+//     print('$_tag the download url is : $_recordingUrl');
+
+//     notifyListeners();
+//     return StatusCode.success;
+//   }
 
   Future<StatusCode> _createRecordingDoc(Recording recording) async {
     print('$_tag at _createRecordingDoc');
@@ -187,6 +225,7 @@ abstract class RecordingModel extends Model with PlayerModel {
     _lastSubmittedRecording = await getRecordingFromId(recording.id);
     notifyListeners();
     _createUserRecordingDocRef(recording);
+    _createNotificationDoc(recording);
     if (_hasError) return StatusCode.failed;
     return StatusCode.success;
   }

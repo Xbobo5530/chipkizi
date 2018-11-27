@@ -19,20 +19,36 @@ class DetailsSectionView extends StatelessWidget {
     Future<void> _handleSubmit(BuildContext context, MainModel model) async {
       final title = model.tempTitle;
       final description = model.tempDescription;
-      if (title.isNotEmpty && description.isNotEmpty) {
-        final recording = Recording(
-            title: title,
-            description: description,
-            createdBy: model.currentUser.id,
-            createdAt: DateTime.now().millisecondsSinceEpoch);
-        StatusCode submitStatus = await model.handleSubmit(recording);
-        if (submitStatus == StatusCode.failed)
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(errorMessage),
-          ));
-        if (submitStatus == StatusCode.success)
-          model.resetTempDetailsFieldValues();
+      if (title.isEmpty || description.isEmpty) return null;
+
+      model.setSubmitStatus();
+
+      final recording = Recording(
+          title: title,
+          description: description,
+          createdBy: model.currentUser.id,
+          createdAt: DateTime.now().millisecondsSinceEpoch);
+
+      StatusCode uploadStatus = await model.uploadFile(
+          model.defaultRecordingPath, FileType.recording);
+      if (uploadStatus == StatusCode.failed) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+        return null;
       }
+
+      recording.recordingPath = model.filePath;
+      recording.recordingUrl = model.fileUrl;
+
+      StatusCode submitStatus = await model.handleSubmit(recording);
+      if (submitStatus == StatusCode.failed)
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+      if (submitStatus == StatusCode.success)
+        model.resetTempDetailsFieldValues();
+      model.resetFileDetails();
     }
 
     final _appBar = AppBar(
@@ -187,9 +203,9 @@ class DetailsSectionView extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return model.uploadStatus == StatusCode.waiting
+        return model.submitStatus == StatusCode.waiting
             ? WaitView()
-            : model.uploadStatus == StatusCode.success
+            : model.submitStatus == StatusCode.success
                 ? WaitView()
                 : _buidlDetailsSection(model);
       },
