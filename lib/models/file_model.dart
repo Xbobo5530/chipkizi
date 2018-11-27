@@ -87,13 +87,13 @@ abstract class FileModel extends Model {
   String _getFileName(FileType type, String uuid) {
     switch (type) {
       case FileType.recording:
-        return 'uuid.mp4';
+        return '$uuid.mp4';
         break;
       case FileType.recordingsImage:
       case FileType.userImages:
-        return 'uuid.jpg';
+        return '$uuid.jpg';
       default:
-        return 'uuid';
+        return '$uuid';
     }
   }
 
@@ -103,5 +103,16 @@ abstract class FileModel extends Model {
     _fileUrl = null;
     _imageFile = null;
     notifyListeners();
+  }
+
+  Future<StatusCode> deleteFile(String path) async {
+    print('$_tag at deleteFile');
+    bool _hasError = false;
+    storage.ref().child(path).delete().catchError((error) {
+      print('$_tag error on deleting file: $error');
+      _hasError = true;
+    });
+    if (_hasError) return StatusCode.failed;
+    return StatusCode.success;
   }
 }

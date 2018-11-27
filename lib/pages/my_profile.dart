@@ -22,6 +22,8 @@ class MyProfilePage extends StatelessWidget {
 
     _handleUpdateImage(MainModel model, File image) async {
       model.setUplaodWaitingStatus();
+      if (model.currentUser.imagePath != null)
+        await model.deleteFile(model.currentUser.imagePath);
 
       StatusCode uplaodStatus =
           await model.uploadFile(image.path, FileType.userImages);
@@ -49,6 +51,7 @@ class MyProfilePage extends StatelessWidget {
       User _userWithNewDetails = model.currentUser;
       final name = _nameFieldController.text.trim();
       final bio = _bioFieldController.text.trim();
+      print(type);
       switch (type) {
         case DetailType.name:
           if (name.isNotEmpty) _userWithNewDetails.name = name;
@@ -61,7 +64,7 @@ class MyProfilePage extends StatelessWidget {
       }
 
       StatusCode status =
-          await model.editAccountDetails(_userWithNewDetails, DetailType.name);
+          await model.editAccountDetails(_userWithNewDetails, type);
       if (status == StatusCode.failed)
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(errorMessage),
@@ -152,7 +155,7 @@ class MyProfilePage extends StatelessWidget {
                             ? () => _handleUpdateImage(model, snapshot.data)
                             : () => model.getFile(),
                       ),
-                      color: Colors.brown,
+                      color: Colors.black12,
                     ),
                   ),
                 ],

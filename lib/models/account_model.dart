@@ -229,26 +229,16 @@ abstract class AccountModel extends Model {
   Future<StatusCode> editAccountDetails(User user, DetailType type) async {
     print('$_tag at editAccountDetails');
     _editingUserDetailsStatus = StatusCode.waiting;
-    // switch (type) {
-    //   case DetailType.name:
-    //     _isEditingUsername = true;
-    //     break;
-    //   case DetailType.description:
-    //     _isEditingUserBio = true;
-    //     break;
-
-    //   default:
-    //     print('$_tag unexpected type: $type');
-    // }
-    notifyListeners();
     bool _hasError = false;
     Map<String, dynamic> detailMap = Map();
+    print(type);
     switch (type) {
       case DetailType.name:
         detailMap.putIfAbsent(NAME_FIELD, () => user.name);
         break;
       case DetailType.bio:
         detailMap.putIfAbsent(BIO_FIELD, () => user.bio);
+        print('done putting ${user.bio} in $BIO_FIELD');
         break;
       case DetailType.imageUrl:
         detailMap.putIfAbsent(IMAGE_URL_FIELD, () => user.imageUrl);
@@ -257,6 +247,7 @@ abstract class AccountModel extends Model {
       default:
         print('$_tag unexpected detail type: $type');
     }
+    print(detailMap['bio']);
     await _database
         .collection(USERS_COLLECTION)
         .document(user.id)
