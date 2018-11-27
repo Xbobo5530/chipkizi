@@ -42,14 +42,30 @@ class UserRecordingsPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             List<Recording> recordings = snapshot.data;
-            print('$_tag list has ${recordings.length} recordings');
+            // print('$_tag list has ${recordings.length} recordings');
             return ListView(
                 children: recordings
-                    .map((recording) => RecordingsListItemView(
+                    .map((recording) => Dismissible(
+                        key: Key(recording.id),
+                        onDismissed: (_) {
+                          recordings.remove(recording);
+                          switch (type) {
+                            case ListType.userRecordings:
+                              model.deleteRecording(
+                                  recording, model.currentUser);
+                              break;
+                            case ListType.bookmarks:
+                              model.handleBookbarkRecording(
+                                  recording, model.currentUser);
+                              break;
+                          }
+                        },
+                        child: RecordingsListItemView(
+                          key: Key(recording.id),
                           recording: recording,
                           type: type,
                           recordings: recordings,
-                        ))
+                        )))
                     .toList());
           },
         );

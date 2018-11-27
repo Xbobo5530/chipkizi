@@ -41,6 +41,16 @@ abstract class RecordingActionsModel extends Model {
       print('$_tag error on deleting a recording document');
     });
 
+    await _database.collection(USERS_COLLECTION)
+    .document(user.id)
+    .collection(RECORDINGS_COLLECTION)
+    .document(recording.id)
+    .delete()
+    .catchError((error){
+      print('$_tag error on deleting the user recording reference: $error');
+      _hasError = true;
+    });
+
     if (_hasError) {
       _deletingRecordingStatus = StatusCode.failed;
       notifyListeners();
@@ -269,7 +279,7 @@ abstract class RecordingActionsModel extends Model {
   }
 
   shareRecording(Recording recording)async{
-    final shareMessage = 'Listen to ${recording.title} on $APP_NAME\n$DEEP_LINK_URL${recording.id}';
+    final shareMessage = 'Listen to ${recording.title} by ${recording.username} on $APP_NAME\n$DEEP_LINK_URL${recording.id}';
     Share.share(shareMessage);
   }
 }
