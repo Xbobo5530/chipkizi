@@ -134,28 +134,31 @@ class MyProfilePage extends StatelessWidget {
                   Positioned(
                     bottom: 0.0,
                     right: 0.0,
-                    child: CircularIconButton(
-                      size: 40.0,
-                      button: IconButton(
-                        icon:
-                            model.editingUserDetailsStatus == StatusCode.waiting
-                                ? MyProgressIndicator(
-                                    strokeWidth: 2.0,
-                                    color: Colors.white,
-                                    size: 15.0,
-                                    value: null,
-                                  )
-                                : Icon(
-                                    model.imageFile != null
-                                        ? Icons.done
-                                        : Icons.edit,
-                                    color: Colors.white,
-                                  ),
-                        onPressed: model.imageFile != null
-                            ? () => _handleUpdateImage(model, snapshot.data)
-                            : () => model.getFile(),
+                    child: Opacity(
+                      opacity: 0.7,
+                                          child: CircularIconButton(
+                        size: 40.0,
+                        button: IconButton(
+                          icon:
+                              model.editingUserDetailsStatus == StatusCode.waiting
+                                  ? MyProgressIndicator(
+                                      strokeWidth: 2.0,
+                                      color: Colors.white70,
+                                      size: 15.0,
+                                      value: null,
+                                    )
+                                  : Icon(
+                                      model.imageFile != null
+                                          ? Icons.done
+                                          : Icons.edit,
+                                      color: Colors.white70,
+                                    ),
+                          onPressed: model.imageFile != null
+                              ? () => _handleUpdateImage(model, snapshot.data)
+                              : () => model.getFile(),
+                        ),
+                        color: Colors.black,
                       ),
-                      color: Colors.black12,
                     ),
                   ),
                 ],
