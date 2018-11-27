@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -59,7 +60,7 @@ abstract class RecordingModel extends Model {
 
   Map<String, bool> genres = <String, bool>{
     'Gospel': false,
-    'Inpirational quotes' : false,
+    'Inpirational quotes': false,
     'Instrumental': false,
     'Hip-hop': false,
     'Bongo flava': false,
@@ -106,18 +107,16 @@ abstract class RecordingModel extends Model {
     notifyListeners();
   }
 
-  setSubmitStatus(){
+  setSubmitStatus() {
     _submitStatus = StatusCode.waiting;
     notifyListeners();
   }
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
-    // _submitStatus = StatusCode.waiting;
-    // notifyListeners();
-   
+
     _submitStatus = await _createRecordingDoc(recording);
-    
+
     return _submitStatus;
   }
 
@@ -133,7 +132,12 @@ abstract class RecordingModel extends Model {
       _hasError = true;
     });
     if (_hasError || !document.exists) return recording;
-    return Recording.fromSnaspshot(document);
+    User user = User.fromSnapshot(document);
+    if (user == null) return recording;
+    recording.username = user.name;
+    recording.userImageUrl = user.imageUrl;
+
+    return recording;
   }
 
   Future<void> _createNotificationDoc(Recording recording) async {
@@ -143,12 +147,14 @@ abstract class RecordingModel extends Model {
         ? refinedRecording.username
         : APP_NAME;
 
+    // print(recording);
+    // print(refinedRecording);
+
     Map<String, dynamic> notificationMap = {
       TITLE_FIELD: newRecordingText,
       BODY_FIELD:
-          '${refinedRecording.title}\n$username\n${refinedRecording.description}'
-          ,
-          RECORDING_ID_FIELD: recording.id
+          '${refinedRecording.title}\n$username\n${refinedRecording.description}',
+      RECORDING_ID_FIELD: recording.id
     };
     _database
         .collection(MESSAGES_COLLECTION)
@@ -157,43 +163,6 @@ abstract class RecordingModel extends Model {
       print('$_tag error on creating notication doc');
     });
   }
-
-//   Future<StatusCode> _uploadRecording() async {
-//     print('$_tag at _uploadRecording');
-//     bool _hasError = false;
-//     final String uuid = Uuid().v1();
-// //    final Directory systemTempDir = Directory.systemTemp;
-//     final File file = File(
-//         _defaultRecordingPath); //File('${systemTempDir.path}/foo$uuid.txt');//.create();
-// //    await file.writeAsString(kTestString);
-// //    assert(await file.readAsString() == kTestString);
-//     final StorageReference ref =
-//         storage.ref().child(RECORDINGS_BUCKET).child('$uuid.mp4');
-//     final StorageUploadTask uploadTask = ref.putFile(
-//       file,
-//       StorageMetadata(
-//         contentLanguage: 'en',
-//         customMetadata: <String, String>{'activity': 'chipkizi'},
-//       ),
-//     );
-
-//     /// TODO: monitor uploads
-// //    _tasks.add(uploadTask);
-//     _task = uploadTask;
-
-//     StorageTaskSnapshot snapshot =
-//         await uploadTask.onComplete.catchError((error) {
-//       print('$_tag error on uploading recording: $error');
-//       _hasError = true;
-//     });
-//     if (_hasError) return StatusCode.failed;
-//     _recordingUrl = await snapshot.ref.getDownloadURL();
-//     _recordingPath = await snapshot.ref.getPath();
-//     print('$_tag the download url is : $_recordingUrl');
-
-//     notifyListeners();
-//     return StatusCode.success;
-//   }
 
   Future<StatusCode> _createRecordingDoc(Recording recording) async {
     print('$_tag at _createRecordingDoc');
