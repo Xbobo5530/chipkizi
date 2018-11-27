@@ -165,7 +165,9 @@ class MyProfilePage extends StatelessWidget {
               _buildRecordingsSection(
                   model, myRecordingsText, ListType.userRecordings, Icons.mic),
               _buildRecordingsSection(
-                  model, bookmarksText, ListType.bookmarks, Icons.bookmark)
+                  model, bookmarksText, ListType.bookmarks, Icons.bookmark),
+              _buildRecordingsSection(
+                  model, favoritesText, ListType.upvotes, Icons.favorite)
             ],
           ),
         );

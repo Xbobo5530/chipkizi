@@ -22,7 +22,7 @@ const openText = 'Open';
 const shareText = 'Share';
 const bookmarkText = 'Bookmark';
 const upvoteText = 'Upvote';
-
+const favoritesText = 'Favorites';
 const bookmarksText = 'Bookmarks';
 const recordingsText = 'recordings';
 const myRecordingsText = 'My recordings';

@@ -175,6 +175,23 @@ abstract class PlayerModel extends Model {
     }
   }
 
+  String _getCollectionForType(ListType type) {
+    switch (type) {
+      case ListType.userRecordings:
+        return RECORDINGS_COLLECTION;
+        break;
+
+      case ListType.bookmarks:
+        return BOOKMARKS_COLLETION;
+        break;
+      case ListType.upvotes:
+        return UPVOTES_COLLETION;
+        break;
+      default:
+        return '';
+    }
+  }
+
   Future<List<Recording>> getUserRecordings(User user, ListType type) async {
     print('$_tag at getUserRecordings');
     bool _hasError = false;
@@ -182,9 +199,7 @@ abstract class PlayerModel extends Model {
     QuerySnapshot snapshot = await _database
         .collection(USERS_COLLECTION)
         .document(user.id)
-        .collection(type == ListType.bookmarks
-            ? BOOKMARKS_COLLETION
-            : RECORDINGS_COLLECTION)
+        .collection(_getCollectionForType(type))
         .getDocuments()
         .catchError((error) {
       print('$_tag error on getting user recordings documents $error');
@@ -209,7 +224,7 @@ abstract class PlayerModel extends Model {
   List<Recording> getAllRecordings(Recording recording) {
     // print('$_tag at getAllRecordings');
     if (!_recordings.containsKey(recording.id)) return null;
-    
+
     List<Recording> tempList = <Recording>[];
     List<String> ids = recordings.keys.toList();
     ids.remove(recording.id);
@@ -219,7 +234,7 @@ abstract class PlayerModel extends Model {
       Recording _recording = recordings[id];
       tempList.add(_recording);
     });
-    
+
     return tempList;
   }
 
@@ -258,10 +273,10 @@ abstract class PlayerModel extends Model {
     });
   }
 
-  Future<Recording> refineRecording(Recording recording)async{
+  Future<Recording> refineRecording(Recording recording) async {
     print('$_tag at refineRecording');
     User user = await _userFromId(recording.createdBy);
-    if (user != null){
+    if (user != null) {
       recording.username = user.name;
       recording.userImageUrl = user.imageUrl;
     }

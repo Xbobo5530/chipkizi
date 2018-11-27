@@ -17,14 +17,24 @@ class UserRecordingsPage extends StatelessWidget {
   const UserRecordingsPage({Key key, this.user, this.type}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String _getTitle() {
+      switch (type) {
+        case ListType.userRecordings:
+          return myRecordingsText;
+          break;
+        case ListType.bookmarks:
+          return bookmarkText;
+          break;
+        case ListType.upvotes:
+          return favoritesText;
+          break;
+        default:
+          return APP_NAME;
+      }
+    }
+
     AppBar _buildAppBar(MainModel model) => AppBar(
-          title: Text(
-            type == ListType.userRecordings
-                ? user.id == model.currentUser.id
-                    ? myRecordingsText
-                    : '${user.name}\'s $recordingsText'
-                : bookmarksText,
-          ),
+          title: Text(_getTitle()),
           leading: IconButton(
             icon: Icon(
               Icons.keyboard_arrow_down,
@@ -57,6 +67,9 @@ class UserRecordingsPage extends StatelessWidget {
                             case ListType.bookmarks:
                               model.handleBookbarkRecording(
                                   recording, model.currentUser);
+                              break;
+                              case ListType.upvotes:
+                              model.removeFavorite(recording, user);
                               break;
                           }
                         },
