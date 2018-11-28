@@ -60,10 +60,15 @@ abstract class FileModel extends Model {
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;
-    _fileUrl = await snapshot.ref.getDownloadURL();
-    _filePath = await snapshot.ref.getPath();
+    _fileUrl = await snapshot.ref.getDownloadURL().catchError((error){
+      print('$_tag error on getting file url: $error');
+      _hasError = true;
+    });
+    _filePath = await snapshot.ref.getPath().catchError((error){
+      print('$_tag error on geting file path: $error');
+    });
     print('$_tag the download url is : $_fileUrl');
-
+    if (_hasError) return StatusCode.failed;
     notifyListeners();
     return StatusCode.success;
   }

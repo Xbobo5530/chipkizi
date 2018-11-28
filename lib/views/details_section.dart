@@ -37,7 +37,12 @@ class DetailsSectionView extends StatelessWidget {
         ));
         return null;
       }
-
+      if(model.filePath == null || model.fileUrl == null){
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(errorMessage),
+        ));
+        return null;
+      }
       recording.recordingPath = model.filePath;
       recording.recordingUrl = model.fileUrl;
 

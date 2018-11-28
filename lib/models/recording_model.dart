@@ -32,10 +32,7 @@ abstract class RecordingModel extends Model {
   String _defaultRecordingPath;
   String get defaultRecordingPath => _defaultRecordingPath;
   bool get isReadyToSubmit => _defaultRecordingPath != null;
-  StorageUploadTask _task;
-  String _recordingUrl;
-  String _recordingPath;
-
+  
   StreamSubscription _recorderSubscription;
 
   StatusCode _submitStatus;
@@ -173,8 +170,8 @@ abstract class RecordingModel extends Model {
     });
     _selectedGenres = tempList;
     Map<String, dynamic> recordingMap = {
-      RECORDING_URL_FIELD: _recordingUrl,
-      RECORDING_PATH_FIELD: _recordingPath,
+      RECORDING_URL_FIELD: recording.recordingUrl,
+      RECORDING_PATH_FIELD: recording.recordingPath,
       CREATED_BY_FIELD: recording.createdBy,
       CREATED_AT_FIELD: recording.createdAt,
       TITLE_FIELD: recording.title,
