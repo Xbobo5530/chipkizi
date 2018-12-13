@@ -12,6 +12,7 @@ const cancelText = 'Cancel';
 const nextText = 'Next';
 const commentsText = 'Comments';
 const addCommentText = 'Add comment';
+const viewAllCommentsText = 'View all comments';
 const enterCommentText = 'Enter a comment';
 const nameText = 'Name';
 const bioText = 'Bio';
