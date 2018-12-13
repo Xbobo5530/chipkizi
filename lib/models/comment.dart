@@ -22,4 +22,16 @@ class Comment {
         this.recordingId = document[RECORDING_ID_FIELD],
         this.createdAt = document[CREATED_AT_FIELD],
         this.isModified = document[IS_MODIFIED_FIELD];
+
+  @override
+  String toString() => '''
+  id: ${this.id},
+  message: ${this.message},
+  createdBy: ${this.createdBy},
+  username: ${this.username},
+  userImageUrl: ${this.userImageUrl},
+  recordingId: ${this.recordingId},
+  createdAt: ${this.createdAt},
+  isModifiet: ${this.isModified}
+  ''';
 }
