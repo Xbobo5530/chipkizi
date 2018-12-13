@@ -25,6 +25,9 @@ PODS:
   - Firebase/Firestore (5.8.1):
     - Firebase/CoreOnly
     - FirebaseFirestore (= 0.13.3)
+  - Firebase/Messaging (5.8.1):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (= 3.1.2)
   - Firebase/Storage (5.8.1):
     - Firebase/CoreOnly
     - FirebaseStorage (= 3.0.2)
@@ -34,6 +37,10 @@ PODS:
     - Flutter
   - firebase_core (0.0.1):
     - Firebase/Core
+    - Flutter
+  - firebase_messaging (0.0.1):
+    - Firebase/Core
+    - Firebase/Messaging
     - Flutter
   - firebase_storage (0.0.1):
     - Firebase/Storage
@@ -78,6 +85,11 @@ PODS:
   - FirebaseInstanceID (3.2.1):
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.2)
+  - FirebaseMessaging (3.1.2):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - GoogleUtilities/Reachability (~> 5.2)
+    - Protobuf (~> 3.1)
   - FirebaseStorage (3.0.2):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.0)
@@ -159,6 +171,8 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
+  - image_picker (0.0.1):
+    - Flutter
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -166,15 +180,20 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.1)
+  - share (0.5.2):
+    - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
-  - Flutter (from `.symlinks/flutter/ios`)
+  - Flutter (from `.symlinks/flutter/ios-release`)
   - flutter_sound (from `.symlinks/plugins/flutter_sound/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - share (from `.symlinks/plugins/share/ios`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -187,6 +206,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseInstanceID
+    - FirebaseMessaging
     - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleSignIn
@@ -210,14 +230,20 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   firebase_storage:
     :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
-    :path: ".symlinks/flutter/ios"
+    :path: ".symlinks/flutter/ios-release"
   flutter_sound:
     :path: ".symlinks/plugins/flutter_sound/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
+  share:
+    :path: ".symlinks/plugins/share/ios"
 
 SPEC CHECKSUMS:
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
@@ -225,6 +251,7 @@ SPEC CHECKSUMS:
   Firebase: a870ed114d769b424021a0c8ddb0c86c3250a0c5
   firebase_auth: 27a5a77a032d557c18f8e223aaf8ec1368f6cdbc
   firebase_core: c96aa8b2fcf7f5167d32f22034f502f9304952b8
+  firebase_messaging: a5f5d4a9491b660f33a1f94bd0596558f820bad1
   firebase_storage: e34d30ff8bb57e691191b70e9d255ec2eba2351f
   FirebaseAnalytics: 361594968a84a04d9598ef0f2e769d3735cd03de
   FirebaseAuth: 504b198ceb3472dca5c65bb95544ea44cfc9439e
@@ -233,6 +260,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
   FirebaseFirestore: c9ec5660228f97ed10782d72b0498449af07256d
   FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
+  FirebaseMessaging: d6feeb06218d2675b4149b0ada925a6b707a74cf
   FirebaseStorage: fd82e5e5c474897e19972b34b22ac0f589dce04e
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   flutter_sound: ec7c1debf6cd72d44b1270a1f7a999af15ca8113
@@ -248,9 +276,11 @@ SPEC CHECKSUMS:
   gRPC-RxLibrary: 3c305f32155024b116b780f389323c73a28197e6
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  image_picker: ee00aab0487cedc80a304085219503cc6d0f2e22
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  share: 222b5dcc8031238af9d7de91149df65bad1aef75
 
 PODFILE CHECKSUM: 7765ea4305eaab0b3dfd384c7de11902aa3195fd
 

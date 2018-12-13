@@ -6,10 +6,12 @@ import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/pages/my_profile.dart';
 import 'package:chipkizi/pages/searrch_delegate.dart';
 import 'package:chipkizi/values/consts.dart';
+import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/recordings_list.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:package_info/package_info.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -54,11 +56,47 @@ class HomePage extends StatelessWidget {
           });
     }
 
+    _buildButtons(String label, AppInfoAction action) =>
+        ScopedModelDescendant<MainModel>(
+            builder: (context, child, model) => InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.brown),
+                    ),
+                  ),
+                  onTap: () => model.handleApInfoAction(action),
+                ));
+
+    _handleShowAppInfo() async {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      return showAboutDialog(
+          context: context,
+          applicationIcon: CircleAvatar(
+            backgroundColor: Colors.brown,
+            backgroundImage: AssetImage(ASSET_APP_ICON),
+          ),
+          applicationName: packageInfo.appName,
+          applicationVersion: packageInfo.version,
+          children: <Widget>[
+            Text(developedByText),
+            _buildButtons(callText, AppInfoAction.call),
+            _buildButtons(emailText, AppInfoAction.email),
+            _buildButtons(moreText, AppInfoAction.more)
+          ]);
+    }
+
     final _appBarSection = AppBar(
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Image.asset(
-          'images/ic_launcher.png',
+        child: InkWell(
+          onTap: () => _handleShowAppInfo(),
+          child: Image.asset(
+            ASSET_APP_ICON,
+          ),
         ),
       ),
       title: Hero(
@@ -95,8 +133,7 @@ class HomePage extends StatelessWidget {
       builder: (_, __, model) {
         return Material(
           elevation: 8.0,
-                  child: BottomNavigationBar(
-            
+          child: BottomNavigationBar(
             currentIndex: model.selectedNavItem,
             onTap: (selectedItem) => model.updateSelectedNavItem(selectedItem),
             items: <BottomNavigationBarItem>[
@@ -115,7 +152,7 @@ class HomePage extends StatelessWidget {
         return Hero(
           child: FloatingActionButton(
               child: Icon(Icons.mic),
-              heroTag: 'TAG_MAIN_BUTTON,',//'open recording page',
+              heroTag: 'TAG_MAIN_BUTTON,', //'open recording page',
               onPressed: model.isLoggedIn
                   ? () => _openRecordingPage(context)
                   : () => _goToLoginPage()),

@@ -45,3 +45,12 @@ const confirmLogoutText = 'Are you sure you want to logout?';
 
 const noBookmarksText = 'You have not saved any recordings';
 const noRecordingsText = 'You have not yet made any recordings';
+
+/// app info
+const developedByText = 'Developed by NyayoZangu Labs';
+const callText = 'Call us';
+const emailText = 'Email us';
+const moreText = 'More by NyayoZangu Labs';
+
+
+

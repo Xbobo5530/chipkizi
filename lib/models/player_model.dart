@@ -45,7 +45,7 @@ abstract class PlayerModel extends Model {
       _gettingRecordingsStatus = StatusCode.failed;
       notifyListeners();
     });
-    if (_hasError) return StatusCode.failed;
+    if (_hasError) return _gettingRecordingsStatus;
     List<DocumentSnapshot> documents = snapshot.documents;
     Map<String, Recording> tempMap = <String, Recording>{};
     documents.forEach((document) async {
@@ -205,17 +205,16 @@ abstract class PlayerModel extends Model {
       print('$_tag error on getting user recordings documents $error');
       _hasError = true;
     });
-    if (_hasError) return null;
+    if (_hasError) return <Recording>[];
     List<Recording> tempList = <Recording>[];
     List<DocumentSnapshot> documents = snapshot.documents;
-    // print('$_tag list has ${documents.length} recordings');
     documents.forEach((document) async {
       String recordingId = document.documentID;
+      print(recordingId);
       Recording recording = recordings[recordingId];
 
       tempList.add(recording);
     });
-    // print('$_tag list has ${recordingsList.length} recordings');
     _userRecordingsList = tempList;
     print('$_tag list has ${_userRecordingsList.length} recordings');
     return _userRecordingsList;

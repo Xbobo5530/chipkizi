@@ -52,10 +52,12 @@ class UserRecordingsPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             List<Recording> recordings = snapshot.data;
-            // print('$_tag list has ${recordings.length} recordings');
             return ListView(
                 children: recordings
-                    .map((recording) => Dismissible(
+                    .map((recording) => 
+                    recording != null 
+                    ?
+                    Dismissible(
                         key: Key(recording.id),
                         onDismissed: (_) {
                           recordings.remove(recording);
@@ -78,7 +80,8 @@ class UserRecordingsPage extends StatelessWidget {
                           recording: recording,
                           type: type,
                           recordings: recordings,
-                        )))
+                        ))
+                        : Container())
                     .toList());
           },
         );

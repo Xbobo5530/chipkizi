@@ -56,3 +56,11 @@ const ASSET_LAUNCHER_ICON  = 'images/ic_launcher.png';
 const SUBSCRIPTION_UPDATES = 'Updates';
 const BODY_FIELD = 'body';
 
+const ASSET_APP_ICON = 'images/ic_launcher.png';
+
+/// app info
+const URL_CALL = 'tel:+255810803';
+const URL_EMAIL = 'mailto:family@nyayozangu.com';
+const URL_MORE = 'http://soko.nyayozangu.com';
+
+

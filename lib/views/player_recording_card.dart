@@ -236,15 +236,19 @@ class RecordingCard extends StatelessWidget {
               return _buildCommentsList(model, documents);
             },
           ),
-          FlatButton(
-            textColor: Colors.brown,
-            child: Text(addCommentText),
-            onPressed: model.isLoggedIn
-                ? () => _handleAddComment(model)
-                : () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => LoginPage(), fullscreenDialog: true)),
+          ButtonBar(
+                      children: <Widget>[
+              FlatButton(
+                textColor: Colors.brown,
+                child: Text(addCommentText),
+                onPressed: model.isLoggedIn
+                    ? () => _handleAddComment(model)
+                    : () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => LoginPage(), fullscreenDialog: true)),
+              ),
+            ],
           )
         ]);
 
