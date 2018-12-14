@@ -4,6 +4,7 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
+import 'package:chipkizi/views/profile_recordings_list_section.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -32,43 +33,46 @@ class UserProfilePage extends StatelessWidget {
         );
 
     _handleFollow(MainModel model, User user) async {
-      StatusCode followStatus =
-          await model.handleFollow(model.currentUser, user);
-      if (followStatus == StatusCode.failed)
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(errorMessage),
-        ));
+      if (model.isLoggedIn) {
+        StatusCode followStatus =
+            await model.handleFollow(model.currentUser, user);
+        if (followStatus == StatusCode.failed)
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(errorMessage),
+          ));
+      } else {
+        model.goToLogin(context);
+      }
     }
 
     _buildFollowButton(MainModel model, User user) =>
         model.handlingFollowStatus == StatusCode.waiting
             ? Padding(
-              padding: const EdgeInsets.all(18),
-              child: Center(child:MyProgressIndicator(
-                color: Colors.brown,
-                value: null,
-                strokeWidth: 2,
-              )))
+                padding: const EdgeInsets.all(18),
+                child: Center(
+                    child: MyProgressIndicator(
+                  color: Colors.brown,
+                  value: null,
+                  strokeWidth: 2,
+                )))
             : FutureBuilder<bool>(
                 initialData: false,
                 future: model.isFollowing(model.currentUser, user),
                 builder: (context, snapshot) => snapshot.data
                     ? FlatButton(
-                        onPressed: () => model.isLoggedIn
-                            ? _handleFollow(model, user)
-                            : model.goToLogin(context),
+                        onPressed: () =>
+                             _handleFollow(model, user),
                         child: Text(followingText),
                       )
                     : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:RaisedButton(
-                        textColor: Colors.white,
-                        color: Colors.brown,
-                        child: Text(followText),
-                        onPressed: () => model.isLoggedIn
-                            ? _handleFollow(model, user)
-                            : model.goToLogin(context),
-                      )));
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: RaisedButton(
+                          textColor: Colors.white,
+                          color: Colors.brown,
+                          child: Text(followText),
+                          onPressed: () => _handleFollow(model, user)
+                              ,
+                        )));
 
     _infoSection(User user) => ListTile(
           title: Text(
@@ -123,11 +127,21 @@ class UserProfilePage extends StatelessWidget {
             _buildImageSection(user),
             _infoSection(user),
             _buildFollowButton(model, user),
-            // RaisedButton(
-            //   child: Text(followText),
-            //   onPressed: () {},
-            // ),
-            _buildFollowSection(model, user)
+            
+            _buildFollowSection(model, user),
+            Divider(),
+            ProfileRecordingsListSection(
+                type: ListType.userRecordings,
+                icon: Icons.mic,
+                title: '$recordingsTitleText',
+                user: user
+              ),
+              ProfileRecordingsListSection(
+                type: ListType.upvotes,
+                icon: Icons.favorite,
+                title: favoritesText,
+                user: user,
+              ),
           ],
         );
     return ScopedModelDescendant<MainModel>(

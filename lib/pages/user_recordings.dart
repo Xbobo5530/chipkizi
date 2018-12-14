@@ -33,7 +33,8 @@ class UserRecordingsPage extends StatelessWidget {
       }
     }
 
-    AppBar _buildAppBar(MainModel model) => AppBar(
+    AppBar _buildAppBar(MainModel model, AsyncSnapshot snapshot) => AppBar(
+          elevation: (snapshot.hasData && snapshot.data.length ==0)? 0 : 4 ,
           title: Text(_getTitle()),
           leading: IconButton(
             icon: Icon(
@@ -43,6 +44,31 @@ class UserRecordingsPage extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
           ),
         );
+
+    _buildEditableListItem(
+            MainModel model, List<Recording> recordings, Recording recording) =>
+        Dismissible(
+            key: Key(recording.id),
+            onDismissed: (_) {
+              recordings.remove(recording);
+              switch (type) {
+                case ListType.userRecordings:
+                  model.deleteRecording(recording, model.currentUser);
+                  break;
+                case ListType.bookmarks:
+                  model.handleBookbarkRecording(recording, model.currentUser);
+                  break;
+                case ListType.upvotes:
+                  model.removeFavorite(recording, user);
+                  break;
+              }
+            },
+            child: RecordingsListItemView(
+              key: Key(recording.id),
+              recording: recording,
+              type: type,
+              recordings: recordings,
+            ));
 
     Widget _buildBody(MainModel model) => FutureBuilder<List<Recording>>(
           future: model.getUserRecordings(user, type),
@@ -54,33 +80,17 @@ class UserRecordingsPage extends StatelessWidget {
             List<Recording> recordings = snapshot.data;
             return ListView(
                 children: recordings
-                    .map((recording) => 
-                    recording != null 
-                    ?
-                    Dismissible(
-                        key: Key(recording.id),
-                        onDismissed: (_) {
-                          recordings.remove(recording);
-                          switch (type) {
-                            case ListType.userRecordings:
-                              model.deleteRecording(
-                                  recording, model.currentUser);
-                              break;
-                            case ListType.bookmarks:
-                              model.handleBookbarkRecording(
-                                  recording, model.currentUser);
-                              break;
-                              case ListType.upvotes:
-                              model.removeFavorite(recording, user);
-                              break;
-                          }
-                        },
-                        child: RecordingsListItemView(
-                          key: Key(recording.id),
-                          recording: recording,
-                          type: type,
-                          recordings: recordings,
-                        ))
+                    .map((recording) => recording != null
+                        ? user.id == model.currentUser.id
+                            ? _buildEditableListItem(
+                                model, recordings, recording
+                              )
+                            : RecordingsListItemView(
+                                key: Key(recording.id),
+                                recording: recording,
+                                type: type,
+                                recordings: recordings,
+                              )
                         : Container())
                     .toList());
           },
@@ -88,22 +98,26 @@ class UserRecordingsPage extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
-        return Scaffold(
-          appBar: _buildAppBar(model),
-          body: FutureBuilder(
-            future: model.getUserRecordings(user, type),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData)
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              List<Recording> recordings = snapshot.data;
-              return recordings.length == 0
-                  ? EmptyView(
-                      type: type,
-                    )
-                  : _buildBody(model);
-            },
+        return FutureBuilder<List<Recording>>(
+          future: model.getUserRecordings(user, type),
+                  builder: (context, snapshot) 
+                    
+                    
+                    => Scaffold(
+            appBar: _buildAppBar(model, snapshot),
+            body: !snapshot.hasData 
+            ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                  : snapshot.data.length == 0
+                    ? EmptyView(
+                        type: type,
+                      )
+                    : _buildBody(model)
+            
+            
+            
+           
           ),
         );
       },

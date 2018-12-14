@@ -29,6 +29,7 @@ const upvoteText = 'Upvote';
 const favoritesText = 'Favorites';
 const bookmarksText = 'Bookmarks';
 const recordingsText = 'recordings';
+const recordingsTitleText = 'Recordings';
 const myRecordingsText = 'My recordings';
 const goHomeText = 'Open homepage';
 const openRecordingText = 'Open recording';
@@ -38,14 +39,14 @@ const createRecordingText = 'Create a recording';
 const newRecordingText = 'New recording';
 
 //messages
-const errorMessage = 'Somethin went wrong, please try again.';
+const errorMessage = 'Something went wrong, please try again.';
 const loginToViewProfileMessage = 'Please login to view your profile.';
 const tapRecordHint = 'Please tap the record button to continue';
 
 const confirmLogoutText = 'Are you sure you want to logout?';
 
-const noBookmarksText = 'You have not saved any recordings';
-const noRecordingsText = 'You have not yet made any recordings';
+const noBookmarksText = 'Could not find any saved recordings';
+const noRecordingsText = 'Could not find any recordings';
 
 /// app info
 const developedByText = 'Developed by NyayoZangu Labs';
