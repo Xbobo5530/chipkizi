@@ -5,6 +5,7 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/add_comment_button.dart';
+import 'package:chipkizi/views/comment_item_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -46,26 +47,13 @@ class CommentsPage extends StatelessWidget {
                           builder: (context, snapshot) {
                             final refinedComment = snapshot.data;
 
-                            return ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: refinedComment.userImageUrl !=
-                                        null
-                                    ? NetworkImage(refinedComment.userImageUrl)
-                                    : AssetImage(ASSET_APP_ICON),
-                              ),
-                              title: Text(
-                                refinedComment.message,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              subtitle: refinedComment.username != null
-                                  ? Text(refinedComment.username,
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                      ))
-                                  : null,
+                            return CommentItemView(
+                              comment: refinedComment,
+                              titleColor: Colors.white,
+                              subTitleColor:  Colors.white70,
+                              avatarRadius: 20,
                             );
+                           
                           },
                         );
                       },
@@ -75,10 +63,14 @@ class CommentsPage extends StatelessWidget {
 
     final _actionSection = ButtonBar(
       alignment: MainAxisAlignment.center,
-      
       children: <Widget>[
-      AddCommentButton(recording: recording, color: Colors.white , key: Key(recording.id),)
-    ],);
+        AddCommentButton(
+          recording: recording,
+          color: Colors.white,
+          key: Key(recording.id),
+        )
+      ],
+    );
 
     final _body = Column(
       children: <Widget>[_commentsSection, _actionSection],

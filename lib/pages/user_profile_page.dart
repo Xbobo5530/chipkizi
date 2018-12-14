@@ -3,6 +3,7 @@ import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/follow_info_section.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/profile_recordings_list_section.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,7 @@ class UserProfilePage extends StatelessWidget {
                 future: model.isFollowing(model.currentUser, user),
                 builder: (context, snapshot) => snapshot.data
                     ? FlatButton(
-                        onPressed: () =>
-                             _handleFollow(model, user),
+                        onPressed: () => _handleFollow(model, user),
                         child: Text(followingText),
                       )
                     : Padding(
@@ -70,14 +70,14 @@ class UserProfilePage extends StatelessWidget {
                           textColor: Colors.white,
                           color: Colors.brown,
                           child: Text(followText),
-                          onPressed: () => _handleFollow(model, user)
-                              ,
+                          onPressed: () => _handleFollow(model, user),
                         )));
 
     _infoSection(User user) => ListTile(
           title: Text(
-            user.name,
+            user.name != null ? user.name : APP_NAME,
             textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
           ),
           subtitle: user.bio != null
               ? Text(
@@ -86,62 +86,61 @@ class UserProfilePage extends StatelessWidget {
                 )
               : null,
         );
-    _getFollowTitle(FollowItem item) {
-      switch (item) {
-        case FollowItem.followers:
-          return followersText;
-          break;
-        case FollowItem.following:
-          return followingText;
-          break;
-        default:
-          return '';
-      }
-    }
+    // _getFollowTitle(FollowItem item) {
+    //   switch (item) {
+    //     case FollowItem.followers:
+    //       return followersText;
+    //       break;
+    //     case FollowItem.following:
+    //       return followingText;
+    //       break;
+    //     default:
+    //       return '';
+    //   }
+    // }
 
-    _buildFollowTile(MainModel model, FollowItem item) => Container(
-        constraints:
-            BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
-        child: ListTile(
-          title: Text(
-            _getFollowTitle(item),
-            textAlign: TextAlign.center,
-          ),
-          subtitle: FutureBuilder<int>(
-              initialData: 0,
-              future: model.followCount(user, item),
-              builder: (context, snapshot) => Text(
-                    snapshot.data.toString(),
-                    textAlign: TextAlign.center,
-                  )),
-        ));
-    _buildFollowSection(MainModel model, User user) => Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _buildFollowTile(model, FollowItem.followers),
-            _buildFollowTile(model, FollowItem.following),
-          ],
-        );
+    // _buildFollowTile(MainModel model, FollowItem item) => Container(
+    //     constraints:
+    //         BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
+    //     child: ListTile(
+    //       title: Text(
+    //         _getFollowTitle(item),
+    //         textAlign: TextAlign.center,
+    //       ),
+    //       subtitle: FutureBuilder<int>(
+    //           initialData: 0,
+    //           future: model.followCount(user, item),
+    //           builder: (context, snapshot) => Text(
+    //                 snapshot.data.toString(),
+    //                 textAlign: TextAlign.center,
+    //               )),
+    //     ));
+    // _buildFollowSection(MainModel model, User user) => Row(
+    //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: <Widget>[
+    //         _buildFollowTile(model, FollowItem.followers),
+    //         _buildFollowTile(model, FollowItem.following),
+    //       ],
+    //     );
     _buildBody(MainModel model, User user) => ListView(
           children: <Widget>[
             _buildImageSection(user),
             _infoSection(user),
             _buildFollowButton(model, user),
-            
-            _buildFollowSection(model, user),
+            // _buildFollowSection(model, user),
+            FollowInfoSection(user: user,),
             Divider(),
             ProfileRecordingsListSection(
                 type: ListType.userRecordings,
                 icon: Icons.mic,
                 title: '$recordingsTitleText',
-                user: user
-              ),
-              ProfileRecordingsListSection(
-                type: ListType.upvotes,
-                icon: Icons.favorite,
-                title: favoritesText,
-                user: user,
-              ),
+                user: user),
+            ProfileRecordingsListSection(
+              type: ListType.upvotes,
+              icon: Icons.favorite,
+              title: favoritesText,
+              user: user,
+            ),
           ],
         );
     return ScopedModelDescendant<MainModel>(

@@ -11,6 +11,7 @@ import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/add_comment_button.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/comment_item_view.dart';
 import 'package:chipkizi/views/genre_chip.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/play_button.dart';
@@ -26,7 +27,6 @@ class RecordingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final _imageSection = recording.imageUrl != null
         ? Center(
             child: CircleAvatar(
@@ -127,18 +127,25 @@ class RecordingCard extends StatelessWidget {
       ),
       subtitle: recording.username != null
           ? ActionChip(
-            avatar: CircleAvatar(
-              backgroundColor: Colors.brown,
-              backgroundImage: NetworkImage(recording.userImageUrl),
-            ),
-            label: Text(
-              recording.username,
-              textAlign: TextAlign.center,
-            ), onPressed: ()=> Navigator.push(
-              context, MaterialPageRoute(
-                builder: (context)=>UserProfilePage(user: User(id: recording.createdBy, name: recording.username, imageUrl: recording.userImageUrl),),fullscreenDialog: true
-              )
-            ),)
+              avatar: CircleAvatar(
+                backgroundColor: Colors.brown,
+                backgroundImage: NetworkImage(recording.userImageUrl),
+              ),
+              label: Text(
+                recording.username,
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserProfilePage(
+                            user: User(
+                                id: recording.createdBy,
+                                name: recording.username,
+                                imageUrl: recording.userImageUrl),
+                          ),
+                      fullscreenDialog: true)),
+            )
           : null,
     );
 
@@ -176,21 +183,12 @@ class RecordingCard extends StatelessWidget {
               return FutureBuilder<Comment>(
                   future: model.refineComment(comment),
                   initialData: comment,
-                  builder: (context, snapshot) => ListTile(
-                        title: Text(comment.message),
-                        leading: CircleAvatar(
-                          radius: 16.0,
-                          backgroundColor: Colors.brown,
-                          backgroundImage: comment.userImageUrl == null
-                              ? AssetImage(ASSET_LAUNCHER_ICON)
-                              : NetworkImage(comment.userImageUrl),
-                        ),
-                      ));
+                  builder: (context, snapshot) => 
+                  CommentItemView(comment: comment, )
+                 
+                      
+                      );
             }).toList());
-
-    
-
-    
 
     _buildCommentsSection(MainModel model) => Column(children: <Widget>[
           StreamBuilder<QuerySnapshot>(
@@ -210,7 +208,11 @@ class RecordingCard extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-            AddCommentButton(recording: recording,color: Colors.brown, key: Key(recording.id),),
+              AddCommentButton(
+                recording: recording,
+                color: Colors.brown,
+                key: Key(recording.id),
+              ),
               FlatButton(
                 textColor: Colors.brown,
                 child: Text(viewAllCommentsText),
@@ -220,7 +222,8 @@ class RecordingCard extends StatelessWidget {
                         builder: (context) => CommentsPage(
                               recording: recording,
                               key: Key(recording.id),
-                            ), fullscreenDialog: true)),
+                            ),
+                        fullscreenDialog: true)),
               )
             ],
           )

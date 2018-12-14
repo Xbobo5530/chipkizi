@@ -34,7 +34,7 @@ class UserRecordingsPage extends StatelessWidget {
     }
 
     AppBar _buildAppBar(MainModel model, AsyncSnapshot snapshot) => AppBar(
-          elevation: (snapshot.hasData && snapshot.data.length ==0)? 0 : 4 ,
+          elevation: (snapshot.hasData && snapshot.data.length == 0) ? 0 : 4,
           title: Text(_getTitle()),
           leading: IconButton(
             icon: Icon(
@@ -83,8 +83,7 @@ class UserRecordingsPage extends StatelessWidget {
                     .map((recording) => recording != null
                         ? user.id == model.currentUser.id
                             ? _buildEditableListItem(
-                                model, recordings, recording
-                              )
+                                model, recordings, recording)
                             : RecordingsListItemView(
                                 key: Key(recording.id),
                                 recording: recording,
@@ -100,25 +99,17 @@ class UserRecordingsPage extends StatelessWidget {
       builder: (_, __, model) {
         return FutureBuilder<List<Recording>>(
           future: model.getUserRecordings(user, type),
-                  builder: (context, snapshot) 
-                    
-                    
-                    => Scaffold(
-            appBar: _buildAppBar(model, snapshot),
-            body: !snapshot.hasData 
-            ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+          builder: (context, snapshot) => Scaffold(
+              appBar: _buildAppBar(model, snapshot),
+              body: !snapshot.hasData
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
                   : snapshot.data.length == 0
-                    ? EmptyView(
-                        type: type,
-                      )
-                    : _buildBody(model)
-            
-            
-            
-           
-          ),
+                      ? EmptyView(
+                          type: type,
+                        )
+                      : _buildBody(model)),
         );
       },
     );
