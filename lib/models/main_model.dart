@@ -1,6 +1,7 @@
 import 'package:chipkizi/models/account_model.dart';
 import 'package:chipkizi/models/comment_model.dart';
 import 'package:chipkizi/models/file_model.dart';
+import 'package:chipkizi/models/follow_model.dart';
 import 'package:chipkizi/models/messaging_model.dart';
 import 'package:chipkizi/models/navigation_model.dart';
 import 'package:chipkizi/models/player_model.dart';
@@ -18,7 +19,7 @@ class MainModel extends Model
         RecordingActionsModel,
         CommentModel,
         MessagingModel,
-        FileModel {
+        FileModel , FollowModel{
   MainModel() {
     updateLoginStatus();
     getRecordings();

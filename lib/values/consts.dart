@@ -6,6 +6,8 @@ const PLAYS_COLLETION = 'Plays';
 const BOOKMARKS_COLLETION = 'Bookmarks';
 const COMMENTS_COLLECTION = 'Comments';
 const MESSAGES_COLLECTION = 'Messages';
+const COLLECTION_FOLLOWERS = 'Followers';
+const COLLECTION_FOLLOWING = 'Following';
 
 // Fields
 const ID_FIELD = 'id';
@@ -25,6 +27,8 @@ const CREATED_AT_FIELD = 'created_at';
 const BIO_FIELD = 'bio';
 const NAME_FIELD = 'name';
 const GENRE_FIELD = 'genre';
+const FIELD_FOLLOWER_ID = 'follower_id';
+const FIELD_FOLLOWING_ID = 'following_id';
 
 // values
 const VAL_IS_MODIFIED = 1;
@@ -50,7 +54,7 @@ const OTHER_BUCKET = 'other';
 const DEEP_LINK_URL = 'http://chipkizi.nyayozangu.com/app/';
 
 //assets
-const ASSET_LAUNCHER_ICON  = 'images/ic_launcher.png';
+const ASSET_LAUNCHER_ICON = 'images/ic_launcher.png';
 
 //messaging
 const SUBSCRIPTION_UPDATES = 'Updates';
@@ -62,5 +66,3 @@ const ASSET_APP_ICON = 'images/ic_launcher.png';
 const URL_CALL = 'tel:+255810803';
 const URL_EMAIL = 'mailto:family@nyayozangu.com';
 const URL_MORE = 'http://soko.nyayozangu.com';
-
-

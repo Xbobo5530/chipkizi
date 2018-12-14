@@ -1,8 +1,10 @@
 import 'package:chipkizi/models/comment.dart';
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
+import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/comments_page.dart';
 import 'package:chipkizi/pages/login.dart';
+import 'package:chipkizi/pages/user_profile_page.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
@@ -124,10 +126,19 @@ class RecordingCard extends StatelessWidget {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
       ),
       subtitle: recording.username != null
-          ? Text(
+          ? ActionChip(
+            avatar: CircleAvatar(
+              backgroundColor: Colors.brown,
+              backgroundImage: NetworkImage(recording.userImageUrl),
+            ),
+            label: Text(
               recording.username,
               textAlign: TextAlign.center,
-            )
+            ), onPressed: ()=> Navigator.push(
+              context, MaterialPageRoute(
+                builder: (context)=>UserProfilePage(user: User(id: recording.createdBy, name: recording.username, imageUrl: recording.userImageUrl),),fullscreenDialog: true
+              )
+            ),)
           : null,
     );
 

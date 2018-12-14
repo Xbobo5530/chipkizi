@@ -7,6 +7,7 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/my_profile_image_section.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 
 import 'package:flutter/material.dart';
@@ -20,32 +21,7 @@ class MyProfilePage extends StatelessWidget {
     final _nameFieldController = TextEditingController();
     final _bioFieldController = TextEditingController();
 
-    _handleUpdateImage(MainModel model, File image) async {
-      model.setUplaodWaitingStatus();
-      if (model.currentUser.imagePath != null)
-        await model.deleteFile(model.currentUser.imagePath);
-
-      StatusCode uplaodStatus =
-          await model.uploadFile(image.path, FileType.userImages);
-      if (uplaodStatus == StatusCode.failed) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text(errorMessage)));
-        model.resetFileDetails();
-        return null;
-      }
-      User currentUser = model.currentUser;
-      currentUser.imageUrl = model.fileUrl;
-      currentUser.imagePath = model.filePath;
-      StatusCode updateProfileStatus =
-          await model.editAccountDetails(currentUser, DetailType.imageUrl);
-      if (updateProfileStatus == StatusCode.failed) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text(errorMessage)));
-        model.resetFileDetails();
-        return null;
-      }
-      model.resetFileDetails();
-    }
+    
 
     Future<void> _handleEdit(MainModel model, DetailType type) async {
       User _userWithNewDetails = model.currentUser;
@@ -117,53 +93,7 @@ class MyProfilePage extends StatelessWidget {
           });
     }
 
-    Widget _buildImageSection(MainModel model) => Center(
-            child: FutureBuilder(
-          future: model.imageFile,
-          builder: (context, snapshot) => Stack(
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 60.0,
-                    backgroundColor: Colors.brown,
-                    backgroundImage: snapshot.hasData
-                        ? FileImage(snapshot.data)
-                        : model.currentUser.imageUrl != null
-                            ? NetworkImage(model.currentUser.imageUrl)
-                            : AssetImage(ASSET_LAUNCHER_ICON),
-                  ),
-                  Positioned(
-                    bottom: 0.0,
-                    right: 0.0,
-                    child: Opacity(
-                      opacity: 0.7,
-                                          child: CircularIconButton(
-                        size: 40.0,
-                        button: IconButton(
-                          icon:
-                              model.editingUserDetailsStatus == StatusCode.waiting
-                                  ? MyProgressIndicator(
-                                      strokeWidth: 2.0,
-                                      color: Colors.white70,
-                                      size: 15.0,
-                                      value: null,
-                                    )
-                                  : Icon(
-                                      model.imageFile != null
-                                          ? Icons.done
-                                          : Icons.edit,
-                                      color: Colors.white70,
-                                    ),
-                          onPressed: model.imageFile != null
-                              ? () => _handleUpdateImage(model, snapshot.data)
-                              : () => model.getFile(),
-                        ),
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-        ));
+
 
     Widget _buildInfoSection(MainModel model) => ListTile(
         title: Row(
@@ -231,7 +161,7 @@ class MyProfilePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListView(
             children: <Widget>[
-              _buildImageSection(model),
+              MyProfileImageSection(),
               _buildInfoSection(model),
               Divider(),
               _buildRecordingsSection(

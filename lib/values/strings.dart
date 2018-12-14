@@ -3,7 +3,8 @@ const homeText = 'Home';
 const meText = 'Me';
 const waitText = 'Please wait...';
 const recordingText = 'Recording...';
-const submitSuccessText = 'Congrats!!!\nYour recording has successfully been submited.';
+const submitSuccessText =
+    'Congrats!!!\nYour recording has successfully been submited.';
 const submitText = 'Submit';
 const loginText = 'Login';
 const logoutText = 'Logout';
@@ -36,7 +37,6 @@ const createRecordingText = 'Create a recording';
 
 const newRecordingText = 'New recording';
 
-
 //messages
 const errorMessage = 'Somethin went wrong, please try again.';
 const loginToViewProfileMessage = 'Please login to view your profile.';
@@ -53,5 +53,7 @@ const callText = 'Call us';
 const emailText = 'Email us';
 const moreText = 'More by NyayoZangu Labs';
 
-
-
+/// follow
+const followText = 'Follow';
+const followersText = 'Followers';
+const followingText = 'Following';

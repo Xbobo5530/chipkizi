@@ -1,5 +1,7 @@
+import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
+import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,4 +35,6 @@ abstract class NavigationModel extends Model {
       throw 'Could not launch $url';
     }
   }
+
+  goToLogin(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(), fullscreenDialog: true));
 }

@@ -6,3 +6,4 @@ enum ListType{bookmarks, userRecordings, upvotes}
 enum FileType{recording, recordingsImage, userImages}
 enum AppInfoAction {call, email, more}
 enum SourcePage {comments, player}
+enum FollowItem {followers, following}
