@@ -17,10 +17,11 @@ class UserRecordingsPage extends StatelessWidget {
   const UserRecordingsPage({Key key, this.user, this.type}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    String _getTitle() {
+    String _getTitle(MainModel model) {
       switch (type) {
         case ListType.userRecordings:
-          return myRecordingsText;
+          if (model.currentUser.id == user.id) return myRecordingsText;
+          return recordingsTitleText;
           break;
         case ListType.bookmarks:
           return bookmarkText;
@@ -35,7 +36,7 @@ class UserRecordingsPage extends StatelessWidget {
 
     AppBar _buildAppBar(MainModel model, AsyncSnapshot snapshot) => AppBar(
           elevation: (snapshot.hasData && snapshot.data.length == 0) ? 0 : 4,
-          title: Text(_getTitle()),
+          title: Text(_getTitle(model)),
           leading: IconButton(
             icon: Icon(
               Icons.keyboard_arrow_down,
