@@ -15,7 +15,7 @@ class CommentItemView extends StatelessWidget {
       @required this.comment,
       this.avatarRadius = 16,
       this.titleColor = Colors.black,
-      this.subTitleColor = Colors.black})
+      this.subTitleColor = Colors.black45})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,8 @@ abstract class FollowModel extends Model {
   Firestore _database = Firestore.instance;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   StatusCode _handlingFollowStatus;
+  List<User> _tempUserList = [];
+  List<User> _followList;
   StatusCode get handlingFollowStatus => _handlingFollowStatus;
   DocumentReference _followerRef(User currentUser, User target) => _database
       .collection(USERS_COLLECTION)
@@ -63,7 +65,7 @@ abstract class FollowModel extends Model {
     Map<String, dynamic> notificationMap = {
       TITLE_FIELD: newFollowerText,
       BODY_FIELD: '${user.name} $isNowFollowingText',
-      ID_FIELD: user.id,
+      ID_FIELD: 'private_${user.id}',
       FIELD_NOTIFICATION_TYPE: FIELD_NOTIFICATION_TYPE_NEW_FOLLOWER,
     };
     _database
@@ -159,12 +161,14 @@ abstract class FollowModel extends Model {
     return snapshot.documents.length;
   }
 
-  _getFollowItem(FollowItem item) {
+  String _getFollowItem(FollowItem item) {
     switch (item) {
       case FollowItem.followers:
         return COLLECTION_FOLLOWERS;
       case FollowItem.following:
         return COLLECTION_FOLLOWING;
+      default:
+        return COLLECTION_FOLLOWERS;
     }
   }
 
@@ -187,23 +191,35 @@ abstract class FollowModel extends Model {
     return User.fromSnapshot(document);
   }
 
+  bool _isCached(User user) {
+    bool _isCahced = false;
+    _followList.forEach((chachedUser) {
+      if (chachedUser.id == user.id) _isCahced = true;
+    });
+    return _isCahced;
+  }
+
   Future<List<User>> userFollowList(User user, FollowItem item) async {
     bool _hasError = false;
-
     QuerySnapshot snapshot =
         await _userFollowCollRef(user, item).getDocuments().catchError((error) {
       print('error on fetching follow list: $error');
       _hasError = true;
     });
     if (_hasError) return [];
-    List<User> tempList = [];
 
     List<DocumentSnapshot> documents = snapshot.documents;
     documents.forEach((DocumentSnapshot document) async {
       User user = await _userFromId(document.documentID);
-
-      tempList.add(user);
+      if (!_isCached(user)) _tempUserList.add(user);
     });
-    return tempList;
+    _followList = _tempUserList;
+    return _followList;
   }
+
+  Stream<QuerySnapshot> followStream(User user, FollowItem item) => _database
+      .collection(USERS_COLLECTION)
+      .document(user.id)
+      .collection(_getFollowItem(item))
+      .snapshots();
 }

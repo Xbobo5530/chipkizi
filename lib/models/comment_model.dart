@@ -154,7 +154,6 @@ abstract class CommentModel extends Model {
     print('$_tag at _createNotificationDoc');
     Comment comment = await _commentFromDocRef(docRef);
     Comment refinedComment = await refineComment(comment);
-    print(comment.toString());
     final username =
         refinedComment.username != null ? refinedComment.username : APP_NAME;
     Map<String, dynamic> notificationMap = {
