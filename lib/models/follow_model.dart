@@ -133,4 +133,52 @@ abstract class FollowModel extends Model {
     if (_hasError) return 0;
     return snapshot.documents.length;
   }
+
+  _getFollowItem(FollowItem item) {
+    switch (item) {
+      case FollowItem.followers:
+        return COLLECTION_FOLLOWERS;
+      case FollowItem.following:
+        return COLLECTION_FOLLOWING;
+    }
+  }
+
+  _userFollowCollRef(User user, FollowItem item) => _database
+      .collection(USERS_COLLECTION)
+      .document(user.id)
+      .collection(_getFollowItem(item));
+
+  Future<User> _userFromId(String id) async {
+    bool _hasError = false;
+    DocumentSnapshot document = await _database
+        .collection(USERS_COLLECTION)
+        .document(id)
+        .get()
+        .catchError((error) {
+      print('error on getting user for follow: $error');
+      _hasError = true;
+    });
+    if (_hasError || !document.exists) return null;
+    return User.fromSnapshot(document);
+  }
+
+  Future<List<User>> userFollowList(User user, FollowItem item) async {
+    bool _hasError = false;
+
+    QuerySnapshot snapshot =
+        await _userFollowCollRef(user, item).getDocuments().catchError((error) {
+      print('error on fetching follow list: $error');
+      _hasError = true;
+    });
+    if (_hasError) return [];
+    List<User> tempList = [];
+
+    List<DocumentSnapshot> documents = snapshot.documents;
+    documents.forEach((DocumentSnapshot document) async {
+      User user = await _userFromId(document.documentID);
+
+      tempList.add(user);
+    });
+    return tempList;
+  }
 }

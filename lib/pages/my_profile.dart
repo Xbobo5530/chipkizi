@@ -7,6 +7,7 @@ import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:chipkizi/views/circular_button.dart';
+import 'package:chipkizi/views/follow_info_section.dart';
 import 'package:chipkizi/views/my_profile_image_section.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/profile_recordings_list_section.dart';
@@ -151,6 +152,7 @@ class MyProfilePage extends StatelessWidget {
             children: <Widget>[
               MyProfileImageSection(),
               _buildInfoSection(model),
+              FollowInfoSection(user: model.currentUser),
               Divider(),
               ProfileRecordingsListSection(
                 type: ListType.userRecordings,

@@ -1,5 +1,6 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/user.dart';
+import 'package:chipkizi/pages/follow_page.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ class FollowInfoSection extends StatelessWidget {
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
         child: ListTile(
+          onTap: ()=>Navigator.push(context, MaterialPageRoute(
+            builder: (_)=>FollowPage(user: user, followItem: item),fullscreenDialog: true
+          )),
           title: Text(
             _getFollowTitle(item),
             textAlign: TextAlign.center,

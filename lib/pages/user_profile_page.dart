@@ -86,42 +86,7 @@ class UserProfilePage extends StatelessWidget {
                 )
               : null,
         );
-    // _getFollowTitle(FollowItem item) {
-    //   switch (item) {
-    //     case FollowItem.followers:
-    //       return followersText;
-    //       break;
-    //     case FollowItem.following:
-    //       return followingText;
-    //       break;
-    //     default:
-    //       return '';
-    //   }
-    // }
-
-    // _buildFollowTile(MainModel model, FollowItem item) => Container(
-    //     constraints:
-    //         BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
-    //     child: ListTile(
-    //       title: Text(
-    //         _getFollowTitle(item),
-    //         textAlign: TextAlign.center,
-    //       ),
-    //       subtitle: FutureBuilder<int>(
-    //           initialData: 0,
-    //           future: model.followCount(user, item),
-    //           builder: (context, snapshot) => Text(
-    //                 snapshot.data.toString(),
-    //                 textAlign: TextAlign.center,
-    //               )),
-    //     ));
-    // _buildFollowSection(MainModel model, User user) => Row(
-    //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: <Widget>[
-    //         _buildFollowTile(model, FollowItem.followers),
-    //         _buildFollowTile(model, FollowItem.following),
-    //       ],
-    //     );
+    
     _buildBody(MainModel model, User user) => ListView(
           children: <Widget>[
             _buildImageSection(user),
