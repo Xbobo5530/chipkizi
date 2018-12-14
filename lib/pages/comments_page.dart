@@ -2,7 +2,9 @@ import 'package:chipkizi/models/comment.dart';
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/values/consts.dart';
+import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/add_comment_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -23,43 +25,64 @@ class CommentsPage extends StatelessWidget {
               ),
           child: Text(commentsText)),
     );
-    final _body = ScopedModelDescendant<MainModel>(
-        builder: (context, child, model) => StreamBuilder<QuerySnapshot>(
-              stream: model.commentsStream(recording),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                return ListView.builder(
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (context, index) {
-                    Comment comment =
-                        Comment.fromSnapshot(snapshot.data.documents[index]);
-                    // print(comment.toString());
-                    return FutureBuilder<Comment>(
-                      initialData: comment,
-                      future: model.refineComment(comment),
-                      builder: (context, snapshot) {
-                        final refinedComment = snapshot.data;
+    final _commentsSection = Expanded(
+        child: ScopedModelDescendant<MainModel>(
+            builder: (context, child, model) => StreamBuilder<QuerySnapshot>(
+                  stream: model.commentsStream(recording, SourcePage.comments),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData)
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    return ListView.builder(
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, index) {
+                        Comment comment = Comment.fromSnapshot(
+                            snapshot.data.documents[index]);
 
-                        return ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: refinedComment.userImageUrl != null
-                                ? NetworkImage(refinedComment.userImageUrl)
-                                : AssetImage(ASSET_APP_ICON),
-                          ),
-                          title: Text(refinedComment.message),
-                          subtitle: refinedComment.username != null
-                              ? Text(refinedComment.username)
-                              : null,
+                        return FutureBuilder<Comment>(
+                          initialData: comment,
+                          future: model.refineComment(comment),
+                          builder: (context, snapshot) {
+                            final refinedComment = snapshot.data;
+
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: refinedComment.userImageUrl !=
+                                        null
+                                    ? NetworkImage(refinedComment.userImageUrl)
+                                    : AssetImage(ASSET_APP_ICON),
+                              ),
+                              title: Text(
+                                refinedComment.message,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              subtitle: refinedComment.username != null
+                                  ? Text(refinedComment.username,
+                                      style: TextStyle(
+                                        color: Colors.white70,
+                                      ))
+                                  : null,
+                            );
+                          },
                         );
                       },
                     );
                   },
-                );
-              },
-            ));
+                )));
+
+    final _actionSection = ButtonBar(
+      alignment: MainAxisAlignment.center,
+      
+      children: <Widget>[
+      AddCommentButton(recording: recording, color: Colors.white , key: Key(recording.id),)
+    ],);
+
+    final _body = Column(
+      children: <Widget>[_commentsSection, _actionSection],
+    );
 
     return Scaffold(
       backgroundColor: Colors.brown,

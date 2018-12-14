@@ -6,6 +6,7 @@ import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
+import 'package:chipkizi/views/add_comment_button.dart';
 import 'package:chipkizi/views/bookmark_button.dart';
 import 'package:chipkizi/views/circular_button.dart';
 import 'package:chipkizi/views/genre_chip.dart';
@@ -23,7 +24,7 @@ class RecordingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _commentConttoller = TextEditingController();
+    
     final _imageSection = recording.imageUrl != null
         ? Center(
             child: CircleAvatar(
@@ -176,52 +177,13 @@ class RecordingCard extends StatelessWidget {
                       ));
             }).toList());
 
-    Future<bool> _getUserInput() => showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(addCommentText),
-              content: TextField(
-                controller: _commentConttoller,
-                textCapitalization: TextCapitalization.sentences,
-                autofocus: true,
-                maxLines: null,
-                decoration: InputDecoration(hintText: enterCommentText),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  textColor: Colors.grey,
-                  child: Text(cancelText),
-                  onPressed: () => Navigator.pop(context, false),
-                ),
-                FlatButton(
-                  child: Text(submitText),
-                  onPressed: () {
-                    final message = _commentConttoller.text.trim();
-                    if (message.isNotEmpty) Navigator.pop(context, true);
-                  },
-                )
-              ],
-            ));
+    
 
-    _handleAddComment(MainModel model) async {
-      bool _hasSubmittedComment = await _getUserInput();
-      if (!_hasSubmittedComment) return null;
-      final message = _commentConttoller.text.trim();
-      Comment _comment = Comment(
-          message: message,
-          createdBy: model.currentUser.id,
-          createdAt: DateTime.now().millisecondsSinceEpoch,
-          recordingId: recording.id);
-      StatusCode submitStatus = await model.submitComment(_comment);
-      if (submitStatus == StatusCode.failed)
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(errorMessage),
-        ));
-    }
+    
 
     _buildCommentsSection(MainModel model) => Column(children: <Widget>[
           StreamBuilder<QuerySnapshot>(
-            stream: model.commentsStream(recording),
+            stream: model.commentsStream(recording, SourcePage.player),
             builder: (context, snapshot) {
               if (!snapshot.hasData)
                 return Center(
@@ -237,17 +199,7 @@ class RecordingCard extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                textColor: Colors.brown,
-                child: Text(addCommentText),
-                onPressed: model.isLoggedIn
-                    ? () => _handleAddComment(model)
-                    : () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => LoginPage(),
-                            fullscreenDialog: true)),
-              ),
+            AddCommentButton(recording: recording,color: Colors.brown, key: Key(recording.id),),
               FlatButton(
                 textColor: Colors.brown,
                 child: Text(viewAllCommentsText),

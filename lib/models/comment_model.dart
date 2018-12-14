@@ -19,11 +19,21 @@ abstract class CommentModel extends Model {
       .document(recording.id)
       .collection(COMMENTS_COLLECTION);
 
-  Stream<QuerySnapshot> commentsStream(Recording recording) =>
-      _commentsColRef(recording)
-          .orderBy(CREATED_AT_FIELD, descending: true)
-          .limit(10)
-          .snapshots();
+  Stream<QuerySnapshot> commentsStream(Recording recording, SourcePage source) {
+    switch (source) {
+      case SourcePage.player:
+        return _commentsColRef(recording)
+            .orderBy(CREATED_AT_FIELD, descending: true)
+            .limit(10)
+            .snapshots();
+        break;
+      case SourcePage.comments:
+        return _commentsColRef(recording)
+            .orderBy(CREATED_AT_FIELD, descending: true)
+            .snapshots();
+        break;
+    }
+  }
 
   Future<StatusCode> submitComment(Comment comment) async {
     print('$_tag at submitComment');
@@ -59,7 +69,7 @@ abstract class CommentModel extends Model {
       .document(comment.recordingId)
       .collection(COMMENTS_COLLECTION)
       .document(comment.id);
-      
+
   Future<StatusCode> editComment(Comment comment) async {
     print('$_tag at editComment');
     _submittingCommentStatus = StatusCode.waiting;
