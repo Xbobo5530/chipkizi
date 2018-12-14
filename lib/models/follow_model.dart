@@ -1,11 +1,16 @@
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
+import 'package:chipkizi/values/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+const _tag = 'FollowModel:';
 
 abstract class FollowModel extends Model {
   Firestore _database = Firestore.instance;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   StatusCode _handlingFollowStatus;
   StatusCode get handlingFollowStatus => _handlingFollowStatus;
   DocumentReference _followerRef(User currentUser, User target) => _database
@@ -30,10 +35,13 @@ abstract class FollowModel extends Model {
     if (document.exists) {
       _handlingFollowStatus = await _removeFollower(currentUser, target);
       notifyListeners();
+      _firebaseMessaging.unsubscribeFromTopic(target.id);
       return _handlingFollowStatus;
     }
     _handlingFollowStatus = await _addFollower(currentUser, target);
     notifyListeners();
+    _firebaseMessaging.subscribeToTopic(target.id);
+    _createNotificationDoc(target);
     return _handlingFollowStatus;
   }
 
@@ -47,6 +55,23 @@ abstract class FollowModel extends Model {
     });
     if (_hasError) return StatusCode.failed;
     return await _removeFollowRef(currentUser, target);
+  }
+
+  Future<void> _createNotificationDoc(User user) async {
+    print('$_tag at _createNotificationDoc');
+
+    Map<String, dynamic> notificationMap = {
+      TITLE_FIELD: newFollowerText,
+      BODY_FIELD: '${user.name} $isNowFollowingText',
+      ID_FIELD: user.id,
+      FIELD_NOTIFICATION_TYPE: FIELD_NOTIFICATION_TYPE_NEW_FOLLOWER,
+    };
+    _database
+        .collection(MESSAGES_COLLECTION)
+        .add(notificationMap)
+        .catchError((error) {
+      print('$_tag error on creating notication doc');
+    });
   }
 
   DocumentReference _followingRef(User currentUser, User target) => _database

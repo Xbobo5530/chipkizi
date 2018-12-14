@@ -183,11 +183,9 @@ class RecordingCard extends StatelessWidget {
               return FutureBuilder<Comment>(
                   future: model.refineComment(comment),
                   initialData: comment,
-                  builder: (context, snapshot) => 
-                  CommentItemView(comment: comment, )
-                 
-                      
-                      );
+                  builder: (context, snapshot) => CommentItemView(
+                        comment: comment,
+                      ));
             }).toList());
 
     _buildCommentsSection(MainModel model) => Column(children: <Widget>[

@@ -61,12 +61,12 @@ abstract class RecordingModel extends Model {
     'Instrumental': false,
     'Hip-hop': false,
     'Bongo flava': false,
-    'Bakurutu': false,
     'Poem': false,
     'Spoken word': false,
     'R&B': false,
     'Speech': false,
     'Music': false,
+    'Comedy': false,
     'Other': false,
   };
 
@@ -95,7 +95,6 @@ abstract class RecordingModel extends Model {
   void resetSubmitStatus() {
     _lastSubmittedRecording = null;
     _submitStatus = null;
-    // _task.cancel();
   }
 
   void resetTempDetailsFieldValues() {
@@ -111,9 +110,7 @@ abstract class RecordingModel extends Model {
 
   Future<StatusCode> handleSubmit(Recording recording) async {
     print('$_tag at handle submit recording');
-
     _submitStatus = await _createRecordingDoc(recording);
-
     return _submitStatus;
   }
 
@@ -143,15 +140,12 @@ abstract class RecordingModel extends Model {
     final username = refinedRecording.username != null
         ? refinedRecording.username
         : APP_NAME;
-
-    // print(recording);
-    // print(refinedRecording);
-
     Map<String, dynamic> notificationMap = {
       TITLE_FIELD: newRecordingText,
       BODY_FIELD:
           '${refinedRecording.title}\n$username\n${refinedRecording.description}',
-      RECORDING_ID_FIELD: recording.id
+      ID_FIELD: recording.id,
+      FIELD_NOTIFICATION_TYPE: FIELD_NOTIFICATION_TYPE_NEW_RECORDING,
     };
     _database
         .collection(MESSAGES_COLLECTION)

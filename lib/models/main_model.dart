@@ -7,7 +7,6 @@ import 'package:chipkizi/models/navigation_model.dart';
 import 'package:chipkizi/models/player_model.dart';
 import 'package:chipkizi/models/recording_actions_model.dart';
 import 'package:chipkizi/models/recording_model.dart';
-import 'package:chipkizi/values/status_code.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class MainModel extends Model
@@ -19,10 +18,16 @@ class MainModel extends Model
         RecordingActionsModel,
         CommentModel,
         MessagingModel,
-        FileModel , FollowModel{
+        FileModel,
+        FollowModel {
   MainModel() {
     updateLoginStatus();
     getRecordings();
     firebaseCloudMessagingListeners();
+    _subToPrivate();
+  }
+  _subToPrivate() async {
+    await updateLoginStatus();
+    if (isLoggedIn) subscribeToPrivate(currentUser);
   }
 }

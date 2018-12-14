@@ -66,3 +66,9 @@ const ASSET_APP_ICON = 'images/ic_launcher.png';
 const URL_CALL = 'tel:+255810803';
 const URL_EMAIL = 'mailto:family@nyayozangu.com';
 const URL_MORE = 'http://soko.nyayozangu.com';
+
+/// notifiations
+const FIELD_NOTIFICATION_TYPE = 'notification_type';
+const FIELD_NOTIFICATION_TYPE_NEW_COMMENT = 'new_comment';
+const FIELD_NOTIFICATION_TYPE_NEW_FOLLOWER = 'new_follower';
+const FIELD_NOTIFICATION_TYPE_NEW_RECORDING = 'new_recording';
