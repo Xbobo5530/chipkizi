@@ -331,8 +331,7 @@ abstract class RecordingActionsModel extends Model {
   Future<StatusCode> removeFavorite(Recording recording, User user) async {
     print('$_tag at removeFavorite');
     bool _hasError = false;
-    await _userUpvoteDocRef(recording, user).delete()
-    .catchError((error){
+    await _userUpvoteDocRef(recording, user).delete().catchError((error) {
       print('$_tag error on deleting the upvote/ fav doc ref for user: $error');
       _hasError = true;
     });

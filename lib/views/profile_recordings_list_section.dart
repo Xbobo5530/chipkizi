@@ -12,23 +12,26 @@ class ProfileRecordingsListSection extends StatelessWidget {
   final User user;
 
   const ProfileRecordingsListSection(
-      {Key key, @required this.title, @required this.type, @required this.icon,@required this.user})
+      {Key key,
+      @required this.title,
+      @required this.type,
+      @required this.icon,
+      @required this.user})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) => ListTile(
-            title: Text(title),
-            leading: Icon(icon),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) =>
-                        UserRecordingsPage(user: user, type: type),
-                    fullscreenDialog: true)),
-          ),
+        title: Text(title),
+        leading: Icon(icon),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => UserRecordingsPage(user: user, type: type),
+                fullscreenDialog: true)),
+      ),
     );
   }
 }

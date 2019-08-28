@@ -36,14 +36,12 @@ const openRecordingText = 'Open recording';
 const browseRecordingsText = 'Browse recordings';
 const createRecordingText = 'Create a recording';
 
-
 /// notifications
 const newRecordingText = 'New recording';
 const newCommentText = 'New comment';
 const newFollowerText = 'New follower';
 
-const isNowFollowingText ='is now following you.';
-
+const isNowFollowingText = 'is now following you.';
 
 //messages
 const errorMessage = 'Something went wrong, please try again.';

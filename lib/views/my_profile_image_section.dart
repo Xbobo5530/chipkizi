@@ -67,7 +67,9 @@ class MyProfileImageSection extends StatelessWidget {
             ),
           ),
         );
-    _buildImageSection(MainModel model, AsyncSnapshot snapshot,File imageFile) => CircleAvatar(
+    _buildImageSection(
+            MainModel model, AsyncSnapshot snapshot, File imageFile) =>
+        CircleAvatar(
           radius: 60.0,
           backgroundColor: Colors.brown,
           backgroundImage: snapshot.hasData
@@ -79,18 +81,18 @@ class MyProfileImageSection extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) => Center(
-              child: FutureBuilder<File>(
-            future: model.imageFile,
-            builder: (context, snapshot) {
-              File imageFile = snapshot.data;
-              return Stack(
-                children: <Widget>[
-                  _buildImageSection(model, snapshot,imageFile),
-                  _buildEditButton(model, imageFile),
-                ],
-              );
-            },
-          )),
+          child: FutureBuilder<File>(
+        future: model.imageFile,
+        builder: (context, snapshot) {
+          File imageFile = snapshot.data;
+          return Stack(
+            children: <Widget>[
+              _buildImageSection(model, snapshot, imageFile),
+              _buildEditButton(model, imageFile),
+            ],
+          );
+        },
+      )),
     );
   }
 }

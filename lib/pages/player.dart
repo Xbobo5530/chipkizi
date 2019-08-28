@@ -1,6 +1,5 @@
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
-import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/player_recording_card.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +52,7 @@ class PlayerPage extends StatelessWidget {
           print('$_tag the selected recording id is: ${recording.id}');
 
           return PageView(
-            ///TODO: test
-            children:  
-                     
-                    recordings == null
+            children: recordings == null
                 ? <Widget>[_recordingFromNetwork]
                 : recordings
                     .map((recording) => RecordingCard(

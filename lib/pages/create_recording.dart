@@ -9,7 +9,6 @@ import 'package:scoped_model/scoped_model.dart';
 class RecordingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     final _appBar = AppBar(
       elevation: 0.0,
       title: Hero(

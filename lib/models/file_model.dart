@@ -11,7 +11,7 @@ const _tag = 'FileModel:';
 
 abstract class FileModel extends Model {
   final FirebaseStorage storage = FirebaseStorage();
-  StorageUploadTask _task;
+
   String _filePath;
   String get filePath => _filePath;
 
@@ -52,7 +52,7 @@ abstract class FileModel extends Model {
         customMetadata: <String, String>{'activity': 'chipkizi'},
       ),
     );
-    _task = uploadTask;
+    // _task = uploadTask;
 
     StorageTaskSnapshot snapshot =
         await uploadTask.onComplete.catchError((error) {
@@ -60,11 +60,11 @@ abstract class FileModel extends Model {
       _hasError = true;
     });
     if (_hasError) return StatusCode.failed;
-    _fileUrl = await snapshot.ref.getDownloadURL().catchError((error){
+    _fileUrl = await snapshot.ref.getDownloadURL().catchError((error) {
       print('$_tag error on getting file url: $error');
       _hasError = true;
     });
-    _filePath = await snapshot.ref.getPath().catchError((error){
+    _filePath = await snapshot.ref.getPath().catchError((error) {
       print('$_tag error on geting file path: $error');
     });
     print('$_tag the download url is : $_fileUrl');

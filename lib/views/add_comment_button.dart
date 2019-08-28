@@ -62,15 +62,15 @@ class AddCommentButton extends StatelessWidget {
 
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) => FlatButton(
-            textColor: color,
-            child: Text(addCommentText),
-            onPressed: model.isLoggedIn
-                ? () => _handleAddComment(model)
-                : () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => LoginPage(), fullscreenDialog: true)),
-          ),
+        textColor: color,
+        child: Text(addCommentText),
+        onPressed: model.isLoggedIn
+            ? () => _handleAddComment(model)
+            : () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => LoginPage(), fullscreenDialog: true)),
+      ),
     );
   }
 }

@@ -7,8 +7,6 @@ import 'package:chipkizi/views/genre_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-const _tag = 'RecordingsListItemView:';
-
 class RecordingsListItemView extends StatelessWidget {
   final Recording recording;
   final ListType type;

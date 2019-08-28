@@ -1,15 +1,9 @@
-import 'dart:io';
-
 import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/user.dart';
-import 'package:chipkizi/pages/user_recordings.dart';
-import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';
 import 'package:chipkizi/values/strings.dart';
-import 'package:chipkizi/views/circular_button.dart';
 import 'package:chipkizi/views/follow_info_section.dart';
 import 'package:chipkizi/views/my_profile_image_section.dart';
-import 'package:chipkizi/views/my_progress_indicator.dart';
 import 'package:chipkizi/views/profile_recordings_list_section.dart';
 
 import 'package:flutter/material.dart';
@@ -22,8 +16,6 @@ class MyProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _nameFieldController = TextEditingController();
     final _bioFieldController = TextEditingController();
-
-    
 
     Future<void> _handleEdit(MainModel model, DetailType type) async {
       User _userWithNewDetails = model.currentUser;
@@ -95,8 +87,6 @@ class MyProfilePage extends StatelessWidget {
           });
     }
 
-
-
     Widget _buildInfoSection(MainModel model) => ListTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +133,6 @@ class MyProfilePage extends StatelessWidget {
           ],
         ));
 
-
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
         return Padding(
@@ -155,23 +144,20 @@ class MyProfilePage extends StatelessWidget {
               FollowInfoSection(user: model.currentUser),
               Divider(),
               ProfileRecordingsListSection(
-                type: ListType.userRecordings,
-                icon: Icons.mic,
-                title: myRecordingsText,
-                user: model.currentUser
-              ),
+                  type: ListType.userRecordings,
+                  icon: Icons.mic,
+                  title: myRecordingsText,
+                  user: model.currentUser),
               ProfileRecordingsListSection(
-                type: ListType.bookmarks,
-                icon: Icons.bookmark,
-                title: bookmarksText,
-                user: model.currentUser
-              ),
+                  type: ListType.bookmarks,
+                  icon: Icons.bookmark,
+                  title: bookmarksText,
+                  user: model.currentUser),
               ProfileRecordingsListSection(
-                type: ListType.upvotes,
-                icon: Icons.favorite,
-                title: favoritesText,
-                user: model.currentUser
-              ),
+                  type: ListType.upvotes,
+                  icon: Icons.favorite,
+                  title: favoritesText,
+                  user: model.currentUser),
             ],
           ),
         );

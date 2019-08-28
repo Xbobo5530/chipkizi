@@ -50,10 +50,9 @@ class CommentsPage extends StatelessWidget {
                             return CommentItemView(
                               comment: refinedComment,
                               titleColor: Colors.white,
-                              subTitleColor:  Colors.white70,
+                              subTitleColor: Colors.white70,
                               avatarRadius: 20,
                             );
-                           
                           },
                         );
                       },

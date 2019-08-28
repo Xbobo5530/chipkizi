@@ -20,12 +20,17 @@ class CommentItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(
-        builder: (context)=>UserProfilePage(
-          user: User(id: comment.createdBy, name: comment.username,imageUrl: comment.userImageUrl),key: Key(comment.createdBy),
-
-        ),fullscreenDialog: true
-      )),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UserProfilePage(
+                    user: User(
+                        id: comment.createdBy,
+                        name: comment.username,
+                        imageUrl: comment.userImageUrl),
+                    key: Key(comment.createdBy),
+                  ),
+              fullscreenDialog: true)),
       leading: CircleAvatar(
         backgroundImage: comment.userImageUrl != null
             ? NetworkImage(comment.userImageUrl)

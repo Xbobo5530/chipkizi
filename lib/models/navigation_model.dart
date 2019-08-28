@@ -36,5 +36,8 @@ abstract class NavigationModel extends Model {
     }
   }
 
-  goToLogin(BuildContext context) => Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(), fullscreenDialog: true));
+  goToLogin(BuildContext context) => Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => LoginPage(), fullscreenDialog: true));
 }

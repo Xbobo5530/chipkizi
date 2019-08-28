@@ -21,8 +21,8 @@ class RecordingsListView extends StatelessWidget {
                   final document = snapshot.data.documents[index];
                   Recording recording = Recording.fromSnaspshot(document);
                   return FutureBuilder<Recording>(
-                    initialData: recording,
-                    future: model.refineRecording(recording),
+                      initialData: recording,
+                      future: model.refineRecording(recording),
                       builder: (context, snapshot) => RecordingsListItemView(
                           recording: recording, key: Key(recording.id)));
                 });

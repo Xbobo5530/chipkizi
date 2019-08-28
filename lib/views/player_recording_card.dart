@@ -3,7 +3,6 @@ import 'package:chipkizi/models/main_model.dart';
 import 'package:chipkizi/models/recording.dart';
 import 'package:chipkizi/models/user.dart';
 import 'package:chipkizi/pages/comments_page.dart';
-import 'package:chipkizi/pages/login.dart';
 import 'package:chipkizi/pages/user_profile_page.dart';
 import 'package:chipkizi/values/consts.dart';
 import 'package:chipkizi/values/status_code.dart';

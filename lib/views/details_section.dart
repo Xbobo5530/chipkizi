@@ -37,7 +37,7 @@ class DetailsSectionView extends StatelessWidget {
         ));
         return null;
       }
-      if(model.filePath == null || model.fileUrl == null){
+      if (model.filePath == null || model.fileUrl == null) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(errorMessage),
         ));

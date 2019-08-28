@@ -57,7 +57,7 @@ class FollowPage extends StatelessWidget {
                           snapshot.data.documents[index].documentID),
                       builder: (context, snapshot) => !snapshot.hasData
                           ? Container()
-                          
+
                           // Center(
                           //     child: MyProgressIndicator(
                           //     size: 40,

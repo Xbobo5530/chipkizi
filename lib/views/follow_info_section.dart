@@ -9,7 +9,7 @@ import 'package:scoped_model/scoped_model.dart';
 class FollowInfoSection extends StatelessWidget {
   final User user;
 
-  const FollowInfoSection({Key key,@required this.user}) : super(key: key);
+  const FollowInfoSection({Key key, @required this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     _getFollowTitle(FollowItem item) {
@@ -29,9 +29,11 @@ class FollowInfoSection extends StatelessWidget {
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 2),
         child: ListTile(
-          onTap: ()=>Navigator.push(context, MaterialPageRoute(
-            builder: (_)=>FollowPage(user: user, followItem: item),fullscreenDialog: true
-          )),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => FollowPage(user: user, followItem: item),
+                  fullscreenDialog: true)),
           title: Text(
             _getFollowTitle(item),
             textAlign: TextAlign.center,
@@ -46,12 +48,12 @@ class FollowInfoSection extends StatelessWidget {
         ));
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) => Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _buildFollowTile(model, FollowItem.followers),
-              _buildFollowTile(model, FollowItem.following),
-            ],
-          ),
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _buildFollowTile(model, FollowItem.followers),
+          _buildFollowTile(model, FollowItem.following),
+        ],
+      ),
     );
   }
 }

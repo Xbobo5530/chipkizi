@@ -86,14 +86,16 @@ class UserProfilePage extends StatelessWidget {
                 )
               : null,
         );
-    
+
     _buildBody(MainModel model, User user) => ListView(
           children: <Widget>[
             _buildImageSection(user),
             _infoSection(user),
             _buildFollowButton(model, user),
             // _buildFollowSection(model, user),
-            FollowInfoSection(user: user,),
+            FollowInfoSection(
+              user: user,
+            ),
             Divider(),
             ProfileRecordingsListSection(
                 type: ListType.userRecordings,
@@ -110,12 +112,12 @@ class UserProfilePage extends StatelessWidget {
         );
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) => FutureBuilder<User>(
-            initialData: user,
-            builder: (context, snapshot) => Scaffold(
-                  appBar: _appBar,
-                  body: _buildBody(model, snapshot.data),
-                ),
-          ),
+        initialData: user,
+        builder: (context, snapshot) => Scaffold(
+          appBar: _appBar,
+          body: _buildBody(model, snapshot.data),
+        ),
+      ),
     );
   }
 }

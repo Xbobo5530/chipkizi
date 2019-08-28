@@ -193,6 +193,8 @@ class HomePage extends StatelessWidget {
           case NAV_ITEM_ME:
             return model.isLoggedIn ? MyProfilePage() : _loginView;
             break;
+          default:
+            return RecordingsListView();
         }
       },
     );

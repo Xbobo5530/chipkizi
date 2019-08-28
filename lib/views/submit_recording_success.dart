@@ -7,13 +7,11 @@ class SubmitRecordingSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _titleSection = Text('Congratulations');
-    Widget _buildImageSection(MainModel model) =>
-
-        CircleAvatar(
+    Widget _buildImageSection(MainModel model) => CircleAvatar(
           backgroundColor: Colors.black12,
           backgroundImage: NetworkImage(model.currentUser.imageUrl),
         );
-        Widget _buildInfoSection(Recording recording)=>ListTile(
+    Widget _buildInfoSection(Recording recording) => ListTile(
           title: Text(recording.title),
           subtitle: Text(recording.description),
         );
@@ -33,7 +31,8 @@ class SubmitRecordingSuccessView extends StatelessWidget {
                     children: <Widget>[
                       _titleSection,
                       _buildImageSection(model),
-                    _buildInfoSection(recording)],
+                      _buildInfoSection(recording)
+                    ],
                   );
                 },
               ),

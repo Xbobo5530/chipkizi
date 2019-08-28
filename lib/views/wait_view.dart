@@ -71,9 +71,9 @@ class WaitView extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => PlayerPage(
-                        recording: newRecording,
-                        recordings: recordings,
-                      ),
+                    recording: newRecording,
+                    recordings: recordings,
+                  ),
                 ),
                 ModalRoute.withName('/'));
           },

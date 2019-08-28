@@ -32,7 +32,7 @@ abstract class RecordingModel extends Model {
   String _defaultRecordingPath;
   String get defaultRecordingPath => _defaultRecordingPath;
   bool get isReadyToSubmit => _defaultRecordingPath != null;
-  
+
   StreamSubscription _recorderSubscription;
 
   StatusCode _submitStatus;

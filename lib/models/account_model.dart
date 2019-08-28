@@ -242,7 +242,7 @@ abstract class AccountModel extends Model {
         break;
       case DetailType.imageUrl:
         detailMap.putIfAbsent(IMAGE_URL_FIELD, () => user.imageUrl);
-        detailMap.putIfAbsent(IMAGE_PATH_FIELD, ()=>user.imagePath);
+        detailMap.putIfAbsent(IMAGE_PATH_FIELD, () => user.imagePath);
         break;
       default:
         print('$_tag unexpected detail type: $type');
@@ -267,7 +267,7 @@ abstract class AccountModel extends Model {
     return _editingUserDetailsStatus;
   }
 
-  setUplaodWaitingStatus(){
+  setUplaodWaitingStatus() {
     _editingUserDetailsStatus = StatusCode.waiting;
     notifyListeners();
   }

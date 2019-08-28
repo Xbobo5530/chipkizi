@@ -6,14 +6,15 @@ class ProgressButton extends StatelessWidget {
   /// for example a [Builder] that eventually returns a [MyProgressIndicator]
   final Widget indicator;
   final double size;
-  /// typically an [IconButton] but can be assigned to another fitting widget 
+
+  /// typically an [IconButton] but can be assigned to another fitting widget
   /// like an [Icon], a [CircleAvatar] or a [Text] widget
   final Widget button;
   final Color color;
 
   const ProgressButton(
       {Key key,
-     this.indicator,
+      this.indicator,
       @required this.size,
       @required this.button,
       @required this.color})
@@ -29,21 +30,20 @@ class ProgressButton extends StatelessWidget {
           left: 0.0,
           right: 0.0,
           child: indicator,
-        ), 
-        indicator != null 
-        ?
-        Material(
-          shape: CircleBorder(),
-          color: color,
-          elevation: 4.0,
-          child: Container(
-            height: size,
-            width: size,
-            decoration: BoxDecoration(shape: BoxShape.circle),
-            child: button,
-          ),
-        ):
-        Container(),
+        ),
+        indicator != null
+            ? Material(
+                shape: CircleBorder(),
+                color: color,
+                elevation: 4.0,
+                child: Container(
+                  height: size,
+                  width: size,
+                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  child: button,
+                ),
+              )
+            : Container(),
       ],
     );
   }
